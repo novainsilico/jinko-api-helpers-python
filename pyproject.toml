@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "jinko_api_helpers"
+name = "jinko"
 version = "0.1.0"
 description = "Jinko API Documentation with Jupyter & Cookbook"
 authors = ["SSE Team <oss@novainsilico.ai>"]
