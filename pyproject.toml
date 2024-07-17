@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{ include = "jinko_helpers" }]
 
 [tool.poetry.dependencies]
-python = "3.12.4"
+python = ">3.10"
 black = {version = "^24.4.2"}
 pandas = "^2.2.2"
 requests = "^2.25.1"
