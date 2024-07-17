@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "jinko_helpers"
+version = "0.1.0"
+description = "A set of helper functions for Jinko API"
+authors = ["Your Name <your.email@example.com>"]
+packages = [{ include = "jinko_helpers" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+pandas = "^1.2.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
