@@ -5,7 +5,8 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
-        # List your project's dependencies here
+        'requests',
+        'pandas',
     ],
     url="https://github.com/novainsilico/jinko-api-helpers-python",
     author="Nova In Silico",
