@@ -13,7 +13,9 @@ from .jinko_helpers import (
     encodeCustomHeaders,
     makeUrl,
     dataTableToSQLite,
-    getProjectItemUrlByCoreItemId,
+    getProjectItemInfoFromResponse,
+    getProjectItemUrlFromSid,
+    getProjectItemUrlFromResponse,
 )
 
 __all__ = [
@@ -25,5 +27,7 @@ __all__ = [
     "encodeCustomHeaders",
     "makeUrl",
     "dataTableToSQLite",
-    "getProjectItemUrlByCoreItemId",
+    "getProjectItemInfoFromResponse",
+    "getProjectItemUrlFromSid",
+    "getProjectItemUrlFromResponse",
 ]

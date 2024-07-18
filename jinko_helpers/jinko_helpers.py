@@ -33,6 +33,13 @@ class CustomHeadersRaw(_TypedDict):
     version_name: str
 
 
+class ProjectItemInfoFromResponse(_TypedDict):
+    kind: str
+    coreItemId: CoreItemId
+    sid: str
+    revision: int
+
+
 _headers_map = {
     "name": "X-jinko-project-item-name",
     "description": "X-jinko-project-item-description",
@@ -360,24 +367,67 @@ def dataTableToSQLite(
     return encoded_data_table
 
 
-def getProjectItemUrlByCoreItemId(coreItemId: str):
-    """
-    Retrieves the URL of a ProjectItem based on its CoreItemId.
+def getProjectItemInfoFromResponse(response: _requests.Response):
+    """Retrieves the information contains in the "X-jinko-project-item"
+    header of the response
 
     Args:
-        coreItemId (str): The CoreItemId of the ProjectItem.
+        response (Response): HTTP response object
+
+    Returns:
+        ProjectItemInfoFromResponse | None: project item informations or None if header does not exist
+
+    Raises:
+        Exception: if HTTP status code is not 200
+
+    Examples:
+      >>> response = jinko.makeRequest(
+      ...     path="/core/v2/model_manager/jinko_model",
+      ...     method="POST",
+      ...     json={"model": model, "solvingOptions": solving_options},
+      ... )
+      >>> jinko.getProjectItemInfoFromResponse(response)
+      {"sid": "cm-pKGA-7r3O", "kind": "ComputationalModel", "coreItemId": {"id": "be812bcc-978e-4fe1-b8af-8fb521888718", "snapshotId": "ce2b76f6-07dd-47c6-9700-c70ce44f0507"}, "revision": 5}
+    """
+    base64Content = response.headers.get("x-jinko-project-item")
+    if base64Content is None:
+        return None
+    jsonContent = _base64.b64decode(base64Content)
+    return _json.loads(jsonContent)
+
+
+def getProjectItemUrlFromSid(sid: str):
+    """
+    Retrieves the URL of a ProjectItem based on its SID.
+
+    Args:
+        sid (str): The SID of the ProjectItem.
+
+    Returns:
+        str: The URL of the ProjectItem.
+    """
+    url = f"https://jinko.ai/{sid}"
+    return url
+
+
+def getProjectItemUrlFromResponse(response: _requests.Response):
+    """
+    Retrieves the URL of a ProjectItem from an HTTP response object.
+
+    Args:
+        response (Response): HTTP response object.
 
     Returns:
         str: The URL of the ProjectItem.
 
     Raises:
-        requests.exceptions.RequestException: If there is an error making the request.
-
-    Examples:
-        >>> getProjectItemUrlByCoreItemId("123456789")
-        'https://jinko.ai/foo'
+        Exception: if the "X-jinko-project-item" header is not present in the response.
     """
-    response = makeRequest("/app/v1/core-item/%s" % (coreItemId)).json()
-    sid = response.get("sid")
-    url = f"https://jinko.ai/{sid}"
-    return f"Resource link: {url}"
+    project_item_info = getProjectItemInfoFromResponse(response)
+    if project_item_info is None:
+        raise Exception(
+            "The 'X-jinko-project-item' header is not present in the response."
+        )
+    sid = project_item_info["sid"]
+    url = getProjectItemUrlFromSid(sid)
+    return url
