@@ -17,6 +17,9 @@ import sqlite3 as _sqlite3
 from typing import TypedDict as _TypedDict
 from urllib.parse import urlparse
 
+VERSION = "0.1.0"
+USER_AGENT = "jinko-api-helpers-python/%s" % (VERSION)
+
 _projectId: str | None = None
 _apiKey: str | None = None
 _baseUrl: str = "https://api.jinko.ai"
@@ -53,7 +56,11 @@ def _getHeaders() -> dict[str, str]:
     apiKey = _apiKey
     if apiKey is None:
         apiKey = ""
-    return {"X-jinko-project-id": _projectId, "Authorization": "ApiKey " + apiKey}
+    return {
+        "X-jinko-project-id": _projectId,
+        "Authorization": "ApiKey " + apiKey,
+        "User-Agent": USER_AGENT,
+    }
 
 
 def encodeCustomHeaders(custom_headers_raw: CustomHeadersRaw) -> dict:
