@@ -15,6 +15,7 @@ import os as _os
 import pandas as _pandas
 import sqlite3 as _sqlite3
 from typing import TypedDict as _TypedDict
+from urllib.parse import urlparse
 
 _projectId: str | None = None
 _apiKey: str | None = None
@@ -149,6 +150,60 @@ def makeRequest(
     if response.status_code == 204:
         return "Query successfully done, got a 204 response"
     return response
+
+
+def nextPage(lastResponse: _requests.Response) -> _requests.Response | None:
+    """Retrieves the next page of a response
+
+    Args:
+        lastResponse (Response): HTTP response object to retrieve next page for
+
+    Returns:
+        Response|None: HTTP response object for next page or None if there is no next page
+
+    Raises:
+        Exception: if HTTP status code is not 200
+
+    Examples:
+        response = makeRequest('/app/v1/project-item')
+        response = nextPage(response)
+    """
+    link = lastResponse.links.get("next")
+    if link is None:
+        return None
+
+    url = urlparse(link["url"])
+    return makeRequest(
+        path="%s?%s" % (url.path, url.query),
+        method="GET",
+    )
+
+
+def fetchAllJson(
+    path: str,
+) -> list[any]:
+    """Makes a GET HTTP request and retrieve all pages of a paginated response as json
+
+    Args:
+        path (str): HTTP path
+
+    Returns:
+        Response: HTTP response object
+
+    Raises:
+        Exception: if HTTP status code is not 200
+
+    Examples:
+        trials = fetchAllJson('/app/v1/project-item/?type=Trial')
+    """
+    list = []
+    response = makeRequest(path)
+    while True:
+        list.extend(response.json())
+        response = nextPage(response)
+        if response is None:
+            break
+    return list
 
 
 def checkAuthentication() -> bool:
