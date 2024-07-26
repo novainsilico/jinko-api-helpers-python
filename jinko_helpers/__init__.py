@@ -18,6 +18,7 @@ from .jinko_helpers import (
     getProjectItemUrlFromResponse,
     nextPage,
     fetchAllJson,
+    getProjectItemUrlByCoreItemId,
 )
 
 __all__ = [
@@ -34,4 +35,5 @@ __all__ = [
     "getProjectItemUrlFromResponse",
     "nextPage",
     "fetchAllJson",
+    "getProjectItemUrlByCoreItemId,",
 ]
