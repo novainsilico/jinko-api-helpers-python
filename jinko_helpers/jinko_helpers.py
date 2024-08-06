@@ -16,6 +16,7 @@ import pandas as _pandas
 import sqlite3 as _sqlite3
 from typing import TypedDict as _TypedDict
 from urllib.parse import urlparse
+import warnings
 
 VERSION = "0.1.0"
 USER_AGENT = "jinko-api-helpers-python/%s" % (VERSION)
@@ -493,3 +494,27 @@ def getProjectItemUrlFromResponse(response: _requests.Response):
     sid = project_item_info["sid"]
     url = getProjectItemUrlFromSid(sid)
     return url
+
+
+def getProjectItemUrlByCoreItemId(coreItemId: str):
+    """
+    Retrieves the URL of a ProjectItem based on its CoreItemId.
+    Args:
+        coreItemId (str): The CoreItemId of the ProjectItem.
+    Returns:
+        str: The URL of the ProjectItem.
+    Raises:
+        requests.exceptions.RequestException: If there is an error making the request.
+    Examples:
+        >>> getProjectItemUrlByCoreItemId("123456789")
+        'https://jinko.ai/foo'
+    """
+    warnings.warn(
+        "getProjectItemUrlByCoreItemId is deprecated and will be removed in a future version,"
+        + "use getProjectItemUrlFromResponse instead",
+        category=DeprecationWarning,
+    )
+    response = makeRequest("/app/v1/core-item/%s" % (coreItemId)).json()
+    sid = response.get("sid")
+    url = f"https://jinko.ai/{sid}"
+    return f"Resource link: {url}"
