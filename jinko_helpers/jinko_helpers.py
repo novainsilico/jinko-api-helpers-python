@@ -18,8 +18,9 @@ from typing import TypedDict as _TypedDict
 from urllib.parse import urlparse
 import warnings
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 USER_AGENT = "jinko-api-helpers-python/%s" % (VERSION)
+AUTHORIZATION_PREFIX = "Bearer"
 
 _projectId: str | None = None
 _apiKey: str | None = None
@@ -59,7 +60,7 @@ def _getHeaders() -> dict[str, str]:
         apiKey = ""
     return {
         "X-jinko-project-id": _projectId,
-        "Authorization": "ApiKey " + apiKey,
+        "Authorization": "%s %s" % (AUTHORIZATION_PREFIX, apiKey),
         "User-Agent": USER_AGENT,
     }
 
