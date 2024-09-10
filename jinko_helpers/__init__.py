@@ -35,5 +35,5 @@ __all__ = [
     "getProjectItemUrlFromResponse",
     "nextPage",
     "fetchAllJson",
-    "getProjectItemUrlByCoreItemId,",
+    "getProjectItemUrlByCoreItemId",
 ]
