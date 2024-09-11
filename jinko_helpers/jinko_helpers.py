@@ -51,6 +51,7 @@ _headers_map = {
     "description": "X-jinko-project-item-description",
     "folder_id": "X-jinko-project-item-folder-ids",
     "version_name": "X-jinko-project-item-version-name",
+    "output_format": "Accept",
 }
 
 
@@ -69,7 +70,7 @@ def encodeCustomHeaders(custom_headers_raw: CustomHeadersRaw) -> dict:
     """Encodes and prepares custom headers for the Jinko API.
 
     Args:
-        custom_data (dict): Dictionary containing 'description', 'folder_id', 'name', 'version_name'
+        custom_data (dict): Dictionary containing 'description', 'folder_id', 'name', 'version_name', 'output_format'
 
     Returns:
         dict: Dictionary containing encoded and formatted headers.
@@ -80,9 +81,13 @@ def encodeCustomHeaders(custom_headers_raw: CustomHeadersRaw) -> dict:
             value = custom_headers_raw[key]
             if key == "folder_id":
                 value = _json.dumps([{"id": value, "action": "add"}])
-            headers[header_name] = _base64.b64encode(value.encode("utf-8")).decode(
-                "utf-8"
-            )
+            # Skip base64 encoding for 'output_format'
+            if key == "output_format":
+                headers[header_name] = value
+            else:
+                headers[header_name] = _base64.b64encode(value.encode("utf-8")).decode(
+                    "utf-8"
+                )
     return headers
 
 
@@ -151,7 +156,10 @@ def makeRequest(
         **({data_param: data} if data_param else {}),
     )
     if response.status_code not in [200, 204]:
-        if response.headers["content-type"] == "application/json":
+        if (
+            "content-type" in response.headers
+            and response.headers["content-type"] == "application/json"
+        ):
             print(response.json())
         else:
             print("%s: %s" % (response.status_code, response.text))
