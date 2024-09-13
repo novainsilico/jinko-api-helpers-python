@@ -32,7 +32,7 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertEqual(response.json(), {"key": "value"})
 
     @patch("requests.request")
-    def test_make_request_post(self, mock_request):
+    def test_make_request_post_json(self, mock_request):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {"key": "value"}
@@ -41,7 +41,52 @@ class TestJinkoHelpers(unittest.TestCase):
         response = jinko_helpers.makeRequest(
             "/test-path", method="POST", json={"data": "test"}
         )
+        _, kwargs = mock_request.call_args
+        self.assertEqual(kwargs["headers"]["Content-Type"], "application/json")
+        self.assertEqual(kwargs["headers"]["Accept"], "application/json")
+        self.assertTrue("json" in kwargs)
         self.assertEqual(response.json(), {"key": "value"})
+
+    @patch("requests.request")
+    def test_make_request_post_csv(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_request.return_value = mock_response
+
+        response = jinko_helpers.makeRequest(
+            "/test-path", method="POST", csv_data=""
+        )
+        _, kwargs = mock_request.call_args
+        self.assertTrue("data" in kwargs)
+        self.assertEqual(kwargs["headers"]["Content-Type"], "text/csv")
+        self.assertEqual(kwargs["headers"]["Accept"], "application/json")
+
+    @patch("requests.request")
+    def test_make_request_post_raw(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_request.return_value = mock_response
+
+        response = jinko_helpers.makeRequest(
+            "/test-path", method="POST", data="", options={"input_format": "application/xml"}
+        )
+        _, kwargs = mock_request.call_args
+        self.assertTrue("data" in kwargs)
+        self.assertEqual(kwargs["headers"]["Content-Type"], "application/xml")
+        self.assertEqual(kwargs["headers"]["Accept"], "application/json")
+
+    @patch("requests.request")
+    def test_make_request_ask_custom_output_format(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_request.return_value = mock_response
+
+        response = jinko_helpers.makeRequest(
+            "/test-path", method="GET", data="", options={"output_format": "application/xml"}
+        )
+        _, kwargs = mock_request.call_args
+        self.assertEqual(kwargs["headers"]["Content-Type"], "application/json")
+        self.assertEqual(kwargs["headers"]["Accept"], "application/xml")
 
     def test_encode_custom_headers(self):
         custom_headers = {
