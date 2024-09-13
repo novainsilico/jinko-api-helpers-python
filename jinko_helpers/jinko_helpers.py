@@ -18,7 +18,7 @@ from typing import TypedDict as _TypedDict
 from urllib.parse import urlparse
 import warnings
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 USER_AGENT = "jinko-api-helpers-python/%s" % (VERSION)
 AUTHORIZATION_PREFIX = "Bearer"
 
@@ -32,12 +32,13 @@ class CoreItemId(_TypedDict):
     snapshotId: str
 
 
-class CustomHeadersRaw(_TypedDict):
+class Options(_TypedDict):
     name: str
     description: str
     folder_id: str
     version_name: str
-
+    input_format: str = "application/json"
+    output_format: str = "application/json"
 
 class ProjectItemInfoFromResponse(_TypedDict):
     kind: str
@@ -51,7 +52,6 @@ _headers_map = {
     "description": "X-jinko-project-item-description",
     "folder_id": "X-jinko-project-item-folder-ids",
     "version_name": "X-jinko-project-item-version-name",
-    "output_format": "Accept",
 }
 
 
@@ -66,28 +66,24 @@ def _getHeaders() -> dict[str, str]:
     }
 
 
-def encodeCustomHeaders(custom_headers_raw: CustomHeadersRaw) -> dict:
+def encodeCustomHeaders(options: Options) -> dict:
     """Encodes and prepares custom headers for the Jinko API.
 
     Args:
-        custom_data (dict): Dictionary containing 'description', 'folder_id', 'name', 'version_name', 'output_format'
+        custom_data (dict): Dictionary containing 'description', 'folder_id', 'name', 'version_name', 'output_format', 'input_format'
 
     Returns:
         dict: Dictionary containing encoded and formatted headers.
     """
     headers = {}
     for key, header_name in _headers_map.items():
-        if key in custom_headers_raw:
-            value = custom_headers_raw[key]
+        if key in options:
+            value = options[key]
             if key == "folder_id":
                 value = _json.dumps([{"id": value, "action": "add"}])
-            # Skip base64 encoding for 'output_format'
-            if key == "output_format":
-                headers[header_name] = value
-            else:
-                headers[header_name] = _base64.b64encode(value.encode("utf-8")).decode(
-                    "utf-8"
-                )
+            headers[header_name] = _base64.b64encode(value.encode("utf-8")).decode(
+                "utf-8"
+            )
     return headers
 
 
@@ -100,17 +96,18 @@ def makeRequest(
     method: str = "GET",
     json=None,
     csv_data=None,
-    options: CustomHeadersRaw = None,
+    options: Options = None,
+    data=None,
 ):
     """Makes an HTTP request to the Jinko API.
 
     Args:
         path (str): HTTP path
         method (str, optional): HTTP method. Defaults to 'GET'
-        json (Any, optional): JSON payload. Defaults to None
-        csv_data (str, optional): CSV formatted string to be sent in the request. Defaults to None
-        options (dict, optional): Additional headers to include in the request. Defaults to None
-
+        json (Any, optional): input payload as JSON. Defaults to None
+        csv_data (str, optional): input payload as a CSV formatted string. Defaults to None
+        options (Options, optional): additional options. Defaults to None
+        data: (Any, optional): raw input payload. Defaults to None
     Returns:
         Response: HTTP response object
 
@@ -124,29 +121,54 @@ def makeRequest(
             '/app/v1/project-item/tr-EUsp-WjjI',
             method='GET',
         ).json()
+
+        # receive data in CSV format
+        response = makeRequest('/core/v2/vpop_manager/vpop/9c9c0bc5-f447-4745-b5eb-41b18e5eb900',
+            options={
+                'output_format': 'text/csv'
+            }
+        )
+
+        # send data in CSV format
+        response = makeRequest('/core/v2/vpop_manager/vpop', method='POST',
+            data="....",
+            options={
+                'input_format': 'text/csv'
+            }
+        )        
     """
     # Get the default headers from _getHeaders()
     headers = _getHeaders()
 
-    # Update the headers for CSV if csv_data is provided
-    if csv_data:
-        headers["Content-Type"] = "text/csv"
+    input_mime_type = "application/json"
+    output_mime_type = "application/json"
 
     # Encode custom headers as base64 and update the default headers
     if options:
+        if "input_format" in options:
+            input_mime_type = options["input_format"]
+        if "output_format" in options:
+            output_mime_type = options["output_format"]
         encoded_custom_headers = encodeCustomHeaders(options)
         headers.update(encoded_custom_headers)
 
     # Use the appropriate data parameter based on whether json or csv_data is provided
-    if json:
+    if json is not None:
         data = json
         data_param = "json"
-    elif csv_data:
+        input_mime_type = "application/json"
+        output_mime_type = "application/json"
+    elif csv_data is not None:
         data = csv_data
+        input_mime_type = "text/csv"
+        data_param = "data"
+    elif data is not None:
         data_param = "data"
     else:
-        data = None
         data_param = None
+
+    headers["Content-Type"] = input_mime_type
+    headers["Accept"] = output_mime_type
 
     # Make the request
     response = _requests.request(
