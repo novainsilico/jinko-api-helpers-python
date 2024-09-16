@@ -7,6 +7,7 @@
 - make HTTP requests (jinko.makeRequest)
 """
 
+from .__version__ import __version__
 import base64 as _base64
 import requests as _requests
 import getpass as _getpass
@@ -18,8 +19,7 @@ from typing import TypedDict as _TypedDict
 from urllib.parse import urlparse
 import warnings
 
-VERSION = "0.3.0"
-USER_AGENT = "jinko-api-helpers-python/%s" % (VERSION)
+USER_AGENT = "jinko-api-helpers-python/%s" % __version__
 AUTHORIZATION_PREFIX = "Bearer"
 
 _projectId: str | None = None
