@@ -21,7 +21,11 @@ from .jinko_helpers import (
     getProjectItemUrlByCoreItemId,
 )
 
+# Import version from version.py
+from .__version__ import __version__
+
 __all__ = [
+    "__version__",
     "initialize",
     "checkAuthentication",
     "getProjectItem",

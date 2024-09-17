@@ -53,9 +53,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = jinko_helpers.makeRequest(
-            "/test-path", method="POST", csv_data=""
-        )
+        response = jinko_helpers.makeRequest("/test-path", method="POST", csv_data="")
         _, kwargs = mock_request.call_args
         self.assertTrue("data" in kwargs)
         self.assertEqual(kwargs["headers"]["Content-Type"], "text/csv")
@@ -68,7 +66,10 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_request.return_value = mock_response
 
         response = jinko_helpers.makeRequest(
-            "/test-path", method="POST", data="", options={"input_format": "application/xml"}
+            "/test-path",
+            method="POST",
+            data="",
+            options={"input_format": "application/xml"},
         )
         _, kwargs = mock_request.call_args
         self.assertTrue("data" in kwargs)
@@ -82,7 +83,10 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_request.return_value = mock_response
 
         response = jinko_helpers.makeRequest(
-            "/test-path", method="GET", data="", options={"output_format": "application/xml"}
+            "/test-path",
+            method="GET",
+            data="",
+            options={"output_format": "application/xml"},
         )
         _, kwargs = mock_request.call_args
         self.assertEqual(kwargs["headers"]["Content-Type"], "application/json")
