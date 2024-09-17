@@ -40,6 +40,7 @@ class Options(_TypedDict):
     input_format: str = "application/json"
     output_format: str = "application/json"
 
+
 class ProjectItemInfoFromResponse(_TypedDict):
     kind: str
     coreItemId: CoreItemId
@@ -135,7 +136,7 @@ def makeRequest(
             options={
                 'input_format': 'text/csv'
             }
-        )        
+        )
     """
     # Get the default headers from _getHeaders()
     headers = _getHeaders()
