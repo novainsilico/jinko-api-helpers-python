@@ -142,7 +142,7 @@ def makeRequest(
     headers = _getHeaders()
 
     input_mime_type = "application/json"
-    output_mime_type = "application/json"
+    output_mime_type = None
 
     # Encode custom headers as base64 and update the default headers
     if options:
@@ -158,7 +158,6 @@ def makeRequest(
         data = json
         data_param = "json"
         input_mime_type = "application/json"
-        output_mime_type = "application/json"
     elif csv_data is not None:
         data = csv_data
         input_mime_type = "text/csv"
@@ -169,7 +168,8 @@ def makeRequest(
         data_param = None
 
     headers["Content-Type"] = input_mime_type
-    headers["Accept"] = output_mime_type
+    if output_mime_type is not None:
+      headers["Accept"] = output_mime_type
 
     # Make the request
     response = _requests.request(
