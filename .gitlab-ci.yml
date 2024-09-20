@@ -1,0 +1,52 @@
+stages:
+  - build
+  - test
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  PYTHON_IMAGE: $CI_REGISTRY_IMAGE:latest
+
+build:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+    - docker info  # debug
+    - docker build -t $PYTHON_IMAGE .
+    - docker push $PYTHON_IMAGE
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - changes:
+      - pyproject.toml
+      - Dockerfile
+      - poetry.lock
+
+pytest:
+  stage: test
+  image: $PYTHON_IMAGE
+  before_script:
+    - poetry install
+  script:
+    - poetry run pytest tests
+
+covtest:
+  stage: test
+  image: $PYTHON_IMAGE
+  before_script:
+    - poetry install
+  script:
+    - poetry run pytest --cov=jinko_helpers tests/
+
+# deactivated, because there are no interactive doc now, only dummy examples
+# doctest:
+#   stage: test
+#  image: $PYTHON_IMAGE
+#   before_script:
+#     - poetry install
+#   script:
+#     - poetry install
+#     - poetry run pytest jinko_helpers --doctest-modules
