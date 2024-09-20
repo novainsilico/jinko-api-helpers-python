@@ -1,10 +1,14 @@
 [tool.poetry]
 name = "jinko"
 version = "0.3.1"
-description = "Jinko API Documentation with Jupyter & Cookbook"
+description = "A Python package containing jinko_helpers, jinko_stats, and crabbit modules aimed to be used with Jinko.ai API"
 authors = ["SSE Team <oss@novainsilico.ai>"]
 readme = "README.md"
-packages = [{ include = "jinko_helpers" }]
+packages = [
+    { include = "jinko_helpers" }
+    , { include = "jinko_stats" }
+    , { include = "crabbit" }
+    ]
 
 [tool.poetry.dependencies]
 python = ">=3.10"
