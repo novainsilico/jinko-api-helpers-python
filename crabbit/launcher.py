@@ -7,7 +7,7 @@ import requests
 
 import jinko_helpers as jinko
 import crabbit.cli as cli
-from crabbit.utils import to_bold, clear_directory, get_sid_revision_from_url
+from crabbit.utils import bold_text, clear_directory, get_sid_revision_from_url
 
 
 class CrabbitAppLauncher:
@@ -40,7 +40,7 @@ class CrabbitAppLauncher:
 
     def check_project_item_url(self):
         """Get the project item from URL or print a nice error message."""
-        message = f'{to_bold("Error:")} {self.url} is not a valid project item URL!'
+        message = f'{bold_text("Error:")} {self.url} is not a valid project item URL!'
         sid, revision = get_sid_revision_from_url(self.url)
         if sid is None:
             print(message)

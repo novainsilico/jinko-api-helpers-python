@@ -1,14 +1,14 @@
 import argparse
 
 from crabbit import launcher
-from crabbit.utils import to_bold
+from crabbit.utils import bold_text
 
 
 def get_usage():
     """Show usage of the "crabbit" app."""
     return (
-        to_bold("python -m crabbit {mode} {URL} {path}")
-        + f"\n\nexample: {to_bold('python -m crabbit download https://jinko.ai/my-project-item my-project/download-folder')}"
+        bold_text("python -m crabbit {mode} {URL} {path}")
+        + f"\n\nexample: {bold_text('python -m crabbit download https://jinko.ai/my-project-item my-project/download-folder')}"
     )
 
 

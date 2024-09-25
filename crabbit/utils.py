@@ -2,7 +2,7 @@
 
 __all__ = [
     "get_sid_revision_from_url",
-    "to_bold",
+    "bold_text",
     "clear_directory",
     "get_calib_status",
 ]
@@ -45,7 +45,7 @@ def get_sid_revision_from_url(url):
     return sid, revision
 
 
-def to_bold(text):
+def bold_text(text):
     """Return bold text to print in console application."""
     return "\033[1m" + text + "\033[0m"
 
@@ -59,12 +59,16 @@ def clear_directory(directory):
 
     old_files = []
     old_dirs = []
-    with os.scandir(directory) as it:
-        for entry in it:
-            if not entry.name.startswith(".") and entry.is_file():
-                old_files.append(entry)
-            elif entry.is_dir():
-                old_dirs.append(entry)
+    try:
+        with os.scandir(directory) as it:
+            for entry in it:
+                if not entry.name.startswith(".") and entry.is_file():
+                    old_files.append(entry)
+                elif entry.is_dir():
+                    old_dirs.append(entry)
+    except NotADirectoryError:
+        print('Error: the output path is not a folder')
+        return False
     if not old_files and not old_dirs:
         return True
 

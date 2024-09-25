@@ -10,7 +10,7 @@ import requests
 import pandas as pd
 
 import jinko_helpers as jinko
-from crabbit.utils import get_calib_status, to_bold
+from crabbit.utils import get_calib_status, bold_text
 
 
 class CrabbitDownloader:
@@ -42,7 +42,7 @@ class CrabbitDownloader:
             self.download_calib_patient_timeseries(best_patient)
             self.download_calib_patient_scalar_results(best_patient)
             print(
-                to_bold("Done!"), f"To visualize: crabbit trialViz {self.output_path}"
+                bold_text("Done!"), f"To visualize: crabbit trialViz {self.output_path}"
             )
         else:  # placeholder for future download types
             pass
@@ -59,7 +59,7 @@ class CrabbitDownloader:
             )
             return False
         print(
-            to_bold(
+            bold_text(
                 'Note: for the "Calibration" item type, only the results of the "best patient", i.e. highest optimizationWeightedScore, will be downloaded.'
             ),
             end="\n\n",
