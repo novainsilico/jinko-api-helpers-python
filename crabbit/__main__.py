@@ -12,7 +12,7 @@ def get_usage():
     )
 
 
-# parse the command lien arguments
+# parse the command line arguments
 parser = argparse.ArgumentParser(usage=get_usage())
 parser.add_argument(
     "mode",

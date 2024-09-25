@@ -1,5 +1,12 @@
 """Utility functions used in the crabbit package."""
 
+__all__ = [
+    "get_sid_revision_from_url",
+    "to_bold",
+    "clear_directory",
+    "get_calib_status",
+]
+
 import shutil
 import os
 import re

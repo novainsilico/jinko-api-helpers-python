@@ -21,6 +21,10 @@ class TestCrabbit(unittest.TestCase):
         self.assertEqual(
             crabbit.utils.get_sid_revision_from_url("https://jinko.ai"), (None, None)
         )
+        self.assertEqual(
+            crabbit.utils.get_sid_revision_from_url("https://jinko.ai/one/two"),
+            (None, None),
+        )
 
     def test_get_sid_revision_from_url_localhost_url(self):
         self.assertEqual(

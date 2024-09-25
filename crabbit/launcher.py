@@ -1,5 +1,7 @@
 """Crabbit app launcher module."""
 
+__all__ = ["CrabbitAppLauncher"]
+
 import os
 import requests
 
@@ -28,7 +30,9 @@ class CrabbitAppLauncher:
             if project_item is None:
                 return
             crab = cli.CrabbitDownloader(project_item, self.path)
-            print("Downloading jinko project item", self.url, "to", self.path)
+            print(
+                "Downloading jinko project item", self.url, "to", self.path, end="\n\n"
+            )
             if clear_directory(self.path):
                 crab.run()
         else:
