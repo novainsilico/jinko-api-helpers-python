@@ -142,7 +142,7 @@ def makeRequest(
         Response: HTTP response object
 
     Raises:
-        Exception: if HTTP status code is not 200
+        requests.exceptions.HTTPError: if HTTP status code is not 200
 
     Examples:
         response = makeRequest('/app/v1/auth/check')
