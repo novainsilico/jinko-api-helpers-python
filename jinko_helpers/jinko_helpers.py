@@ -28,23 +28,51 @@ _baseUrl: str = "https://api.jinko.ai"
 
 
 class CoreItemId(_TypedDict):
+    """Represents the CoreItem identifier.
+
+    Attributes:
+        id (str): The unique identifier of the CoreItem.
+        snapshotId (str): Identifies a specific version of the CoreItem.
+    """
+
     id: str
     snapshotId: str
 
 
-class Options(_TypedDict):
+class MakeRequestOptions(_TypedDict):
+    """Additional options to use when making a request to the Jinko API.
+
+    Attributes:
+        name (str): Name to use when creating/updating a ProjectItem (Modeling & Simulation).
+        description (str): Description to use when creating/updating a ProjectItem (Modeling & Simulation).
+        folder (str): Id of the destination folder to use when creating/updating a ProjectItem (Modeling & Simulation).
+        version_name (str): Name of the new version when creating/updating a ProjectItem (Modeling & Simulation).
+        input_format (str): Content type of the input payload.
+        output_format (str): Expected content type of the response payload (may be ignored by server if not supported).
+    """
+
     name: str
     description: str
     folder_id: str
     version_name: str
     input_format: str = "application/json"
-    output_format: str = "application/json"
+    output_format: str
 
 
 class ProjectItemInfoFromResponse(_TypedDict):
+    """Informations contained in the "X-jinko-project-item" header returned
+    by the Jinko API when creating/updating a ProjectItem (Modeling & Simulation).
+
+    Attributes:
+        sid (str): Short Id of the ProjectItem.
+        description (str): Type of the ProjectItem.
+        coreItemId (CoreItemId): CoreItemId of the ProjectItem.
+        revision (int): Revision number of the ProjectItem.
+    """
+
+    sid: str
     kind: str
     coreItemId: CoreItemId
-    sid: str
     revision: int
 
 
@@ -67,7 +95,7 @@ def _getHeaders() -> dict[str, str]:
     }
 
 
-def encodeCustomHeaders(options: Options) -> dict:
+def encodeCustomHeaders(options: MakeRequestOptions) -> dict:
     """Encodes and prepares custom headers for the Jinko API.
 
     Args:
@@ -97,7 +125,7 @@ def makeRequest(
     method: str = "GET",
     json=None,
     csv_data=None,
-    options: Options = None,
+    options: MakeRequestOptions = None,
     data=None,
 ):
     """Makes an HTTP request to the Jinko API.
@@ -107,7 +135,7 @@ def makeRequest(
         method (str, optional): HTTP method. Defaults to 'GET'
         json (Any, optional): input payload as JSON. Defaults to None
         csv_data (str, optional): input payload as a CSV formatted string. Defaults to None
-        options (Options, optional): additional options. Defaults to None
+        options (MakeRequestOptions, optional): additional options. Defaults to None
         data: (Any, optional): raw input payload. Defaults to None
     Returns:
         Response: HTTP response object
@@ -169,7 +197,7 @@ def makeRequest(
 
     headers["Content-Type"] = input_mime_type
     if output_mime_type is not None:
-      headers["Accept"] = output_mime_type
+        headers["Accept"] = output_mime_type
 
     # Make the request
     response = _requests.request(
@@ -462,7 +490,9 @@ def dataTableToSQLite(
     return encoded_data_table
 
 
-def getProjectItemInfoFromResponse(response: _requests.Response):
+def getProjectItemInfoFromResponse(
+    response: _requests.Response,
+) -> ProjectItemInfoFromResponse | None:
     """Retrieves the information contains in the "X-jinko-project-item"
     header of the response
 
@@ -470,7 +500,7 @@ def getProjectItemInfoFromResponse(response: _requests.Response):
         response (Response): HTTP response object
 
     Returns:
-        ProjectItemInfoFromResponse | None: project item informations or None if header does not exist
+        ProjectItemInfoFromResponse | None: ProjectItem informations or None if header does not exist
 
     Raises:
         Exception: if HTTP status code is not 200

@@ -19,6 +19,9 @@ from .jinko_helpers import (
     nextPage,
     fetchAllJson,
     getProjectItemUrlByCoreItemId,
+    CoreItemId,
+    MakeRequestOptions,
+    ProjectItemInfoFromResponse,
 )
 
 # Import version from version.py
@@ -40,4 +43,7 @@ __all__ = [
     "nextPage",
     "fetchAllJson",
     "getProjectItemUrlByCoreItemId",
+    "CoreItemId",
+    "MakeRequestOptions",
+    "ProjectItemInfoFromResponse",
 ]
