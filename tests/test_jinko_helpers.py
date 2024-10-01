@@ -43,7 +43,7 @@ class TestJinkoHelpers(unittest.TestCase):
         )
         _, kwargs = mock_request.call_args
         self.assertEqual(kwargs["headers"]["Content-Type"], "application/json")
-        self.assertFalse('Accept' in kwargs["headers"])
+        self.assertFalse("Accept" in kwargs["headers"])
         self.assertTrue("json" in kwargs)
         self.assertEqual(response.json(), {"key": "value"})
 
@@ -57,7 +57,7 @@ class TestJinkoHelpers(unittest.TestCase):
         _, kwargs = mock_request.call_args
         self.assertTrue("data" in kwargs)
         self.assertEqual(kwargs["headers"]["Content-Type"], "text/csv")
-        self.assertFalse('Accept' in kwargs["headers"])
+        self.assertFalse("Accept" in kwargs["headers"])
 
     @patch("requests.request")
     def test_make_request_post_raw(self, mock_request):
@@ -74,7 +74,7 @@ class TestJinkoHelpers(unittest.TestCase):
         _, kwargs = mock_request.call_args
         self.assertTrue("data" in kwargs)
         self.assertEqual(kwargs["headers"]["Content-Type"], "application/xml")
-        self.assertFalse('Accept' in kwargs["headers"])
+        self.assertFalse("Accept" in kwargs["headers"])
 
     @patch("requests.request")
     def test_make_request_ask_custom_output_format(self, mock_request):
