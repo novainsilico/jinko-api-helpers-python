@@ -16,6 +16,14 @@ black = {version = "^24.4.2"}
 pandas = "^2.2.2"
 requests = "^2.25.1"
 
+[tool.poetry.group.dev.dependencies]
+pylint ="^2.14.0"
+pytest = "^8.3.3"
+pytest-cov ="^3.0.0"
+
+[tool.coverage.run]
+source = ["jinko_helpers"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

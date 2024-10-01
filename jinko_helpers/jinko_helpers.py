@@ -296,9 +296,6 @@ def checkAuthentication() -> bool:
     return True
 
 
-# Ask user for API key/projectId and check authentication
-
-
 def initialize(
     projectId: str | None = None, apiKey: str | None = None, baseUrl: str | None = None
 ):
@@ -355,6 +352,7 @@ def initialize(
         print(message)
         raise Exception(message)
 
+    # Ask user for API key/projectId and check authentication
     if _projectId is None or _projectId.strip() == "":
         _projectId = _getpass.getpass("Please enter your Project Id")
     if _projectId.strip() == "":
