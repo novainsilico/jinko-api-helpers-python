@@ -24,6 +24,11 @@ from .jinko_helpers import (
     ProjectItemInfoFromResponse,
 )
 
+from .trial import (
+    monitor_trial_until_completion,
+    is_trial_running,
+)
+
 # Import version from version.py
 from .__version__ import __version__
 
@@ -46,4 +51,6 @@ __all__ = [
     "CoreItemId",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
+    "monitor_trial_until_completion",
+    "is_trial_running",
 ]
