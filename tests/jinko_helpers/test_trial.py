@@ -16,7 +16,7 @@ class TestCheckTrialStatus(unittest.TestCase):
             },
         }
         mock_makeRequest.return_value = mock_response
-        status_summary = jinko.check_trial_status(
+        status_summary = jinko.monitor_trial_until_completion(
             "trial_core_item_id", "trial_snapshot_id"
         )
         # Assert that the DataFrame was created correctly
