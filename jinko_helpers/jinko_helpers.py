@@ -18,6 +18,7 @@ import sqlite3 as _sqlite3
 from typing import TypedDict as _TypedDict
 from urllib.parse import urlparse
 import warnings
+import tempfile
 
 USER_AGENT = "jinko-api-helpers-python/%s" % __version__
 AUTHORIZATION_PREFIX = "Bearer"
@@ -578,3 +579,30 @@ def getProjectItemUrlByCoreItemId(coreItemId: str):
     sid = response.get("sid")
     url = f"https://jinko.ai/{sid}"
     return f"Resource link: {url}"
+
+def is_interactive():
+    """Check if the environment supports interactive plot display (like Jupyter or IPython)."""
+    try:
+        # Check if in an IPython environment
+        __IPYTHON__
+        return True
+    except NameError:
+        return False
+
+def show_plot_conditionally(fig, file_name = None):
+    """Show the plot if in an interactive environment, otherwise save it."""
+    if is_interactive():
+        # If in a supported interactive environment, show the plot
+        fig.show()
+    else:
+        # Fallback: Save the plot to a file if show() is not supported
+        tmp_fd = None
+        if file_name is None:
+            (tmp_fd, file_name) = tempfile.mkstemp('.html')
+        try:
+          fig.write_html(file_name)
+        except Exception as e:            
+          if tmp_fd is not None:
+            _os.unlink(file_name)
+          raise
+        print(f"Plot saved to {file_name} . Please open it in a web browser.")
