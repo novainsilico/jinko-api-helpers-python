@@ -22,6 +22,18 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertFalse(jinko_helpers.checkAuthentication())
 
     @patch("requests.request")
+    def test_absolute_url_from_path(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_request.return_value = mock_response
+
+        jinko_helpers.makeRequest(
+            "/test-path",
+        )
+        (_, url), kwargs = mock_request.call_args
+        self.assertEqual(url, "https://api.jinko.ai/test-path")
+
+    @patch("requests.request")
     def test_make_request_get(self, mock_request):
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -53,7 +65,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = jinko_helpers.makeRequest("/test-path", method="POST", csv_data="")
+        jinko_helpers.makeRequest("/test-path", method="POST", csv_data="")
         _, kwargs = mock_request.call_args
         self.assertTrue("data" in kwargs)
         self.assertEqual(kwargs["headers"]["Content-Type"], "text/csv")
@@ -65,7 +77,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = jinko_helpers.makeRequest(
+        jinko_helpers.makeRequest(
             "/test-path",
             method="POST",
             data="",
@@ -82,7 +94,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        response = jinko_helpers.makeRequest(
+        jinko_helpers.makeRequest(
             "/test-path",
             method="GET",
             data="",
@@ -92,24 +104,29 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertEqual(kwargs["headers"]["Content-Type"], "application/json")
         self.assertEqual(kwargs["headers"]["Accept"], "application/xml")
 
-    def test_encode_custom_headers(self):
-        custom_headers = {
+    @patch("requests.request")
+    def test_project_item_options(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_request.return_value = mock_response
+
+        options = {
             "name": "TestName",
             "description": "TestDescription",
             "folder_id": "12345",
             "version_name": "v1.0",
         }
-        encoded_headers = jinko_helpers.encodeCustomHeaders(custom_headers)
-
-        self.assertIn("X-jinko-project-item-name", encoded_headers)
-        self.assertIn("X-jinko-project-item-description", encoded_headers)
-        self.assertIn("X-jinko-project-item-folder-ids", encoded_headers)
-        self.assertIn("X-jinko-project-item-version-name", encoded_headers)
-
-    def test_make_url(self):
-        self.assertEqual(
-            jinko_helpers.makeUrl("/test-path"), "https://api.jinko.ai/test-path"
+        jinko_helpers.makeRequest(
+            "/test-path",
+            method="GET",
+            options=options,
         )
+
+        _, kwargs = mock_request.call_args
+        self.assertTrue("X-jinko-project-item-name" in kwargs["headers"])
+        self.assertTrue("X-jinko-project-item-description" in kwargs["headers"])
+        self.assertTrue("X-jinko-project-item-folder-ids" in kwargs["headers"])
+        self.assertTrue("X-jinko-project-item-version-name" in kwargs["headers"])
 
 
 if __name__ == "__main__":
