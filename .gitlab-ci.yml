@@ -30,6 +30,7 @@ pytest:
   image: $PYTHON_IMAGE
   before_script:
     - poetry install
+    - cp $envrc_testing_preprod ./.envrc
   script:
     - poetry run pytest tests
 
