@@ -46,7 +46,7 @@ class CrabbitAppLauncher:
             print(message)
             return None
         try:
-            project_item = jinko.getProjectItem(sid, revision)
+            project_item = jinko.get_project_item(sid, revision)
         except requests.exceptions.HTTPError:
             print(message)
             return None

@@ -81,7 +81,7 @@ class CrabbitDownloader:
     def find_best_calib_patient(self):
         """Return the "patientNumber" of the best calibration patient, i.e. highest optimizationWeightedScore."""
         print("Finding the ID of the best calib patient...")
-        response = jinko.makeRequest(
+        response = jinko.make_request(
             path=f"/core/v2/result_manager/calibration/sorted_patients",
             method="POST",
             json={
@@ -104,7 +104,7 @@ class CrabbitDownloader:
         csv_data = {}
         json_data = []
         try:
-            response = jinko.makeRequest(
+            response = jinko.make_request(
                 path=f"/core/v2/calibration_manager/calibration/{self.core_id['id']}/snapshots/{self.core_id['snapshotId']}/bundle",
                 method="GET",
             )
@@ -182,7 +182,7 @@ class CrabbitDownloader:
         os.mkdir(timeseries_path)
         arms = []
         try:
-            response = jinko.makeRequest(
+            response = jinko.make_request(
                 path=f"/core/v2/result_manager/calibration/model_result",
                 method="POST",
                 json={
@@ -225,7 +225,7 @@ class CrabbitDownloader:
         scalars, categoricals, scalars_cross, categoricals_cross = {}, {}, {}, {}
         arms = set()
         try:
-            response = jinko.makeRequest(
+            response = jinko.make_request(
                 path=f"/core/v2/result_manager/calibration/scalar_result",
                 method="POST",
                 json={
