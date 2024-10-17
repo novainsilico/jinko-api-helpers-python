@@ -98,13 +98,3 @@ def clear_directory(directory):
     return False
 
 
-def get_calib_status(calib_core_id):
-    """Return the status of a single calibration."""
-    try:
-        response = jinko.makeRequest(
-            path=f"/core/v2/calibration_manager/calibration/{calib_core_id['id']}/snapshots/{calib_core_id['snapshotId']}/status",
-            method="GET",
-        )
-        return response.json()
-    except requests.exceptions.HTTPError:
-        return ""

@@ -37,6 +37,8 @@ from .jinko_helpers import (
     ProjectItemInfoFromResponse,
 )
 
+from .calibration import get_calib_status
+
 # Apply deprecations with the proper decorator
 checkAuthentication = deprecate_alias("checkAuthentication", "check_authentication", _check_authentication)
 getProjectItem = deprecate_alias("getProjectItem", "get_project_item", _get_project_item)
@@ -102,4 +104,5 @@ __all__ = [
     "CoreItemId",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
+    "get_calib_status"
 ]

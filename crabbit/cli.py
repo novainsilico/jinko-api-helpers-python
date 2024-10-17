@@ -10,7 +10,7 @@ import requests
 import pandas as pd
 
 import jinko_helpers as jinko
-from crabbit.utils import get_calib_status, bold_text
+from crabbit.utils import bold_text
 
 
 class CrabbitDownloader:
@@ -68,7 +68,7 @@ class CrabbitDownloader:
 
     def check_calib_status(self):
         """Check whether the calibration can be downloaded depending on its status."""
-        status = get_calib_status(self.core_id)
+        status = jinko.get_calib_status(self.core_id)
         if not status:
             return False
         elif status == "not_launched":
