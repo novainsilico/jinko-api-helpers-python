@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "jinko"
+name = "jinko-sdk"
 version = "0.3.4"
 description = "A Python package containing jinko_helpers, jinko_stats, and crabbit modules aimed to be used with Jinko.ai API"
 authors = ["SSE Team <oss@novainsilico.ai>"]
