@@ -26,6 +26,7 @@ AUTHORIZATION_PREFIX = "Bearer"
 _projectId: str | None = None
 _apiKey: str | None = None
 _baseUrl: str = "https://api.jinko.ai"
+_jinkoUrl: str = "https://jinko.ai"
 
 
 class CoreItemId(_TypedDict):
@@ -298,7 +299,7 @@ def checkAuthentication() -> bool:
 
 
 def initialize(
-    projectId: str | None = None, apiKey: str | None = None, baseUrl: str | None = None
+    projectId: str | None = None, apiKey: str | None = None, baseUrl: str | None = None, jinkoUrl: str | None = None
 ):
     """Configures the connection to Jinko API and checks authentication
 
@@ -312,6 +313,9 @@ def initialize(
         baseUrl (str | None, optional): root url to reach Jinko API. Defaults to None
             If None, fallbacks to JINKO_BASE_URL environment variable
             If environment variable is not set, fallbacks to 'https://api.jinko.ai'
+        jinkoUrl (str | None, optional): root url to reach Jinko front-end. Defaults to None
+            If None, fallbacks to JINKO_URL environment variable
+            If environment variable is not set, fallbacks to 'https://jinko.ai'
 
     Raises:
         Exception: if API key is empty
@@ -327,16 +331,25 @@ def initialize(
         )
 
         jinko.initialize(
-            baseUrl='http://localhost:8000'
+            baseUrl='http://localhost:8000',
+            jinkoUrl='http://localhost:3000'
         )
     """
-    global _projectId, _apiKey, _baseUrl
+    global _projectId, _apiKey, _baseUrl, _jinkoUrl
     if baseUrl is not None:
         _baseUrl = baseUrl
     else:
         baseUrlFromEnv = _os.environ.get("JINKO_BASE_URL")
         if baseUrlFromEnv is not None and baseUrlFromEnv.strip() != "":
             _baseUrl = baseUrlFromEnv.strip()
+
+    if jinkoUrl is not None:
+        _jinkoUrl = jinkoUrl
+    else:
+        jinkoUrlFromEnv = _os.environ.get("JINKO_URL")
+        if jinkoUrlFromEnv is not None and jinkoUrlFromEnv.strip() != "":
+            _jinkoUrl = jinkoUrlFromEnv.strip()
+
     if apiKey is not None:
         _apiKey = apiKey
     else:
@@ -530,7 +543,7 @@ def getProjectItemUrlFromSid(sid: str):
     Returns:
         str: The URL of the ProjectItem.
     """
-    url = f"https://jinko.ai/{sid}"
+    url = f"{_jinkoUrl}/{sid}"
     return url
 
 
@@ -577,7 +590,7 @@ def getProjectItemUrlByCoreItemId(coreItemId: str):
     )
     response = makeRequest("/app/v1/core-item/%s" % (coreItemId)).json()
     sid = response.get("sid")
-    url = f"https://jinko.ai/{sid}"
+    url = f"{_jinkoUrl}/{sid}"
     return f"Resource link: {url}"
 
 def is_interactive():
