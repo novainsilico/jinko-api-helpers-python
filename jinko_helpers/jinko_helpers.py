@@ -299,7 +299,10 @@ def checkAuthentication() -> bool:
 
 
 def initialize(
-    projectId: str | None = None, apiKey: str | None = None, baseUrl: str | None = None, jinkoUrl: str | None = None
+    projectId: str | None = None,
+    apiKey: str | None = None,
+    baseUrl: str | None = None,
+    jinkoUrl: str | None = None,
 ):
     """Configures the connection to Jinko API and checks authentication
 
@@ -458,7 +461,14 @@ def dataTableToSQLite(
 
     # Read the CSV file
     df = _pandas.read_csv(data_table_file_path)
-    column_names = df.columns.tolist()
+    column_real_names = df.columns.tolist()
+
+    # Rename columns to col_{i} with {i} > 0
+    column_names = ["col_%s" % (i + 1) for i, _ in enumerate(column_real_names)]
+    column_names_mapping = {}
+    for i, name in enumerate(column_real_names):
+        column_names_mapping[name] = column_names[i]
+    df.rename(columns=column_names_mapping, inplace=True)
 
     # Connect to SQLite database (or create it)
     data_table_sqlite_file_path = _os.path.splitext(data_table_file_path)[0] + ".sqlite"
@@ -471,7 +481,7 @@ def dataTableToSQLite(
         conn,
         if_exists="replace",
         index=False,
-        dtype={col: "TEXT" for col in df.columns},
+        dtype="TEXT",
     )
 
     # Create the 'data_columns' table
@@ -485,10 +495,10 @@ def dataTableToSQLite(
     )
 
     # Insert column data into 'data_columns' table
-    for (i, name) in enumerate(column_names):
+    for i, name in enumerate(column_names):
         cursor.execute(
             "INSERT OR IGNORE INTO data_columns (name, realname) VALUES (?, ?)",
-            ("col_%s" % (i + 1), name),
+            (name, column_real_names[i]),
         )
 
     # Commit changes and close the connection
@@ -593,6 +603,7 @@ def getProjectItemUrlByCoreItemId(coreItemId: str):
     url = f"{_jinkoUrl}/{sid}"
     return f"Resource link: {url}"
 
+
 def is_interactive():
     """Check if the environment supports interactive plot display (like Jupyter or IPython)."""
     try:
@@ -602,7 +613,8 @@ def is_interactive():
     except NameError:
         return False
 
-def show_plot_conditionally(fig, file_name = None):
+
+def show_plot_conditionally(fig, file_name=None):
     """Show the plot if in an interactive environment, otherwise save it."""
     if is_interactive():
         # If in a supported interactive environment, show the plot
@@ -611,11 +623,11 @@ def show_plot_conditionally(fig, file_name = None):
         # Fallback: Save the plot to a file if show() is not supported
         tmp_fd = None
         if file_name is None:
-            (tmp_fd, file_name) = tempfile.mkstemp('.html')
+            (tmp_fd, file_name) = tempfile.mkstemp(".html")
         try:
-          fig.write_html(file_name)
-        except Exception as e:            
-          if tmp_fd is not None:
-            _os.unlink(file_name)
-          raise
+            fig.write_html(file_name)
+        except Exception as e:
+            if tmp_fd is not None:
+                _os.unlink(file_name)
+            raise
         print(f"Plot saved to {file_name} . Please open it in a web browser.")
