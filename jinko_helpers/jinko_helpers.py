@@ -485,10 +485,10 @@ def dataTableToSQLite(
     )
 
     # Insert column data into 'data_columns' table
-    for name in column_names:
+    for (i, name) in enumerate(column_names):
         cursor.execute(
             "INSERT OR IGNORE INTO data_columns (name, realname) VALUES (?, ?)",
-            (name, name),
+            ("col_%s" % (i + 1), name),
         )
 
     # Commit changes and close the connection
