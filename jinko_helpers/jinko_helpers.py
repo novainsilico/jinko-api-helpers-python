@@ -472,6 +472,11 @@ def dataTableToSQLite(
 
     # Connect to SQLite database (or create it)
     data_table_sqlite_file_path = _os.path.splitext(data_table_file_path)[0] + ".sqlite"
+
+    # Remove existing file    
+    try: _os.remove(data_table_sqlite_file_path)
+    except: pass
+
     conn = _sqlite3.connect(data_table_sqlite_file_path)
     cursor = conn.cursor()
 
