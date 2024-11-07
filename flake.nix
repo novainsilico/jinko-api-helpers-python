@@ -28,6 +28,7 @@
               pkgs.stdenv.cc.cc
             ]}
             export POETRY_CACHE_DIR="./.cache/pypoetry"
+            source .envrc
           '';
         in
         {

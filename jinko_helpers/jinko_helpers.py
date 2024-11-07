@@ -8,6 +8,13 @@
 """
 
 import sys
+
+from jinko_helpers.types.api_types_dict import (
+    ProjectItem,
+    ProjectItemVersion,
+    SnapshotId,
+    CoreItemId,
+)
 from .__version__ import __version__
 import base64 as _base64
 import requests as _requests
@@ -16,7 +23,7 @@ import json as _json
 import os as _os
 import pandas as _pandas
 import sqlite3 as _sqlite3
-from typing import Any, Optional, TypedDict
+from typing import List, Any, Optional, TypedDict
 from urllib.parse import urlparse
 import warnings
 import tempfile
@@ -30,7 +37,7 @@ _baseUrl: str = "https://api.jinko.ai"
 _jinkoUrl: str = "https://jinko.ai"
 
 
-class CoreItemId(TypedDict):
+class CoreItemIdDict(TypedDict):
     """Represents the CoreItem identifier.
 
     Attributes:
@@ -69,13 +76,13 @@ class ProjectItemInfoFromResponse(TypedDict):
     Attributes:
         sid (str): Short Id of the ProjectItem.
         description (str): Type of the ProjectItem.
-        coreItemId (CoreItemId): CoreItemId of the ProjectItem.
+        coreItemId (CoreItemIdDict): CoreItemI dictionnary of the ProjectItem.
         revision (int): Revision number of the ProjectItem.
     """
 
     sid: str
     kind: str
-    coreItemId: CoreItemId
+    coreItemId: CoreItemIdDict
     revision: int
 
 
@@ -418,6 +425,11 @@ def getProjectItem(shortId: str, revision: int | None = None) -> dict:
 
         projectItem = jinko.getProjectItem('tr-EUsp-WjjI', 1)
     """
+    warnings.warn(
+        "The function get_project_item with the old signature is deprecated. "
+        "Please use the updated function with the ability to use coreItemId and snapshotId.",
+        category=DeprecationWarning,
+    )
     if revision is None:
         return makeRequest("/app/v1/project-item/%s" % (shortId)).json()
     else:
@@ -426,15 +438,15 @@ def getProjectItem(shortId: str, revision: int | None = None) -> dict:
         ).json()
 
 
-def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemId:
-    """Retrieves the CoreItemId corresponding to a ProjectItem
+def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemIdDict:
+    """Retrieves the CoreItemId dictionnary corresponding to a ProjectItem
 
     Args:
         shortId (str): short Id of the ProjectItem
         revision (int | None, optional): revision number. Defaults to None
 
     Returns:
-        CoreItemId: corresponding CoreItemId
+        CoreItemIdDict: corresponding CoreItemId dictionnary
 
     Raises:
         Exception: if HTTP status code is not 200
@@ -652,6 +664,84 @@ def show_plot_conditionally(fig, file_name=None):
             if tmp_fd is not None:
                 _os.unlink(file_name)
             raise
-        sys.stderr.write(
-            f"Plot saved to {file_name} . Please open it in a web browser.\n"
+        print(f"Plot saved to {file_name} . Please open it in a web browser.")
+
+
+def list_project_item_versions(
+    sid: str, only_labeled: bool = False
+) -> List[ProjectItemVersion]:
+    """
+    Retrieve the list of versions of a given ProjectItem.
+
+    Args:
+        sid (str): The short ID of the ProjectItem.
+        only_labeled (bool, optional): If True, only return labeled versions. Defaults to False.
+
+    Returns:
+        List[ProjectItemVersion]: The list of versions of the ProjectItem.
+    """
+    only_labeled_str = "true" if only_labeled else "false"
+    response = makeRequest(
+        f"/app/v1/project-item/{sid}/versions",
+        params={"onlyLabeled": only_labeled_str},
+    )
+    return response.json()
+
+
+def get_project_item(
+    core_item_id: Optional[CoreItemId] = None,
+    snapshot_id: Optional[SnapshotId] = None,
+    sid: Optional[str] = None,
+    revision: Optional[float] = None,
+) -> Optional[ProjectItem]:
+    """
+    Retrieve a ProjectItem from its CoreItemId, snapshotId, or its SID and revision.
+
+    Args:
+        core_item_id (str, optional): The CoreItemId of the ProjectItem.
+        snapshot_id (str, optional): The snapshotId of the ProjectItem.
+        sid (str, optional): The SID of the ProjectItem.
+        revision (int, optional): The revision of the ProjectItem.
+
+    Returns:
+        ProjectItem, optional: The retrieved ProjectItem, or None if not found.
+
+    Raises:
+        ValueError: If neither 'sid' nor 'core_item_id' is provided.
+        Exception: If the parameters are ambiguous, i.e. they do not point to the same project item.
+    """
+    if not sid and not core_item_id:
+        raise ValueError("You must provide either 'sid' or 'core_item_id'.")
+
+    routes = [
+        (
+            {"path": f"/app/v1/project-item/{sid}", "params": {"revision": revision}}
+            if sid
+            else None
+        ),
+        (
+            {
+                "path": f"/app/v1/core-item/{core_item_id}",
+                "params": {"snapshotId": snapshot_id},
+            }
+            if core_item_id
+            else None
+        ),
+    ]
+
+    # Filter out None values
+    routes = [route for route in routes if route is not None]
+
+    try:
+        responses = [
+            makeRequest(path=route["path"], params=route["params"]).json()
+            for route in routes
+        ]
+        if all(x == responses[0] for x in responses):
+            return list(responses)[0]
+        raise Exception(
+            "Parameters are ambiguous: they do not point to the same project item."
         )
+
+    except Exception as e:
+        raise e  # Do not override the original exception message

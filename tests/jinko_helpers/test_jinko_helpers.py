@@ -142,5 +142,72 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertTrue("X-jinko-project-item-version-name" in kwargs["headers"])
 
 
+class TestGetProjectItem(unittest.TestCase):
+    @patch("requests.request")
+    def test_get_project_item_with_sid(self, mock_request):
+        # Mock the API response
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {
+            "sid": "example-sid",
+            "coreId": "example-core-id",
+            "type": "ComputationalModel",
+            "name": "Model A",
+            "version": {"revision": 1, "label": "v1"},
+        }
+        mock_request.return_value = mock_response
+
+        # Call the function with SID
+        result = jinko_helpers.get_project_item_new(sid="example-sid", revision=1)
+
+        # Assertions
+        self.assertEqual(result, mock_response.json())
+
+    def test_get_project_item_with_missing_parameters(self):
+        # Call the function without SID or CoreItemId and check for ValueError
+        with self.assertRaises(ValueError) as context:
+            jinko_helpers.get_project_item_new()
+        self.assertEqual(
+            str(context.exception), "You must provide either 'sid' or 'core_item_id'."
+        )
+
+    @patch("requests.request")
+    def test_get_project_item_with_ambiguous_parameters(self, mock_request):
+        # Mock the API responses for ambiguity
+        mock_response_1 = MagicMock()
+        mock_response_1.status_code = 200
+        mock_response_1.json.return_value = {
+            "sid": "example-sid",
+            "coreId": "example-core-id",
+            "type": "ComputationalModel",
+            "name": "Model A",
+            "version": {"revision": 1, "label": "v1"},
+        }
+
+        mock_response_2 = MagicMock()
+        mock_response_2.status_code = 200
+        mock_response_2.json.return_value = {
+            "sid": "different-sid",
+            "coreId": "different-core-id",
+            "type": "ComputationalModel",
+            "name": "Model B",
+            "version": {"revision": 2, "label": "v2"},
+        }
+
+        mock_request.side_effect = [mock_response_1, mock_response_2]
+
+        # Call the function with ambiguous parameters and check for Exception
+        with self.assertRaises(Exception) as context:
+            jinko_helpers.get_project_item_new(
+                sid="example-sid", core_item_id="different-core-id"
+            )
+
+        self.assertEqual(
+            str(context.exception),
+            "Parameters are ambiguous: they do not point to the same project item.",
+        )
+        self.assertEqual(mock_request.call_count, 2)
+
+
 if __name__ == "__main__":
     unittest.main()

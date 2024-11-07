@@ -36,9 +36,22 @@ from .jinko_helpers import (
     fetchAllJson as _fetch_all_json,
     getProjectItemUrlByCoreItemId as _get_project_item_url_by_core_item_id,
     show_plot_conditionally,
+    list_project_item_versions,
+    get_project_item as get_project_item_new,
     CoreItemId,
     MakeRequestOptions,
     ProjectItemInfoFromResponse,
+)
+
+from .calibration import get_calib_status
+
+from .model import (
+    get_models_in_folder,
+    download_model,
+    download_model_interface,
+    upload_model_version,
+    update_model_in_trial,
+    find_id_by_immutable_id,
 )
 
 # Apply deprecations with the proper decorator
@@ -136,8 +149,16 @@ __all__ = [
     "show_plot_conditionally",
     "get_vpop_content",
     "get_vpop_design_content",
+    "list_project_item_versions",
+    "get_project_item_new",
     "CoreItemId",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
     "get_calib_status",
+    "get_models_in_folder",
+    "download_model",
+    "download_model_interface",
+    "upload_model_version",
+    "update_model_in_trial",
+    "find_id_by_immutable_id",
 ]
