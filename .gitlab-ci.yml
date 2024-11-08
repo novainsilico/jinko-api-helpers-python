@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
 
 variables:
   DOCKER_HOST: tcp://docker:2375
@@ -41,6 +42,23 @@ covtest:
     - poetry install
   script:
     - poetry run pytest --cov=jinko_helpers tests/
+
+pypi_deploy:
+  stage: deploy
+  image: $PYTHON_IMAGE
+  before_script:
+    - poetry install
+  script:
+    - poetry config pypi-token.pypi "$PYPI_TOKEN"
+    - poetry publish --build
+  environment:
+    name: production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
+        - pyproject.toml
+        # only pushes if the pyproject.toml has changed.
+        # in that case, the version number has to change
 
 # deactivated, because there are no interactive doc now, only dummy examples
 # doctest:
