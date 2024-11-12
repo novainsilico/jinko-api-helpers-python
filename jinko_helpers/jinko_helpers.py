@@ -7,6 +7,7 @@
 - make HTTP requests (jinko.makeRequest)
 """
 
+import sys
 from .__version__ import __version__
 import base64 as _base64
 import requests as _requests
@@ -226,9 +227,9 @@ def makeRequest(
             "content-type" in response.headers
             and response.headers["content-type"] == "application/json"
         ):
-            print(response.json())
+            sys.stderr.write(response.json() + "\n")
         else:
-            print("%s: %s" % (response.status_code, response.text))
+            sys.stderr.write("%s: %s\n" % (response.status_code, response.text))
         response.raise_for_status()
     if response.status_code == 204:
         return "Query successfully done, got a 204 response"
@@ -306,7 +307,7 @@ def checkAuthentication() -> bool:
     if response.status_code == 401:
         return False
     if response.status_code != 200:
-        print(response.json())
+        sys.stderr.write(response.json() + "\n")
         response.raise_for_status()
     return True
 
@@ -379,7 +380,7 @@ def initialize(
         _apiKey = _getpass.getpass("Please enter your API key")
     if _apiKey.strip() == "":
         message = "API key cannot be empty"
-        print(message)
+        sys.stderr.write(message + "\n")
         raise Exception(message)
 
     # Ask user for API key/projectId and check authentication
@@ -387,14 +388,14 @@ def initialize(
         _projectId = _getpass.getpass("Please enter your Project Id")
     if _projectId.strip() == "":
         message = "Project Id cannot be empty"
-        print(message)
+        sys.stderr.write(message + "\n")
         raise Exception(message)
 
     if not checkAuthentication():
         message = 'Authentication failed for Project "%s"' % (_projectId)
-        print(message)
+        sys.stderr.write(message + "\n")
         raise Exception(message)
-    print("Authentication successful")
+    sys.stderr.write("Authentication successful\n")
 
 
 def getProjectItem(shortId: str, revision: int | None = None) -> dict:
@@ -446,7 +447,7 @@ def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemId:
     item = getProjectItem(shortId, revision)
     if "coreId" not in item or item["coreId"] is None:
         message = 'ProjectItem "%s" has no CoreItemId' % (shortId)
-        print(message)
+        sys.stderr.write(message + "\n")
         raise Exception(message)
     return item["coreId"]
 
@@ -650,4 +651,6 @@ def show_plot_conditionally(fig, file_name=None):
             if tmp_fd is not None:
                 _os.unlink(file_name)
             raise
-        print(f"Plot saved to {file_name} . Please open it in a web browser.")
+        sys.stderr.write(
+            f"Plot saved to {file_name} . Please open it in a web browser.\n"
+        )
