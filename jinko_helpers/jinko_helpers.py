@@ -125,6 +125,7 @@ def makeUrl(path: str):
 def makeRequest(
     path: str,
     method: str = "GET",
+    params=None,
     json=None,
     csv_data=None,
     options: MakeRequestOptions = None,
@@ -135,6 +136,7 @@ def makeRequest(
     Args:
         path (str): HTTP path
         method (str, optional): HTTP method. Defaults to 'GET'
+        params (Dict, optional): Dictionary, list of tuples or bytes to send in the query string. Defaults to None
         json (Any, optional): input payload as JSON. Defaults to None
         csv_data (str, optional): input payload as a CSV formatted string. Defaults to None
         options (MakeRequestOptions, optional): additional options. Defaults to None
@@ -150,6 +152,16 @@ def makeRequest(
 
         projectItem = makeRequest(
             '/app/v1/project-item/tr-EUsp-WjjI',
+            method='GET',
+        ).json()
+
+        # pass query parameters
+        projectItem = makeRequest(
+            '/app/v1/project-item',
+            params={
+              "name": "Example",
+              "type": ["ComputationalModel", "Trial"],
+            },
             method='GET',
         ).json()
 
@@ -206,6 +218,7 @@ def makeRequest(
         method,
         _baseUrl + path,
         headers=headers,
+        params=params,
         **({data_param: data} if data_param else {}),
     )
     if response.status_code not in [200, 204]:
@@ -473,9 +486,11 @@ def dataTableToSQLite(
     # Connect to SQLite database (or create it)
     data_table_sqlite_file_path = _os.path.splitext(data_table_file_path)[0] + ".sqlite"
 
-    # Remove existing file    
-    try: _os.remove(data_table_sqlite_file_path)
-    except: pass
+    # Remove existing file
+    try:
+        _os.remove(data_table_sqlite_file_path)
+    except:
+        pass
 
     conn = _sqlite3.connect(data_table_sqlite_file_path)
     cursor = conn.cursor()

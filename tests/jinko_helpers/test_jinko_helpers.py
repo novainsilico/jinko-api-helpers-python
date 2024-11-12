@@ -44,6 +44,18 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertEqual(response.json(), {"key": "value"})
 
     @patch("requests.request")
+    def test_make_request_query_parameters(self, mock_request):
+        mock_response = MagicMock()
+        mock_request.return_value = mock_response
+
+        jinko_helpers.makeRequest(
+            "/test-path?key=value1", method="GET", params={"key": ["value2", "value3"]}
+        )
+        _, kwargs = mock_request.call_args
+        self.assertTrue("params" in kwargs)
+        self.assertEqual(kwargs["params"], {"key": ["value2", "value3"]})
+
+    @patch("requests.request")
     def test_make_request_post_json(self, mock_request):
         mock_response = MagicMock()
         mock_response.status_code = 200
