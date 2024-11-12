@@ -27,7 +27,7 @@ def monitor_trial_until_completion(
     trial_core_item_id, trial_snapshot_id, time_to_completion=None, retry_interval=5
 ):
     """
-    Polls the Jinko API for the status of a trial and prints a progress bar.
+    Polls the Jinko API for the status of a trial and prints a progress view with completed task counts.
 
     Args:
         trial_core_item_id (str): The CoreItemId of the trial.
@@ -38,13 +38,10 @@ def monitor_trial_until_completion(
     Returns:
         pd.DataFrame: A DataFrame summarizing the perArm data.
 
-    Prints:
-        A progress bar with the overall progress percentage of the trial.
-
     Raises:
         RuntimeError: If no 'perArmSummary' data is found in the response or if the trial does not complete in the specified time.
     """
-    pbar = tqdm(total=100, desc="Trial Progress", unit="%")
+    pbar = tqdm(total=0, desc="Trial Progress", unit="tasks")  # Initialize with 0 total
 
     if time_to_completion is not None:
         max_retries = ceil(time_to_completion / retry_interval)
@@ -62,30 +59,19 @@ def monitor_trial_until_completion(
 
         # Check if the job is still running
         if response_json.get("isRunning", False):
-            total_pending = 0
-            total_error = 0
-            total_success = 0
+            tasks_count = get_task_count(per_arm_data)
 
-            # Loop through all arms in perArmData
-            for _, arm_data in per_arm_data.items():
-                total_pending += arm_data.get("countPending", 0)
-                total_error += arm_data.get("countError", 0)
-                total_success += arm_data.get("countSuccess", 0)
-
-            total_count = total_pending + total_error + total_success
-            # Calculate the overall progress percentage
-            if total_count > 0:
-                progress_percentage = 100 * (total_success + total_error) / total_count
-            else:
-                progress_percentage = 0
-            pbar.n = progress_percentage
+            # Set the progress bar's total to the latest total task count
+            pbar.total = tasks_count["total_tasks"]
+            pbar.n = tasks_count["completed_tasks"]
             pbar.refresh()
 
             time.sleep(retry_interval)  # Wait before checking again
             retries += 1
         else:
             print("Job succeeded.")
-            pbar.n = 100  # Set progress bar to 100% when the job is done
+            pbar.total = get_task_count(per_arm_data)["total_tasks"]
+            pbar.n = pbar.total
             pbar.refresh()
             pbar.close()
             break
@@ -101,3 +87,32 @@ def monitor_trial_until_completion(
         return per_arm_summary
     except (ValueError, KeyError) as e:
         raise RuntimeError("No 'perArmSummary' data found in the response.") from e
+
+
+def get_task_count(per_arm_data: dict):
+    """
+    Calculates the total and completed task counts from the given per-arm data.
+
+    Args:
+        per_arm_data (dict): A dictionary where each key is an arm identifier, and
+                             its value is another dictionary containing counts of tasks
+                             with keys 'countPending', 'countError', and 'countSuccess'.
+
+    Returns:
+        dict: A dictionary containing 'total_tasks' which is the sum of pending, error,
+              and success counts, and 'completed_tasks' which is the sum of error and success counts.
+    """
+    total_pending = 0
+    total_error = 0
+    total_success = 0
+
+    # Loop through all arms in perArmData
+    for _, arm_data in per_arm_data.items():
+        total_pending += arm_data.get("countPending", 0)
+        total_error += arm_data.get("countError", 0)
+        total_success += arm_data.get("countSuccess", 0)
+
+    total_tasks = total_pending + total_error + total_success
+    completed_tasks = total_success + total_error
+
+    return {"total_tasks": total_tasks, "completed_tasks": completed_tasks}
