@@ -7,11 +7,11 @@ Jinko is an innovative SaaS and CaaS platform focused on trial simulation and de
 ## Usage
 
 ```sh
-pip install git+https://github.com/novainsilico/jinko-api-helpers-python.git
+pip install jinko-sdk
 
 # Or
 
-poetry add git+https://github.com/novainsilico/jinko-api-helpers-python.git
+poetry add jinko-sdk
 
 ```
 
