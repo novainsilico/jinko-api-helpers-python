@@ -16,7 +16,7 @@ import json as _json
 import os as _os
 import pandas as _pandas
 import sqlite3 as _sqlite3
-from typing import TypedDict as _TypedDict
+from typing import Any, TypedDict
 from urllib.parse import urlparse
 import warnings
 import tempfile
@@ -30,7 +30,7 @@ _baseUrl: str = "https://api.jinko.ai"
 _jinkoUrl: str = "https://jinko.ai"
 
 
-class CoreItemId(_TypedDict):
+class CoreItemId(TypedDict):
     """Represents the CoreItem identifier.
 
     Attributes:
@@ -42,7 +42,7 @@ class CoreItemId(_TypedDict):
     snapshotId: str
 
 
-class MakeRequestOptions(_TypedDict):
+class MakeRequestOptions(TypedDict):
     """Additional options to use when making a request to the Jinko API.
 
     Attributes:
@@ -58,11 +58,11 @@ class MakeRequestOptions(_TypedDict):
     description: str
     folder_id: str
     version_name: str
-    input_format: str = "application/json"
+    input_format: str
     output_format: str
 
 
-class ProjectItemInfoFromResponse(_TypedDict):
+class ProjectItemInfoFromResponse(TypedDict):
     """Informations contained in the "X-jinko-project-item" header returned
     by the Jinko API when creating/updating a ProjectItem (Modeling & Simulation).
 
@@ -92,7 +92,7 @@ def _getHeaders() -> dict[str, str]:
     if apiKey is None:
         apiKey = ""
     return {
-        "X-jinko-project-id": _projectId,
+        "X-jinko-project-id": _projectId,  # type: ignore
         "Authorization": "%s %s" % (AUTHORIZATION_PREFIX, apiKey),
         "User-Agent": USER_AGENT,
     }
@@ -129,9 +129,9 @@ def makeRequest(
     params=None,
     json=None,
     csv_data=None,
-    options: MakeRequestOptions = None,
+    options: MakeRequestOptions | None = None,
     data=None,
-):
+) -> _requests.Response:
     """Makes an HTTP request to the Jinko API.
 
     Args:
@@ -220,7 +220,7 @@ def makeRequest(
         _baseUrl + path,
         headers=headers,
         params=params,
-        **({data_param: data} if data_param else {}),
+        **({data_param: data} if data_param else {}),  # type: ignore
     )
     if response.status_code not in [200, 204]:
         if (
@@ -232,7 +232,7 @@ def makeRequest(
             sys.stderr.write("%s: %s\n" % (response.status_code, response.text))
         response.raise_for_status()
     if response.status_code == 204:
-        return "Query successfully done, got a 204 response"
+        sys.stderr.write("Query successfully done, got a 204 response\n")
     return response
 
 
@@ -265,7 +265,7 @@ def nextPage(lastResponse: _requests.Response) -> _requests.Response | None:
 
 def fetchAllJson(
     path: str,
-) -> list[any]:
+) -> list[Any]:
     """Makes a GET HTTP request and retrieve all pages of a paginated response as json
 
     Args:
@@ -629,7 +629,7 @@ def is_interactive():
     """Check if the environment supports interactive plot display (like Jupyter or IPython)."""
     try:
         # Check if in an IPython environment
-        __IPYTHON__
+        __IPYTHON__  # type: ignore
         return True
     except NameError:
         return False
