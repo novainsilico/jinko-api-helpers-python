@@ -16,7 +16,7 @@ import json as _json
 import os as _os
 import pandas as _pandas
 import sqlite3 as _sqlite3
-from typing import Any, TypedDict
+from typing import Any, Optional, TypedDict
 from urllib.parse import urlparse
 import warnings
 import tempfile
@@ -42,7 +42,7 @@ class CoreItemId(TypedDict):
     snapshotId: str
 
 
-class MakeRequestOptions(TypedDict):
+class MakeRequestOptions(TypedDict, total=False):
     """Additional options to use when making a request to the Jinko API.
 
     Attributes:
@@ -54,12 +54,12 @@ class MakeRequestOptions(TypedDict):
         output_format (str): Expected content type of the response payload (may be ignored by server if not supported).
     """
 
-    name: str
-    description: str
-    folder_id: str
-    version_name: str
-    input_format: str
-    output_format: str
+    name: Optional[str]
+    description: Optional[str]
+    folder_id: Optional[str]
+    version_name: Optional[str]
+    input_format: Optional[str]
+    output_format: Optional[str]
 
 
 class ProjectItemInfoFromResponse(TypedDict):
@@ -210,7 +210,8 @@ def makeRequest(
     else:
         data_param = None
 
-    headers["Content-Type"] = input_mime_type
+    if input_mime_type:
+        headers["Content-Type"] = input_mime_type
     if output_mime_type is not None:
         headers["Accept"] = output_mime_type
 

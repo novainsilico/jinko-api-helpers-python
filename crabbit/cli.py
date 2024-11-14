@@ -19,9 +19,7 @@ class CrabbitDownloader:
     def __init__(self, project_item, output_path):
         self.project_item = project_item
         self.output_path = output_path
-        self.core_id = (
-            self.project_item["coreId"] if "coreId" in self.project_item else ""
-        )
+        self.core_id = self.project_item.get("coreId", {})
 
         self.pretty_patient_name = (
             "CalibratedPatient"  # nice name to be used in calibration visualization
