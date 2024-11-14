@@ -6,17 +6,21 @@ This package provides helper functions for interacting with the Jinko API.
 
 import warnings
 
+
 def deprecate_alias(old_name, new_name, new_func):
     """A decorator to create deprecated aliases for functions."""
+
     def wrapper(*args, **kwargs):
         warnings.warn(
             f"{old_name} is deprecated and will be removed in a future version. "
             f"Please use {new_name} instead.",
             DeprecationWarning,
-            stacklevel=2
+            stacklevel=2,
         )
         return new_func(*args, **kwargs)
+
     return wrapper
+
 
 from .jinko_helpers import (
     initialize,
@@ -40,17 +44,39 @@ from .jinko_helpers import (
 from .calibration import get_calib_status
 
 # Apply deprecations with the proper decorator
-checkAuthentication = deprecate_alias("checkAuthentication", "check_authentication", _check_authentication)
-getProjectItem = deprecate_alias("getProjectItem", "get_project_item", _get_project_item)
+checkAuthentication = deprecate_alias(
+    "checkAuthentication", "check_authentication", _check_authentication
+)
+getProjectItem = deprecate_alias(
+    "getProjectItem", "get_project_item", _get_project_item
+)
 getCoreItemId = deprecate_alias("getCoreItemId", "get_core_item_id", _get_core_item_id)
 makeRequest = deprecate_alias("makeRequest", "make_request", _make_request)
-dataTableToSQLite = deprecate_alias("dataTableToSQLite", "data_table_to_sqlite", _data_table_to_sqlite)
-getProjectItemInfoFromResponse = deprecate_alias("getProjectItemInfoFromResponse", "get_project_item_info_from_response", _get_project_item_info_from_response)
-getProjectItemUrlFromSid = deprecate_alias("getProjectItemUrlFromSid", "get_project_item_url_from_sid", _get_project_item_url_from_sid)
-getProjectItemUrlFromResponse = deprecate_alias("getProjectItemUrlFromResponse", "get_project_item_url_from_response", _get_project_item_url_from_response)
+dataTableToSQLite = deprecate_alias(
+    "dataTableToSQLite", "data_table_to_sqlite", _data_table_to_sqlite
+)
+getProjectItemInfoFromResponse = deprecate_alias(
+    "getProjectItemInfoFromResponse",
+    "get_project_item_info_from_response",
+    _get_project_item_info_from_response,
+)
+getProjectItemUrlFromSid = deprecate_alias(
+    "getProjectItemUrlFromSid",
+    "get_project_item_url_from_sid",
+    _get_project_item_url_from_sid,
+)
+getProjectItemUrlFromResponse = deprecate_alias(
+    "getProjectItemUrlFromResponse",
+    "get_project_item_url_from_response",
+    _get_project_item_url_from_response,
+)
 nextPage = deprecate_alias("nextPage", "next_page", _next_page)
 fetchAllJson = deprecate_alias("fetchAllJson", "fetch_all_json", _fetch_all_json)
-getProjectItemUrlByCoreItemId = deprecate_alias("getProjectItemUrlByCoreItemId", "get_project_item_url_by_core_item_id", _get_project_item_url_by_core_item_id)
+getProjectItemUrlByCoreItemId = deprecate_alias(
+    "getProjectItemUrlByCoreItemId",
+    "get_project_item_url_by_core_item_id",
+    _get_project_item_url_by_core_item_id,
+)
 
 # Assign snake_case versions directly
 check_authentication = _check_authentication
@@ -104,5 +130,5 @@ __all__ = [
     "CoreItemId",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
-    "get_calib_status"
+    "get_calib_status",
 ]

@@ -11,12 +11,12 @@ packages = [
     ]
 
 [tool.poetry.dependencies]
-python = ">=3.10"
+python = ">=3.10,<4.0"
 black = {version = "^24.4.2"}
 pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
-
+datamodel-code-generator = {extras = ["http"], version = "^0.26.3"}
 [tool.poetry.group.dev.dependencies]
 pylint ="^2.14.0"
 pytest = "^8.3.3"

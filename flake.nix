@@ -19,9 +19,9 @@
           shellBuildInputs = [
             # Poetry is the default package manager for the cookbook project
             pkgs.poetry
-
             # Add interactive bash to support `poetry shell`
             pkgs.bashInteractive
+            pkgs.curl
           ];
           shellInit = ''
             export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
