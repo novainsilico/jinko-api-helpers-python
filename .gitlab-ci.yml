@@ -50,15 +50,16 @@ pypi_deploy:
     - poetry install
   script:
     - poetry config pypi-token.pypi "$PYPI_TOKEN"
+    # Extract the version number from pyproject.toml
+    - VERSION=$(poetry version -s)
+    # Check if the version already exists on PyPI for jinko-sdk using the HTTP status code
+    - response=$(curl -s -o /dev/null -w "%{http_code}" https://pypi.org/pypi/jinko-sdk/$VERSION/json)
+    - if [ "$response" -eq 200 ]; then echo "Version $VERSION already exists on PyPI. Skipping deployment."; exit 0; fi
     - poetry publish --build
   environment:
     name: production
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-      changes:
-        - pyproject.toml
-        # only pushes if the pyproject.toml has changed.
-        # in that case, the version number has to change
 
 # deactivated, because there are no interactive doc now, only dummy examples
 # doctest:
