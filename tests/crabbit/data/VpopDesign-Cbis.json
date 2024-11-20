@@ -1,0 +1,14 @@
+{
+    "computationalModelId": {
+        "coreItemId": "6b80164a-76a4-43b4-bdaa-44dfe0e96896",
+        "snapshotId": "a2f8aef2-3d42-4f97-9aa7-95d0431d948e"
+    },
+    "correlations": [],
+    "marginalCategoricals": [],
+    "marginalDistributions": [
+        {
+            "distribution": "Bernoulli(0.01)",
+            "id": "paramA"
+        }
+    ]
+}

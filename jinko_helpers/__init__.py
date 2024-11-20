@@ -41,8 +41,6 @@ from .jinko_helpers import (
     ProjectItemInfoFromResponse,
 )
 
-from .calibration import get_calib_status
-
 # Apply deprecations with the proper decorator
 checkAuthentication = deprecate_alias(
     "checkAuthentication", "check_authentication", _check_authentication
@@ -91,9 +89,18 @@ next_page = _next_page
 fetch_all_json = _fetch_all_json
 get_project_item_url_by_core_item_id = _get_project_item_url_by_core_item_id
 
+from .calibration import (
+    get_calib_status,
+)
+
 from .trial import (
     monitor_trial_until_completion,
     is_trial_running,
+)
+
+from .vpop import (
+    get_vpop_content,
+    get_vpop_design_content,
 )
 
 # Import version from version.py
@@ -127,6 +134,8 @@ __all__ = [
     "monitor_trial_until_completion",
     "is_trial_running",
     "show_plot_conditionally",
+    "get_vpop_content",
+    "get_vpop_design_content",
     "CoreItemId",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",

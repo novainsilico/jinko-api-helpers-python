@@ -7,7 +7,7 @@ from crabbit.utils import bold_text
 def get_usage():
     """Show usage of the "crabbit" app."""
     return (
-        bold_text("python -m crabbit {mode} {URL} {path}")
+        bold_text("python -m crabbit {mode} {input} {output}")
         + f"\n\nexample: {bold_text('python -m crabbit download https://jinko.ai/my-project-item my-project/download-folder')}"
     )
 
@@ -16,13 +16,17 @@ def get_usage():
 parser = argparse.ArgumentParser(usage=get_usage())
 parser.add_argument(
     "mode",
-    choices=["download", "launch"],
-    help='The running mode of crabbit: currently only "download" mode is available.',
+    choices=["download", "merge"],
+    help="The running mode of crabbit: (1) download (2) merge.",
 )
-parser.add_argument("url", help="URL of the jinko project item or jinko folder.")
 parser.add_argument(
-    "path",
-    help="Path to the local working folder of crabbit, e.g. folder for downloading the results of a trial.",
+    "input",
+    nargs="*",
+    help="URL of the jinko project item or jinko folder, or local file paths.",
+)
+parser.add_argument(
+    "output",
+    help="Path to the output/path folder of crabbit, e.g. folder for downloading the results of a trial.",
 )
 crab = launcher.CrabbitAppLauncher()
 parser.parse_args(namespace=crab)

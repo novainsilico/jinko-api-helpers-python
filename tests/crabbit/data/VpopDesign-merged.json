@@ -1,0 +1,68 @@
+{
+    "computationalModelId": {
+        "coreItemId": "6b80164a-76a4-43b4-bdaa-44dfe0e96896",
+        "snapshotId": "a2f8aef2-3d42-4f97-9aa7-95d0431d948e"
+    },
+    "correlations": [
+        {
+            "x": "paramCat=highStatinOnly",
+            "y": "paramC",
+            "correlationCoefficient": -0.3
+        }
+    ],
+    "marginalDistributions": [
+        {
+            "distribution": {
+                "mixture": [
+                    [
+                        0.5,
+                        {
+                            "highBound": "+inf",
+                            "lowBound": 0,
+                            "mean": 15,
+                            "stdev": 20,
+                            "tag": "NormalTruncated"
+                        }
+                    ],
+                    [
+                        0.5,
+                        {
+                            "highBound": "+inf",
+                            "lowBound": 0,
+                            "mean": 140,
+                            "stdev": 120,
+                            "tag": "NormalTruncated"
+                        }
+                    ]
+                ],
+                "tag": "Mixture"
+            },
+            "id": "paramD"
+        },
+        {
+            "distribution": "Bernoulli(0.99)",
+            "id": "paramA"
+        },
+        {
+            "distribution": "Bernoulli(0.56)",
+            "id": "paramB"
+        },
+        {
+            "distribution": "Bernoulli(0.01)",
+            "id": "paramE"
+        }
+    ],
+    "marginalCategoricals": [
+        {
+            "id": "paramCat",
+            "distribution": {
+                "catMapping": {
+                    "lowModerateStatin": 0.3,
+                    "highStatinOnly": 0.65,
+                    "highStatinEZE": 0.05
+                },
+                "tag": "Categorical"
+            }
+        }
+    ]
+}

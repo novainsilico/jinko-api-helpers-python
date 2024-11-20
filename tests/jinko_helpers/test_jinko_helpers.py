@@ -11,7 +11,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_get.return_value = mock_response
 
-        self.assertTrue(jinko_helpers.checkAuthentication())
+        self.assertTrue(jinko_helpers.check_authentication())
 
     @patch("requests.get")
     def test_check_authentication_failure(self, mock_get):
@@ -19,7 +19,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 401
         mock_get.return_value = mock_response
 
-        self.assertFalse(jinko_helpers.checkAuthentication())
+        self.assertFalse(jinko_helpers.check_authentication())
 
     @patch("requests.request")
     def test_absolute_url_from_path(self, mock_request):
@@ -27,7 +27,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        jinko_helpers.makeRequest(
+        jinko_helpers.make_request(
             "/test-path",
         )
         (_, url), kwargs = mock_request.call_args
@@ -40,7 +40,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.json.return_value = {"key": "value"}
         mock_request.return_value = mock_response
 
-        response = jinko_helpers.makeRequest("/test-path", method="GET")
+        response = jinko_helpers.make_request("/test-path", method="GET")
         self.assertEqual(response.json(), {"key": "value"})
 
     @patch("requests.request")
@@ -48,7 +48,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response = MagicMock()
         mock_request.return_value = mock_response
 
-        jinko_helpers.makeRequest(
+        jinko_helpers.make_request(
             "/test-path?key=value1", method="GET", params={"key": ["value2", "value3"]}
         )
         _, kwargs = mock_request.call_args
@@ -62,7 +62,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.json.return_value = {"key": "value"}
         mock_request.return_value = mock_response
 
-        response = jinko_helpers.makeRequest(
+        response = jinko_helpers.make_request(
             "/test-path", method="POST", json={"data": "test"}
         )
         _, kwargs = mock_request.call_args
@@ -77,7 +77,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        jinko_helpers.makeRequest("/test-path", method="POST", csv_data="")
+        jinko_helpers.make_request("/test-path", method="POST", csv_data="")
         _, kwargs = mock_request.call_args
         self.assertTrue("data" in kwargs)
         self.assertEqual(kwargs["headers"]["Content-Type"], "text/csv")
@@ -89,7 +89,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        jinko_helpers.makeRequest(
+        jinko_helpers.make_request(
             "/test-path",
             method="POST",
             data="",
@@ -106,7 +106,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        jinko_helpers.makeRequest(
+        jinko_helpers.make_request(
             "/test-path",
             method="GET",
             data="",
@@ -129,7 +129,7 @@ class TestJinkoHelpers(unittest.TestCase):
             "folder_id": "12345",
             "version_name": "v1.0",
         }
-        jinko_helpers.makeRequest(
+        jinko_helpers.make_request(
             "/test-path",
             method="GET",
             options=options,

@@ -1,0 +1,14 @@
+{
+    "correlations": [],
+    "marginalCategoricals": [],
+    "marginalDistributions": [
+        {
+            "distribution": "Bernoulli(0.99)",
+            "id": "paramA"
+        },
+        {
+            "distribution": "Bernoulli(0.56)",
+            "id": "paramB"
+        }
+    ]
+}

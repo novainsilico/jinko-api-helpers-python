@@ -1,0 +1,52 @@
+{
+    "correlations": [
+        {
+            "x": "paramCat=highStatinOnly",
+            "y": "paramC",
+            "correlationCoefficient": -0.3
+        }
+    ],
+    "marginalCategoricals": [
+        {
+            "id": "paramCat",
+            "distribution": {
+                "catMapping": {
+                    "lowModerateStatin": 0.3,
+                    "highStatinOnly": 0.65,
+                    "highStatinEZE": 0.05
+                },
+                "tag": "Categorical"
+            }
+        }
+    ],
+    "marginalDistributions": [
+        {
+            "distribution": {
+                "mixture": [
+                    [
+                        0.5,
+                        {
+                            "highBound": "+inf",
+                            "lowBound": 0,
+                            "mean": 15,
+                            "stdev": 20,
+                            "tag": "NormalTruncated"
+                        }
+                    ],
+                    [
+                        0.5,
+                        {
+                            "highBound": "+inf",
+                            "lowBound": 0,
+                            "mean": 140,
+                            "stdev": 120,
+                            "tag": "NormalTruncated"
+                        }
+                    ]
+                ],
+                "tag": "Mixture"
+            },
+            "id": "paramD"
+        }
+    ]
+}

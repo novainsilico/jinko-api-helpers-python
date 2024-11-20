@@ -1,17 +1,18 @@
 import jinko_helpers as jinko
+from jinko_helpers.types import asDict as jinko_types
 import requests
 
 
-def get_calib_status(calib_core_id):
+def get_calib_status(calib_core_id: jinko.CoreItemId) -> jinko_types.JobStatus | None:
     """
     Retrieves the calibration status for a given calibration core ID.
 
     Args:
-        calib_core_id (dict): A dictionary containing 'id' (for the coreItemId) and 'snapshotId' keys for the calibration.
+        calib_core_id (CoreItemId): The CoreItemId of the calibration.
 
     Returns:
-        dict: A JSON object representing the calibration status if the request is successful.
-        str: An empty string if an HTTP error occurs during the request.
+        JobStatus: A string in ['completed', 'running', 'not_launched', 'stopped', 'error']
+        None: If an HTTP error occurs during the request.
     """
     try:
         response = jinko.makeRequest(
@@ -20,4 +21,4 @@ def get_calib_status(calib_core_id):
         )
         return response.json()
     except requests.exceptions.HTTPError:
-        return ""
+        return None
