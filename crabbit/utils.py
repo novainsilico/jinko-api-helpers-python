@@ -67,7 +67,7 @@ def clear_directory(directory):
                 elif entry.is_dir():
                     old_dirs.append(entry)
     except NotADirectoryError:
-        print('Error: the output path is not a folder')
+        print("Error: the output path is not a folder")
         return False
     if not old_files and not old_dirs:
         return True
@@ -96,5 +96,3 @@ def clear_directory(directory):
             return True
         k += 1
     return False
-
-

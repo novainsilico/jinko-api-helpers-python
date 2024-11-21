@@ -122,7 +122,7 @@ class TestJinkoHelpers(unittest.TestCase):
         mock_response.status_code = 200
         mock_request.return_value = mock_response
 
-        options : jinko_helpers.MakeRequestOptions
+        options: jinko_helpers.MakeRequestOptions
         options = {
             "name": "TestName",
             "description": "TestDescription",

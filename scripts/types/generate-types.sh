@@ -131,6 +131,10 @@ cd ${root_dir} && datamodel-codegen ${url_arg} ${input_arg} --output "${output_f
   --custom-template-dir ${template_dir} || exit $?
 
 echo "Python types successfully generated in ${output_file}" 1>&2
+
+echo "Linting the types file..."
+black ${output_file}
+
 exit 0
 
 # ] <-- needed because of Argbash
