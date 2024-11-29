@@ -28,6 +28,13 @@ parser.add_argument(
     "output",
     help="Path to the output/path folder of crabbit, e.g. folder for downloading the results of a trial.",
 )
+parser.add_argument(
+    "-f",
+    "--force",
+    action="store_true",
+    help="download: force cleaning the directory (not asking for confirmation).",
+)
+
 crab = launcher.CrabbitAppLauncher()
 parser.parse_args(namespace=crab)
 
