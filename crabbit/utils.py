@@ -55,7 +55,7 @@ def bold_text(text: str) -> str:
     return "\033[1m" + text + "\033[0m"
 
 
-def clear_directory(directory: str) -> None:
+def clear_directory(directory: str, force: bool) -> None:
     """Remove files and folders, so that the directory becomes empty (except for hidden files)."""
     if not os.path.exists(directory):
         print("(The folder does not exist; it will be created.)")
@@ -80,11 +80,13 @@ def clear_directory(directory: str) -> None:
     max_tries = 5
     k = 0
     while k < max_tries:
-        print(
-            "Folder already exists! Do you want to clean it up (existing content will be removed)? (y/n)",
-            end=" ",
-        )
-        answer = input()
+        answer = "y"
+        if not force:
+            print(
+                "Folder already exists! Do you want to clean it up (existing content will be removed)? (y/n)",
+                end=" ",
+            )
+            answer = input()
         if answer == "n":
             return False
         elif answer == "y":

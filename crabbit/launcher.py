@@ -38,7 +38,7 @@ class CrabbitAppLauncher:
                 self.output,
                 end="\n\n",
             )
-            if not self.force and clear_directory(self.output):
+            if clear_directory(self.output, self.force):
                 crab.run()
         elif self.mode == "merge":
             if not self.input:
