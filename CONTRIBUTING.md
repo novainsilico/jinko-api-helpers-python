@@ -15,3 +15,7 @@ poetry run black .
 poetry run python -m pydoc -p 0 jinko_helpers
 ```
 
+## Update changelog
+
+Add an entry at the top of the CHANGELOG.md file.
+
