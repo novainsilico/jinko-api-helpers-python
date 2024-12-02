@@ -3,7 +3,6 @@
 __all__ = ["CrabbitDownloader", "CrabbitMerger"]
 
 import os
-import csv
 import json
 import zipfile
 import io
@@ -25,7 +24,7 @@ class CrabbitDownloader:
     def __init__(self, project_item, output_path):
         self.project_item = project_item
         self.output_path = output_path
-        self.core_id = self.project_item.get("coreId", {})
+        self.core_id_dict = self.project_item.get("coreId", {})
 
         self.pretty_patient_name = (
             "CalibratedPatient"  # nice name to be used in calibration visualization
@@ -33,46 +32,68 @@ class CrabbitDownloader:
 
     def run(self):
         """Main function of the download app."""
-        if (
-            not self.check_valid_item_type()
-            or not self.check_calib_status()
-            or not self.download_calib_inputs()
-        ):
+        if not self.check_valid_item_type():
             return
-        if self.project_item["type"] == "Calibration":
+        download_type = self.project_item["type"]
+
+        if download_type == "Calibration":
+            if not self.check_calib_status() or not self.download_calib_inputs():
+                return
             best_patient = self.find_best_calib_patient()
             if best_patient is None:
                 return
             self.download_calib_patient_timeseries(best_patient)
             self.download_calib_patient_scalar_results(best_patient)
             print(
-                bold_text("Done!"), f"To visualize: crabbit trialViz {self.output_path}"
+                bold_text("Done!"),
+                f"To visualize: dark-crabbit -- trialViz {self.output_path}",
             )
+
+        elif download_type == "ComputationalModel":
+            model = jinko.make_request(
+                f"/core/v2/model_manager/jinko_model/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}"
+            ).json()[
+                "model"
+            ]  # discard metadata and solving options
+            version = self.project_item.get("version", {})
+            if not version or not version["label"]:
+                print(
+                    bold_text("Error:"),
+                    "Cannot download a Computational Model that is not a named version.",
+                )
+                return
+            output_file = os.path.join(self.output_path, f'{version["label"]}.json')
+            json.dump(model, open(output_file, "w", encoding="utf-8"), indent=4)
+            print(bold_text("Done!"), f"Output file: {output_file}")
+
         else:  # placeholder for future download types
             pass
 
     def check_valid_item_type(self):
-        """Check whether the project item can be downloaded (currently only "Calibration" is supported) and get its CoreItemId."""
+        """Check whether the project item can be downloaded (currently only "Calibration" or "ComputationalModel" is supported) and get its CoreItemId."""
         if (
             "type" not in self.project_item
-            or self.project_item["type"] != "Calibration"
-            or not self.core_id
+            or self.project_item["type"] not in ["Calibration", "ComputationalModel"]
+            or not self.core_id_dict
         ):
             print(
-                'Currently "crabbit download" only supports the "Calibration" item type.'
+                bold_text("Error:"),
+                'Currently "crabbit download" only supports the "Calibration" and "ComputationalModel" item types.',
             )
             return False
-        print(
-            bold_text(
-                'Note: for the "Calibration" item type, only the results of the "best patient", i.e. highest optimizationWeightedScore, will be downloaded.'
-            ),
-            end="\n\n",
-        )
+        # print an additional warning when using download on calibration
+        if self.project_item["type"] == "Calibration":
+            print(
+                bold_text(
+                    'Note: for the "Calibration" item type, only the results of the "best patient", i.e. highest optimizationWeightedScore, will be downloaded.'
+                ),
+                end="\n\n",
+            )
         return True
 
     def check_calib_status(self):
         """Check whether the calibration can be downloaded depending on its status."""
-        status = jinko.get_calib_status(self.core_id)
+        status = jinko.get_calib_status(self.core_id_dict)
         if not status:
             return False
         elif status == "not_launched":
@@ -90,8 +111,8 @@ class CrabbitDownloader:
             method="POST",
             json={
                 "calibId": {
-                    "coreItemId": self.core_id["id"],
-                    "snapshotId": self.core_id["snapshotId"],
+                    "coreItemId": self.core_id_dict["id"],
+                    "snapshotId": self.core_id_dict["snapshotId"],
                 },
                 "sortBy": "optimizationWeightedScore",
             },
@@ -109,7 +130,7 @@ class CrabbitDownloader:
         json_data = []
         try:
             response = jinko.make_request(
-                path=f"/core/v2/calibration_manager/calibration/{self.core_id['id']}/snapshots/{self.core_id['snapshotId']}/bundle",
+                path=f"/core/v2/calibration_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/bundle",
                 method="GET",
             )
             archive = zipfile.ZipFile(io.BytesIO(response.content))
@@ -191,8 +212,8 @@ class CrabbitDownloader:
                 method="POST",
                 json={
                     "calibId": {
-                        "coreItemId": self.core_id["id"],
-                        "snapshotId": self.core_id["snapshotId"],
+                        "coreItemId": self.core_id_dict["id"],
+                        "snapshotId": self.core_id_dict["snapshotId"],
                     },
                     "patientId": patient_id,
                 },
@@ -234,8 +255,8 @@ class CrabbitDownloader:
                 method="POST",
                 json={
                     "calibId": {
-                        "coreItemId": self.core_id["id"],
-                        "snapshotId": self.core_id["snapshotId"],
+                        "coreItemId": self.core_id_dict["id"],
+                        "snapshotId": self.core_id_dict["snapshotId"],
                     },
                     "patientId": patient_id,
                 },

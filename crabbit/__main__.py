@@ -32,7 +32,7 @@ parser.add_argument(
     "-f",
     "--force",
     action="store_true",
-    help="download: force cleaning the directory (not asking for confirmation).",
+    help="download: force cleaning the directory when downloading calibration best patient (not asking for confirmation).",
 )
 
 crab = launcher.CrabbitAppLauncher()
