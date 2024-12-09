@@ -18,7 +18,8 @@ class TestDownloadModel(unittest.TestCase):
         # Mock the response for `get_project_item_new`
         mock_get_project_item_new.return_value = {
             "sid": "example-sid",
-            "coreId": "example-core-id",
+            "coreId": {"id": "example-core-item-id"
+                       , "snapshotId": "example-snapshot-id"},
             "type": "ComputationalModel",
             "name": "Model A",
             "version": {"revision": 1, "label": "v1"},
@@ -81,7 +82,8 @@ class TestDownloadModel(unittest.TestCase):
         # Mock the response for `get_project_item_new`
         mock_get_project_item_new.return_value = {
             "sid": "example-sid",
-            "coreId": "example-core-id",
+            "coreId": {"id": "example-core-item-id"
+                       , "snapshotId": "example-snapshot-id"},
             "type": "ComputationalModel",
             "name": "Model A",
             "version": {"revision": 1, "label": "v1"},

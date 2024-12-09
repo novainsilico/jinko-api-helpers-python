@@ -108,6 +108,10 @@ def download_model_or_model_interface(
     )
     if model_project_item is None:
         raise Exception("Model not found")
+    if model_project_item["coreId"] is None:
+        raise Exception("Model coreId not found")
+    model_core_item_id = model_project_item["coreId"]["id"]
+    model_snapshot_id = model_project_item["coreId"]["snapshotId"]
     model_name = model_project_item["name"]
 
     if item_type == "ComputationalModel":
