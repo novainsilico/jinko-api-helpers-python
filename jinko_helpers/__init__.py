@@ -28,7 +28,6 @@ from .jinko_helpers import (
     getProjectItem as _get_project_item,
     getCoreItemId as _get_core_item_id,
     makeRequest as _make_request,
-    dataTableToSQLite as _data_table_to_sqlite,
     getProjectItemInfoFromResponse as _get_project_item_info_from_response,
     getProjectItemUrlFromSid as _get_project_item_url_from_sid,
     getProjectItemUrlFromResponse as _get_project_item_url_from_response,
@@ -54,6 +53,8 @@ from .model import (
     find_id_by_immutable_id,
 )
 
+from .data_table import data_table_to_sqlite, df_to_sqlite, csv_to_df
+
 # Apply deprecations with the proper decorator
 checkAuthentication = deprecate_alias(
     "checkAuthentication", "check_authentication", _check_authentication
@@ -64,7 +65,7 @@ getProjectItem = deprecate_alias(
 getCoreItemId = deprecate_alias("getCoreItemId", "get_core_item_id", _get_core_item_id)
 makeRequest = deprecate_alias("makeRequest", "make_request", _make_request)
 dataTableToSQLite = deprecate_alias(
-    "dataTableToSQLite", "data_table_to_sqlite", _data_table_to_sqlite
+    "dataTableToSQLite", "data_table_to_sqlite", data_table_to_sqlite
 )
 getProjectItemInfoFromResponse = deprecate_alias(
     "getProjectItemInfoFromResponse",
@@ -94,7 +95,6 @@ check_authentication = _check_authentication
 get_project_item = _get_project_item
 get_core_item_id = _get_core_item_id
 make_request = _make_request
-data_table_to_sqlite = _data_table_to_sqlite
 get_project_item_info_from_response = _get_project_item_info_from_response
 get_project_item_url_from_sid = _get_project_item_url_from_sid
 get_project_item_url_from_response = _get_project_item_url_from_response
@@ -161,4 +161,7 @@ __all__ = [
     "upload_model_version",
     "update_model_in_trial",
     "find_id_by_immutable_id",
+    "df_to_sqlite",
+    "data_table_to_sqlite",
+    "csv_to_df",
 ]

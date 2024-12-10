@@ -21,8 +21,6 @@ import requests as _requests
 import getpass as _getpass
 import json as _json
 import os as _os
-import pandas as _pandas
-import sqlite3 as _sqlite3
 from typing import List, Any, Optional, TypedDict
 from urllib.parse import urlparse
 import warnings
@@ -463,87 +461,6 @@ def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemIdDict:
         sys.stderr.write(message + "\n")
         raise Exception(message)
     return item["coreId"]
-
-
-def dataTableToSQLite(
-    data_table_file_path: str,
-):
-    """
-    Converts a CSV file to an SQLite database and encodes it in base64.
-
-    Args:
-        data_table_file_path (str): The path to the CSV file.
-
-    Returns:
-        str: The encoded SQLite database.
-
-    Raises:
-        FileNotFoundError: If the CSV file does not exist.
-
-    Examples:
-        >>> datTableToSQLite('path/to/data.csv')
-        'encoded_data_table'
-    """
-    # Step 1: Convert CSV to SQLite
-
-    # Read the CSV file
-    df = _pandas.read_csv(data_table_file_path)
-    column_real_names = df.columns.tolist()
-
-    # Rename columns to col_{i} with {i} > 0
-    column_names = ["col_%s" % (i + 1) for i, _ in enumerate(column_real_names)]
-    column_names_mapping = {}
-    for i, name in enumerate(column_real_names):
-        column_names_mapping[name] = column_names[i]
-    df.rename(columns=column_names_mapping, inplace=True)
-
-    # Connect to SQLite database (or create it)
-    data_table_sqlite_file_path = _os.path.splitext(data_table_file_path)[0] + ".sqlite"
-
-    # Remove existing file
-    try:
-        _os.remove(data_table_sqlite_file_path)
-    except:
-        pass
-
-    conn = _sqlite3.connect(data_table_sqlite_file_path)
-    cursor = conn.cursor()
-
-    # Write the DataFrame to the SQLite database
-    df.to_sql(
-        "data",
-        conn,
-        if_exists="replace",
-        index=False,
-        dtype="TEXT",
-    )
-
-    # Create the 'data_columns' table
-    cursor.execute(
-        """
-    CREATE TABLE IF NOT EXISTS data_columns (
-        name TEXT UNIQUE,
-        realname TEXT UNIQUE
-    )
-    """
-    )
-
-    # Insert column data into 'data_columns' table
-    for i, name in enumerate(column_names):
-        cursor.execute(
-            "INSERT OR IGNORE INTO data_columns (name, realname) VALUES (?, ?)",
-            (name, column_real_names[i]),
-        )
-
-    # Commit changes and close the connection
-    conn.commit()
-    conn.close()
-
-    # Step 2: Encode SQLite database in base64
-    with open(data_table_sqlite_file_path, "rb") as f:
-        encoded_data_table = _base64.b64encode(f.read()).decode("utf-8")
-
-    return encoded_data_table
 
 
 def getProjectItemInfoFromResponse(
