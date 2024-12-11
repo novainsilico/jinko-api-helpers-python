@@ -1,0 +1,21 @@
+#!/nix/store/izpf49b74i15pcr9708s3xdwyqs4jxwl-bash-5.2p32/bin/bash
+# Check if pyproject.toml has changed
+if git diff --name-only --cached | grep -q "pyproject.toml"; then
+  # Get the version from pyproject.toml
+  VERSION=$(grep '^version =' pyproject.toml | awk -F'"' '{print $2}')
+  
+  # Define the path to __version__.py
+  VERSION_FILE="jinko_helpers/__version__.py"
+
+  # Update __version__.py with the version from pyproject.toml
+  echo -e '"""' > jinko_helpers/__version__.py
+  echo -e 'jinko_helpers package version number (auto-generated).' >> jinko_helpers/__version__.py
+  echo -e '"""' >> jinko_helpers/__version__.py
+  echo -e "" >> jinko_helpers/__version__.py
+  echo -e "__version__ = \"$VERSION\"" >> jinko_helpers/__version__.py
+
+
+  # Stage the updated __version__.py for commit
+  git add $VERSION_FILE
+  echo "Updated $VERSION_FILE to version $VERSION"
+fi

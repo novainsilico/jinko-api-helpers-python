@@ -1,5 +1,5 @@
 """
-jinko_helpers package version number.
+jinko_helpers package version number (auto-generated).
 """
 
-__version__ = "0.4.0"  # Set this manually when updating the package version
+__version__ = "0.4.4"
