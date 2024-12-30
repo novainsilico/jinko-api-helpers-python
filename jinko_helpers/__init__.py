@@ -42,7 +42,7 @@ from .jinko_helpers import (
     ProjectItemInfoFromResponse,
 )
 
-from .calibration import get_calib_status
+from .calibration import get_calib_status, get_latest_calib_with_status
 
 from .model import (
     get_models_in_folder,
@@ -102,10 +102,6 @@ next_page = _next_page
 fetch_all_json = _fetch_all_json
 get_project_item_url_by_core_item_id = _get_project_item_url_by_core_item_id
 
-from .calibration import (
-    get_calib_status,
-)
-
 from .trial import (
     monitor_trial_until_completion,
     is_trial_running,
@@ -155,6 +151,7 @@ __all__ = [
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
     "get_calib_status",
+    "get_latest_calib_with_status",
     "get_models_in_folder",
     "download_model",
     "download_model_interface",

@@ -610,6 +610,7 @@ def get_project_item(
     snapshot_id: Optional[SnapshotId] = None,
     sid: Optional[str] = None,
     revision: Optional[float] = None,
+    label: Optional[str] = None,
 ) -> Optional[ProjectItem]:
     """
     Retrieve a ProjectItem from its CoreItemId, snapshotId, or its SID and revision.
@@ -619,6 +620,7 @@ def get_project_item(
         snapshot_id (str, optional): The snapshotId of the ProjectItem.
         sid (str, optional): The SID of the ProjectItem.
         revision (int, optional): The revision of the ProjectItem.
+        label (str, optional): The label of the ProjectItem.
 
     Returns:
         ProjectItem, optional: The retrieved ProjectItem, or None if not found.
@@ -627,38 +629,25 @@ def get_project_item(
         ValueError: If neither 'sid' nor 'core_item_id' is provided.
         Exception: If the parameters are ambiguous, i.e. they do not point to the same project item.
     """
-    if not sid and not core_item_id:
-        raise ValueError("You must provide either 'sid' or 'core_item_id'.")
 
-    routes = [
-        (
-            {"path": f"/app/v1/project-item/{sid}", "params": {"revision": revision}}
-            if sid
-            else None
-        ),
-        (
-            {
-                "path": f"/app/v1/core-item/{core_item_id}",
-                "params": {"snapshotId": snapshot_id},
-            }
-            if core_item_id
-            else None
-        ),
-    ]
-
-    # Filter out None values
-    routes = [route for route in routes if route is not None]
-
-    try:
-        responses = [
-            makeRequest(path=route["path"], params=route["params"]).json()
-            for route in routes
-        ]
-        if all(x == responses[0] for x in responses):
-            return list(responses)[0]
-        raise Exception(
-            "Parameters are ambiguous: they do not point to the same project item."
-        )
-
-    except Exception as e:
-        raise e  # Do not override the original exception message
+    if core_item_id:
+        return makeRequest(
+            path=f"/app/v1/core-item/{core_item_id}", params={"snapshotId": snapshot_id}
+        ).json()
+    elif sid:
+        if revision:
+            return makeRequest(
+                path=f"/app/v1/project-item/{sid}", params={"revision": revision}
+            ).json()
+        elif label:
+            labeled_versions = makeRequest(
+                path=f"/app/v1/project-item/{sid}/versions?onlyLabeled=true"
+            ).json()
+            try:
+                return next(x for x in labeled_versions if x["label"] == label)
+            except StopIteration:
+                raise ValueError(f"Unknown version label {label}")
+        else:
+            return makeRequest(path=f"/app/v1/project-item/{sid}").json()
+    else:
+        raise ValueError("You must provide either 'sid' or 'core_item_id'")

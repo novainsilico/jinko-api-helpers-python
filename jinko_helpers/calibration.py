@@ -1,6 +1,7 @@
 import jinko_helpers as jinko
 from jinko_helpers.types import asDict as jinko_types
 import requests
+from typing import List, Optional
 
 
 def get_calib_status(calib_core_id: jinko.CoreItemId) -> jinko_types.JobStatus | None:
@@ -22,3 +23,34 @@ def get_calib_status(calib_core_id: jinko.CoreItemId) -> jinko_types.JobStatus |
         return response.json()
     except requests.exceptions.HTTPError:
         return None
+
+
+def get_latest_calib_with_status(
+    shortId: str,
+    statuses: List[jinko_types.JobStatus],
+) -> dict:
+    """
+    Retrieve the latest calibration whose status is a member of the prescribed list of statuses
+
+    Args:
+        core_item_id (str): The CoreItemId of the Calibration
+        statuses (list of str): The snapshotId of the ProjectItem.
+    Returns:
+        core ID dictionary
+        Dictionary Attributes:
+            coreItemId (str): The unique identifier of the CoreItem.
+            snapshotId (str): Identifies a specific version of the CoreItem.
+
+    Raises:
+        ValueError: If no calibration having the prescribed status is found
+    """
+
+    core_item_id = jinko.getCoreItemId(shortId=shortId)["id"]
+    versions = jinko.make_request(
+        f"/core/v2/calibration_manager/calibration/{core_item_id}/status"
+    ).json()
+    try:
+        latest_version = next(item for item in versions if item["status"] in statuses)
+        return latest_version["simulationId"]
+    except StopIteration:
+        raise ValueError(f"Found no calibration with status among {statuses}")

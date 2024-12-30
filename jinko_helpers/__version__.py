@@ -2,4 +2,4 @@
 jinko_helpers package version number (auto-generated).
 """
 
-__version__ = "0.4.4"
+__version__ = "0.4.6"
