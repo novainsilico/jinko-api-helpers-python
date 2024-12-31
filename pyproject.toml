@@ -6,9 +6,8 @@ authors = ["SSE Team <oss@novainsilico.ai>"]
 readme = "README.md"
 packages = [
     { include = "jinko_helpers" }
-    , { include = "jinko_stats" }
     , { include = "crabbit" }
-    ]
+    , { include = "jinko_stats" }]
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
@@ -17,6 +16,12 @@ pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
 datamodel-code-generator = {extras = ["http"], version = "^0.26.3"}
+# deep learning material
+freia = "^0.2"
+torch = "^2.4.1"
+matplotlib = "^3.9.2"
+scikit-learn = "^1.5.2"
+seaborn = "^0.13.2"
 
 [tool.poetry.group.dev.dependencies]
 pylint ="^2.14.0"
