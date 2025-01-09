@@ -103,6 +103,7 @@ fetch_all_json = _fetch_all_json
 get_project_item_url_by_core_item_id = _get_project_item_url_by_core_item_id
 
 from .trial import (
+    is_trial_completed,
     monitor_trial_until_completion,
     is_trial_running,
 )
@@ -141,6 +142,7 @@ __all__ = [
     "getProjectItemUrlByCoreItemId",
     "get_project_item_url_by_core_item_id",
     "monitor_trial_until_completion",
+    "is_trial_completed",
     "is_trial_running",
     "show_plot_conditionally",
     "get_vpop_content",

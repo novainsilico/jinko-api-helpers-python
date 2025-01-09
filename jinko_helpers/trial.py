@@ -1,20 +1,43 @@
 import jinko_helpers as jinko
 from math import ceil
+import requests
 import time
 import pandas as pd
 from tqdm import tqdm
 
 
+def is_trial_completed(trial_core_id: jinko.CoreItemId) -> bool | None:
+    """
+    Checks if the trial is running.
+
+    Args:
+        trial_core_id (CoreItemId): The CoreItemId of the trial.
+
+    Returns:
+        bool: True if the trial is running, False otherwise.
+        None: If an HTTP error occurs during the request.
+    """
+    try:
+        response = jinko.makeRequest(
+            path=f"/core/v2/trial_manager/trial/{trial_core_id['id']}/snapshots/{trial_core_id['snapshotId']}/status",
+            method="GET",
+        )
+        response_json = response.json()
+        return response_json["status"] == "completed"
+    except requests.exceptions.HTTPError:
+        return None
+
+
 def is_trial_running(trial_core_item_id, trial_snapshot_id):
     """
-    Checks if the trial is completed.
+    Checks if the trial is running.
 
     Args:
         trial_core_item_id (str): The CoreItemId of the trial.
         trial_snapshot_id (str): The snapshot ID of the trial.
 
     Returns:
-        bool: True if the trial is completed, False otherwise.
+        bool: True if the trial is running, False otherwise.
     """
     response = jinko.makeRequest(
         path=f"/core/v2/trial_manager/trial/{trial_core_item_id}/snapshots/{trial_snapshot_id}/status"

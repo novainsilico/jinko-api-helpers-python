@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.7 | 2025-01-09
+
+### Added
+- (crabbit) extend `download` to downloading the timeseries of a Trial without vpop
+
 ## v0.4.4 | 2024-12-02
 
 ### Added

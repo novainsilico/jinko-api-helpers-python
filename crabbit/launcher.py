@@ -34,8 +34,8 @@ class CrabbitAppLauncher:
             print(
                 f'Downloading jinko project item "{self.input[0]}" to {self.output}\n',
             )
-            # only clean directory if the download type is Calibration
-            if project_item["type"] == "Calibration":
+            # only clean directory if the download type is Trial or Calibration
+            if project_item["type"] in ["Calibration", "Trial"]:
                 if clear_directory(self.output, self.force):
                     crab.run()
             else:

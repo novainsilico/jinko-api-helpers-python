@@ -37,13 +37,23 @@ class CrabbitDownloader:
         download_type = self.project_item["type"]
 
         if download_type == "Calibration":
-            if not self.check_calib_status() or not self.download_calib_inputs():
+            if not self.check_calib_status() or not self.download_scorings(calib=True):
                 return
             best_patient = self.find_best_calib_patient()
             if best_patient is None:
                 return
             self.download_calib_patient_timeseries(best_patient)
             self.download_calib_patient_scalar_results(best_patient)
+            print(
+                bold_text("Done!"),
+                f"To visualize: dark-crabbit -- trialViz {self.output_path}",
+            )
+
+        elif download_type == "Trial":
+            if not self.check_trial_status() or not self.check_trial_without_vpop():
+                return
+            self.download_scorings(calib=False)
+            self.download_trial_without_vpop_timeseries()
             print(
                 bold_text("Done!"),
                 f"To visualize: dark-crabbit -- trialViz {self.output_path}",
@@ -73,12 +83,13 @@ class CrabbitDownloader:
         """Check whether the project item can be downloaded (currently only "Calibration" or "ComputationalModel" is supported) and get its CoreItemId."""
         if (
             "type" not in self.project_item
-            or self.project_item["type"] not in ["Calibration", "ComputationalModel"]
+            or self.project_item["type"]
+            not in ["Calibration", "ComputationalModel", "Trial"]
             or not self.core_id_dict
         ):
             print(
                 bold_text("Error:"),
-                'Currently "crabbit download" only supports the "Calibration" and "ComputationalModel" item types.',
+                'Currently "crabbit download" only supports the "Calibration", "Trial" and "ComputationalModel" item types.',
             )
             return False
         # print an additional warning when using download on calibration
@@ -103,6 +114,31 @@ class CrabbitDownloader:
             print("Warning: the status of the calibration is", status)
         return True
 
+    def check_trial_status(self):
+        """Check whether the trial can be downloaded depending on its status."""
+        is_completed = jinko.is_trial_completed(self.core_id_dict)
+        if not is_completed:
+            print("Error: trial is not completed! (is it the correct version?)")
+            return False
+        return True
+
+    def check_trial_without_vpop(self):
+        try:
+            response = jinko.makeRequest(
+                path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}",
+                method="GET",
+            )
+            response_json = response.json()
+            if "vpopId" in response_json:
+                print(
+                    bold_text("Error:"),
+                    'Currently "crabbit download" only supports Trial without any vpop (single patient trial).',
+                )
+                return False
+            return True
+        except requests.exceptions.HTTPError:
+            return False
+
     def find_best_calib_patient(self):
         """Return the "patientNumber" of the best calibration patient, i.e. highest optimizationWeightedScore."""
         print("Finding the ID of the best calib patient...")
@@ -124,13 +160,15 @@ class CrabbitDownloader:
         print("Best patient is", best_patient, end="\n\n")
         return best_patient
 
-    def download_calib_inputs(self):
-        """Download calibration inputs (currently only scorings and data tables are downloaded)."""
+    def download_scorings(self, calib):
+        """Download calibration/trial inputs (currently only scorings and data tables are downloaded)."""
+        route = "calibration_manager/calibration" if calib else "trial_manager/trial"
+        pretty_name = "calibration" if calib else "trial"
         csv_data = {}
         json_data = []
         try:
             response = jinko.make_request(
-                path=f"/core/v2/calibration_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/bundle",
+                path=f"/core/v2/{route}/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/bundle",
                 method="GET",
             )
             archive = zipfile.ZipFile(io.BytesIO(response.content))
@@ -145,12 +183,13 @@ class CrabbitDownloader:
                     json_data.append(json.loads(archive.read(item).decode("utf-8")))
         except requests.exceptions.HTTPError:
             print(
-                "Error: failed to download calibration inputs (scorings and data tables)."
+                f"Error: failed to download {pretty_name} inputs (scorings and data tables)."
             )
             return False
-        assert (
-            json_data or csv_data
-        ), "Something wrong happened (calibration without scoring nor data table)."
+        if calib:
+            assert (
+                json_data or csv_data
+            ), "Something wrong happened (calibration without scoring nor data table)."
         if json_data:
             merged_json_scorings = {
                 "objectives": sum((item["objectives"] for item in json_data), [])
@@ -197,7 +236,9 @@ class CrabbitDownloader:
                         csv_df.to_csv(
                             os.path.join(self.output_path, csv_name), index=False
                         )
-        print("Downloaded calibration inputs (scorings and data tables).", end="\n\n")
+        print(
+            f"Downloaded {pretty_name} inputs (scorings and data tables).", end="\n\n"
+        )
         return True
 
     def download_calib_patient_timeseries(self, patient_id):
@@ -233,6 +274,80 @@ class CrabbitDownloader:
         except (requests.exceptions.HTTPError, TypeError, KeyError):
             print("Error: failed to download the timeseries.")
             return
+        arm_count = len(arms)
+        print(
+            f'Successfully downloaded the timeseries of {arm_count} protocol arm{"s" if arm_count > 1 else ""}.',
+            end="\n\n",
+        )
+
+    def download_trial_without_vpop_timeseries(self):
+        """Download the no-vpop-trial patient's timeseries."""
+        print("Downloading the timeseries of the trial patient...")
+        timeseries_path = os.path.join(self.output_path, "ModelResult")
+        os.mkdir(timeseries_path)
+        try:
+            response = jinko.make_request(
+                path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/output_ids",
+                method="GET",
+            )
+            ts_ids = response.json()
+            response = jinko.make_request(
+                path=f"/core/v2/result_manager/timeseries_summary",
+                method="POST",
+                json={
+                    "select": ts_ids,
+                    "trialId": {
+                        "coreItemId": self.core_id_dict["id"],
+                        "snapshotId": self.core_id_dict["snapshotId"],
+                    },
+                },
+            )
+            patient_ts_data = None
+            ts_unit = {}
+            archive = zipfile.ZipFile(io.BytesIO(response.content))
+            for item in archive.namelist():
+                if item.startswith("timeseries-"):
+                    patient_ts_data = pd.read_csv(
+                        io.StringIO(archive.read(item).decode("utf-8")), sep=","
+                    )
+                    arms = patient_ts_data["Arm"].unique()
+                    patient_id = list(patient_ts_data["Patient Id"]).pop()
+                elif item.startswith("metadata-"):
+                    ts_metadata = pd.read_csv(
+                        io.StringIO(archive.read(item).decode("utf-8")), sep=","
+                    )
+                    for _, row in ts_metadata.iterrows():
+                        ts_unit[row["id"]] = row["unit"]
+        except (requests.exceptions.HTTPError, IndexError, KeyError):
+            print("Error: failed to download the timeseries.")
+            return
+        if patient_ts_data is None or not ts_unit:
+            print("Error: failed to download the timeseries.")
+            return
+        # adding the unit of the three technical timeseries
+        ts_unit["Time"] = "s"
+        ts_unit["__jinkoSolvingTime"] = "s"
+        ts_unit["__jinkoAllocationMiB"] = "dimensionless"
+        for arm in arms:
+            arm_ts_json = []
+            arm_table = patient_ts_data[patient_ts_data["Arm"] == arm]
+            for ts_id in ts_ids:
+                ts_table = arm_table[arm_table["Descriptor"] == ts_id]
+                ts_array = list(ts_table["Value"])
+                assert (
+                    ts_id in ts_unit and len(ts_array) > 0
+                ), "Something wrong happened (incomplete donwload)!"
+                arm_ts_json.append(
+                    {
+                        "id": ts_id,
+                        "unit": ts_unit[ts_id],
+                        "size": len(ts_array),
+                        "vals": ts_array,
+                    }
+                )
+
+            result_path = os.path.join(timeseries_path, f"{patient_id}_{arm}.json")
+            json.dump({"res": arm_ts_json}, open(result_path, "w", encoding="utf-8"))
         arm_count = len(arms)
         print(
             f'Successfully downloaded the timeseries of {arm_count} protocol arm{"s" if arm_count > 1 else ""}.',
