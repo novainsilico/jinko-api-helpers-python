@@ -1,3 +1,7 @@
+from jinko_stats.dependencies.dependency_checker import check_dependencies
+
+check_dependencies(["torch"])
+
 import torch
 from tqdm import tqdm
 from torch.nn import KLDivLoss

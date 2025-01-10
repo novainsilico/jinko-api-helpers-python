@@ -16,12 +16,19 @@ pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
 datamodel-code-generator = {extras = ["http"], version = "^0.26.3"}
-# deep learning material
 freia = "^0.2"
 torch = "^2.4.1"
 matplotlib = "^3.9.2"
 scikit-learn = "^1.5.2"
 seaborn = "^0.13.2"
+
+[tool.poetry.extras]
+jinko-stats-deps = [
+    "freia",
+    "torch",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn"]
 
 [tool.poetry.group.dev.dependencies]
 pylint ="^2.14.0"

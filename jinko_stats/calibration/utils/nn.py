@@ -1,9 +1,13 @@
+from jinko_stats.dependencies.dependency_checker import check_dependencies
+
+check_dependencies(["FrEIA", "torch"])
+
+import jinko_stats.calibration.utils.layers as l
 import FrEIA.framework as Ff
 import FrEIA.modules as Fm
 import torch
 from torch import nn
 from torch.optim.lr_scheduler import ExponentialLR
-import jinko_stats.calibration.utils.layers as l
 
 
 ## NEURAL NETWORK DEFINITION

@@ -1,12 +1,6 @@
-from typing import Optional, Union
-from sklearn.model_selection import train_test_split
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-from torch.utils.data import DataLoader
-import torch
-import numpy as np
+from jinko_stats.dependencies.dependency_checker import check_dependencies
 
+check_dependencies(["sklearn.model_selection", "seaborn", "matplotlib", "torch"])
 
 from jinko_stats.calibration.utils.nn import invertible_nn
 from jinko_stats.calibration.utils.data import (
@@ -18,6 +12,14 @@ from jinko_stats.calibration.utils.data import (
 )
 from jinko_stats.calibration.utils.train import train_model_display
 from jinko_helpers.types import asDict as jinko_types
+import matplotlib.pyplot as plt
+from torch.utils.data import DataLoader
+import torch
+import seaborn as sns
+from typing import Optional, Union
+from sklearn.model_selection import train_test_split
+import pandas as pd
+import numpy as np
 
 
 class INN:

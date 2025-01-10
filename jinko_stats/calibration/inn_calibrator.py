@@ -1,4 +1,7 @@
-from typing import List, Optional, Tuple
+from jinko_stats.dependencies.dependency_checker import check_dependencies
+
+check_dependencies(["matplotlib", "torch"])
+
 from jinko_stats.calibration.inn import INN
 from jinko_stats.calibration.utils.data import (
     normalize_df,
@@ -6,6 +9,7 @@ from jinko_stats.calibration.utils.data import (
     denormalize_input_df,
 )
 from jinko_helpers.types import asDict as jinko_types
+from typing import List, Optional, Tuple
 import matplotlib.pyplot as plt
 import numpy as np
 import os

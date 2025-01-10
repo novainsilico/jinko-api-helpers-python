@@ -1,3 +1,7 @@
+from jinko_stats.dependencies.dependency_checker import check_dependencies
+
+check_dependencies(["torch"])
+
 import numpy as np
 from torch.utils.data import Dataset
 import pandas as pd

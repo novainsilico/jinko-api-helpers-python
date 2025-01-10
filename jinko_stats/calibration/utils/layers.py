@@ -1,5 +1,8 @@
-from math import exp
+from jinko_stats.dependencies.dependency_checker import check_dependencies
 
+check_dependencies(["torch"])
+
+from math import exp
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
