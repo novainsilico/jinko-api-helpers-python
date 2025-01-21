@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jinko-sdk"
-version = "0.4.7"
+version = "0.4.8"
 description = "A Python package containing jinko_helpers, jinko_stats, and crabbit modules aimed to be used with Jinko.ai API"
 authors = ["SSE Team <oss@novainsilico.ai>"]
 readme = "README.md"
@@ -11,26 +11,23 @@ packages = [
 
 [tool.poetry.dependencies]
 python = ">=3.12,<4.0"
-black = {version = "^24.4.2"}
 pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
-datamodel-code-generator = {extras = ["http"], version = "^0.26.3"}
-freia = "^0.2"
-torch = "^2.4.1"
 matplotlib = "^3.9.2"
-scikit-learn = "^1.5.2"
 seaborn = "^0.13.2"
 
-[tool.poetry.extras]
-jinko-stats-deps = [
-    "freia",
-    "torch",
-    "scikit-learn",
-    "matplotlib",
-    "seaborn"]
+[tool.poetry.group.jinko-stats]  # poetry install --with jinko-stats
+optional = true
+
+[tool.poetry.group.jinko-stats.dependencies]
+freia = "^0.2"
+torch = "^2.4.1"
+scikit-learn = "^1.5.2"
 
 [tool.poetry.group.dev.dependencies]
+datamodel-code-generator = {extras = ["http"], version = "^0.26.3"}
+black = {version = "^24.4.2"}
 pylint ="^2.14.0"
 pytest = "^8.3.3"
 pytest-cov ="^3.0.0"
