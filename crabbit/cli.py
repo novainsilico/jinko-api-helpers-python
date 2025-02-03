@@ -283,8 +283,7 @@ class CrabbitDownloader:
     def download_trial_without_vpop_timeseries(self):
         """Download the no-vpop-trial patient's timeseries."""
         print("Downloading the timeseries of the trial patient...")
-        timeseries_path = os.path.join(self.output_path, "ModelResult")
-        os.mkdir(timeseries_path)
+        timeseries_path = os.path.join(self.output_path, "ModelResult.zip")
         try:
             response = jinko.make_request(
                 path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/output_ids",
@@ -302,55 +301,13 @@ class CrabbitDownloader:
                     },
                 },
             )
-            patient_ts_data = None
-            ts_unit = {}
-            archive = zipfile.ZipFile(io.BytesIO(response.content))
-            for item in archive.namelist():
-                if item.startswith("timeseries-"):
-                    patient_ts_data = pd.read_csv(
-                        io.StringIO(archive.read(item).decode("utf-8")), sep=","
-                    )
-                    arms = patient_ts_data["Arm"].unique()
-                    patient_id = list(patient_ts_data["Patient Id"]).pop()
-                elif item.startswith("metadata-"):
-                    ts_metadata = pd.read_csv(
-                        io.StringIO(archive.read(item).decode("utf-8")), sep=","
-                    )
-                    for _, row in ts_metadata.iterrows():
-                        ts_unit[row["id"]] = row["unit"]
+            with open(timeseries_path, "wb") as output_file:
+                output_file.write(response.content)
         except (requests.exceptions.HTTPError, IndexError, KeyError):
             print("Error: failed to download the timeseries.")
             return
-        if patient_ts_data is None or not ts_unit:
-            print("Error: failed to download the timeseries.")
-            return
-        # adding the unit of the three technical timeseries
-        ts_unit["Time"] = "s"
-        ts_unit["__jinkoSolvingTime"] = "s"
-        ts_unit["__jinkoAllocationMiB"] = "dimensionless"
-        for arm in arms:
-            arm_ts_json = []
-            arm_table = patient_ts_data[patient_ts_data["Arm"] == arm]
-            for ts_id in ts_ids:
-                ts_table = arm_table[arm_table["Descriptor"] == ts_id]
-                ts_array = list(ts_table["Value"])
-                assert (
-                    ts_id in ts_unit and len(ts_array) > 0
-                ), "Something wrong happened (incomplete donwload)!"
-                arm_ts_json.append(
-                    {
-                        "id": ts_id,
-                        "unit": ts_unit[ts_id],
-                        "size": len(ts_array),
-                        "vals": ts_array,
-                    }
-                )
-
-            result_path = os.path.join(timeseries_path, f"{patient_id}_{arm}.json")
-            json.dump({"res": arm_ts_json}, open(result_path, "w", encoding="utf-8"))
-        arm_count = len(arms)
         print(
-            f'Successfully downloaded the timeseries of {arm_count} protocol arm{"s" if arm_count > 1 else ""}.',
+            f"Successfully downloaded the timeseries.",
             end="\n\n",
         )
 

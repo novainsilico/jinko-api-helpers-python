@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.4.9 | 2025-02-03
+
+### Changed
+- (crabbit/download) do not convert downloaded timseries from zip to json
+
 ## v0.4.7 | 2025-01-09
 
 ### Added
