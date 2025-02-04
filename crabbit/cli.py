@@ -192,7 +192,14 @@ class CrabbitDownloader:
             ), "Something wrong happened (calibration without scoring nor data table)."
         if json_data:
             merged_json_scorings = {
-                "objectives": sum((item["objectives"] for item in json_data), [])
+                "objectives": sum(
+                    (
+                        (item["objectives"] for item in json_data)
+                        if "objectives" in item
+                        else []
+                    ),
+                    [],
+                )
             }
             if merged_json_scorings["objectives"]:
                 json_path = os.path.join(self.output_path, "Scorings.json")
@@ -249,6 +256,14 @@ class CrabbitDownloader:
         arms = []
         try:
             response = jinko.make_request(
+                path=f"/core/v2/calibration_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
+                method="GET",
+            )
+            ts_ids = response.json()["timeseries"]
+            if "Time" not in ts_ids:
+                print("Error: failed to download the timeseries.")
+                return
+            response = jinko.make_request(
                 path=f"/core/v2/result_manager/calibration/model_result",
                 method="POST",
                 json={
@@ -257,6 +272,7 @@ class CrabbitDownloader:
                         "snapshotId": self.core_id_dict["snapshotId"],
                     },
                     "patientId": patient_id,
+                    "select": ts_ids,
                 },
             )
             for arm_item in response.json():
