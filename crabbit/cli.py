@@ -259,7 +259,7 @@ class CrabbitDownloader:
                 path=f"/core/v2/calibration_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
                 method="GET",
             )
-            ts_ids = response.json()["timeseries"]
+            ts_ids = [item["id"] for item in response.json()["timeseries"]]
             if "Time" not in ts_ids:
                 print("Error: failed to download the timeseries.")
                 return
@@ -276,7 +276,7 @@ class CrabbitDownloader:
                 },
             )
             for arm_item in response.json():
-                arm_name = arm_item["group"][0]["contents"]
+                arm_name = arm_item["indexes"]["scenarioArm"]
                 arms.append(arm_name)
                 assert (
                     arm_item["indexes"]["patientNumber"] == patient_id
@@ -305,7 +305,7 @@ class CrabbitDownloader:
                 path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/output_ids",
                 method="GET",
             )
-            ts_ids = response.json()
+            ts_ids = [item["id"] for item in response.json()]
             response = jinko.make_request(
                 path=f"/core/v2/result_manager/timeseries_summary",
                 method="POST",
@@ -366,7 +366,7 @@ class CrabbitDownloader:
                 [True, False],
             ):
                 for arm_item in response[response_subtype]:
-                    arm_name = arm_item["group"][0]["contents"]
+                    arm_name = arm_item["indexes"]["scenarioArm"]
                     is_cross = arm_name == "crossArms"
                     if not is_cross:
                         arms.add(arm_name)
