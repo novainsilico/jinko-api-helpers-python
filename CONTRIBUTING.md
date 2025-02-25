@@ -1,6 +1,15 @@
 ## Test
+
 ```
 poetry run pytest tests
+```
+
+## Regenerate the sdk
+
+Run this from a valid poetry environment:
+
+```sh
+just sdk
 ```
 
 ## Lint

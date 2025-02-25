@@ -22,6 +22,7 @@
             # Add interactive bash to support `poetry shell`
             pkgs.bashInteractive
             pkgs.curl
+            pkgs.just
           ];
           shellInit = ''
             export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [

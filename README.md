@@ -36,6 +36,8 @@ projectItem = jinko.makeRequest(
 ```
 
 
+## Contributing
 
+Check the [dedicated instructions](./CONTRIBUTING.md).
 
 Find out more at [Jinko Doc](https://doc.jinko.ai)
