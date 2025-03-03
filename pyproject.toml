@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "jinko-sdk"
-version = "0.4.13"
+version = "0.4.14"
 description = "A Python package containing jinko_helpers, jinko_stats, and crabbit modules aimed to be used with Jinko.ai API"
 authors = ["SSE Team <oss@novainsilico.ai>"]
 readme = "README.md"
@@ -11,7 +11,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.12,<4.0"
+python = ">=3.10,<4.0"
 pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
