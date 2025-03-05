@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 
 
-def is_trial_completed(trial_core_id: jinko.CoreItemId) -> bool | None:
+def is_trial_completed(trial_core_id) -> bool | None:
     """
     Checks if the trial is running.
 

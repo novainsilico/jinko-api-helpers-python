@@ -2,22 +2,15 @@ import os
 import jinko_helpers as jinko
 from typing import List, Any, Literal, Optional, Union, cast
 import json
-from jinko_helpers.types.api_types_dict import (
-    ModelInterface,
-    ModelWithOptsWithMetadata,
-    ProjectItemResponseModelWithOpts,
-    SnapshotId,
-    CoreItemId,
-)
 
 
 def download_model(
-    model_core_item_id: Optional[CoreItemId] = None,
-    model_snapshot_id: Optional[SnapshotId] = None,
+    model_core_item_id=None,
+    model_snapshot_id=None,
     model_sid: Optional[str] = None,
     model_revision: Optional[int] = None,
     file_path_for_saving: Optional[str] = None,
-) -> ModelWithOptsWithMetadata:
+):
     """
     Downloads a model from the Jinko platform and optionally saves it to a local file.
 
@@ -45,16 +38,16 @@ def download_model(
         raise TypeError(
             f"Expected return type 'ModelWithOptsWithMetadata', but got {type(model).__name__} with missing keys."
         )
-    return cast(ModelWithOptsWithMetadata, model)
+    return model
 
 
 def download_model_interface(
-    model_core_item_id: Optional[CoreItemId] = None,
-    model_snapshot_id: Optional[SnapshotId] = None,
+    model_core_item_id=None,
+    model_snapshot_id=None,
     model_sid: Optional[str] = None,
     model_revision: Optional[int] = None,
     file_path_for_saving: Optional[str] = None,
-) -> ModelInterface:
+):
     """
     Downloads a model interface version from the Jinko platform and optionally saves it to a local file.
 
@@ -77,17 +70,17 @@ def download_model_interface(
         file_path_for_saving,
     )
     # poor man solution for type checking
-    return cast(ModelInterface, model_interface)
+    return model_interface
 
 
 def download_model_or_model_interface(
     item_type: Literal["ComputationalModel", "ModelInterface"],
-    model_core_item_id: Optional[CoreItemId] = None,
-    model_snapshot_id: Optional[SnapshotId] = None,
+    model_core_item_id=None,
+    model_snapshot_id=None,
     model_sid: Optional[str] = None,
     model_revision: Optional[int] = None,
     file_path_for_saving: Optional[str] = None,
-) -> Union[ModelWithOptsWithMetadata, ModelInterface]:
+):
     """
     Downloads a model or model interface from the Jinko platform and optionally saves it to a local file. To be used internally.
 
@@ -148,7 +141,7 @@ def download_model_or_model_interface(
     return model
 
 
-def get_models_in_folder(folder_id: str) -> dict[str, dict[CoreItemId, str]]:
+def get_models_in_folder(folder_id: str):
     """
     Retrieves a dictionary of computational models from a specified folder.
 
@@ -208,9 +201,7 @@ def upload_model_version(
     return response.json()
 
 
-def update_model_in_trial(
-    trial_sid: str, model_core_item_id: CoreItemId, model_snapshot_id: SnapshotId
-) -> ProjectItemResponseModelWithOpts:
+def update_model_in_trial(trial_sid: str, model_core_item_id, model_snapshot_id):
     """
     Updates a clinical trial with the latest computational model version.
 
@@ -230,7 +221,7 @@ def update_model_in_trial(
 
     # update the trial with the specified model version
     response = jinko.make_request(
-        path=f"/core/v2/trial_manager/trial/{trial_id["id"]}/snapshots/{trial_id["snapshotId"]}",
+        path=f"/core/v2/trial_manager/trial/{trial_id['id']}/snapshots/{trial_id['snapshotId']}",
         method="PATCH",
         json={
             "computationalModelId": {

@@ -1,9 +1,8 @@
 import jinko_helpers as jinko
-from jinko_helpers.types import asDict as jinko_types
 import requests
 
 
-def get_vpop_content(vpop_sid: str) -> jinko_types.Vpop | None:
+def get_vpop_content(vpop_sid: str):
     """
     Retrieves the JSON data of a VPOP given its SID.
 
@@ -27,7 +26,7 @@ def get_vpop_content(vpop_sid: str) -> jinko_types.Vpop | None:
 
 def get_vpop_design_content(
     vpop_design_sid: str,
-) -> jinko_types.VpopDesignWithModel | None:
+):
     """
     Retrieves the JSON data of a VpopDesign given its SID.
 

@@ -1,10 +1,9 @@
 import jinko_helpers as jinko
-from jinko_helpers.types import asDict as jinko_types
 import requests
 from typing import List, Optional
 
 
-def get_calib_status(calib_core_id: jinko.CoreItemId) -> jinko_types.JobStatus | None:
+def get_calib_status(calib_core_id):
     """
     Retrieves the calibration status for a given calibration core ID.
 
@@ -27,7 +26,7 @@ def get_calib_status(calib_core_id: jinko.CoreItemId) -> jinko_types.JobStatus |
 
 def get_latest_calib_with_status(
     shortId: str,
-    statuses: List[jinko_types.JobStatus],
+    statuses: List,
 ) -> dict:
     """
     Retrieve the latest calibration whose status is a member of the prescribed list of statuses

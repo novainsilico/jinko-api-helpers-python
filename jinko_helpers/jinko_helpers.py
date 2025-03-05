@@ -9,12 +9,6 @@
 
 import sys
 
-from jinko_helpers.types.api_types_dict import (
-    ProjectItem,
-    ProjectItemVersion,
-    SnapshotId,
-    CoreItemId,
-)
 from .__version__ import __version__
 import base64 as _base64
 import requests as _requests
@@ -584,9 +578,7 @@ def show_plot_conditionally(fig, file_name=None):
         print(f"Plot saved to {file_name} . Please open it in a web browser.")
 
 
-def list_project_item_versions(
-    sid: str, only_labeled: bool = False
-) -> List[ProjectItemVersion]:
+def list_project_item_versions(sid: str, only_labeled: bool = False):
     """
     Retrieve the list of versions of a given ProjectItem.
 
@@ -606,12 +598,12 @@ def list_project_item_versions(
 
 
 def get_project_item(
-    core_item_id: Optional[CoreItemId] = None,
-    snapshot_id: Optional[SnapshotId] = None,
+    core_item_id=None,
+    snapshot_id=None,
     sid: Optional[str] = None,
     revision: Optional[float] = None,
     label: Optional[str] = None,
-) -> Optional[ProjectItem]:
+):
     """
     Retrieve a ProjectItem from its CoreItemId, snapshotId, or its SID and revision.
 

@@ -37,7 +37,6 @@ from .jinko_helpers import (
     show_plot_conditionally,
     list_project_item_versions,
     get_project_item as get_project_item_new,
-    CoreItemId,
     MakeRequestOptions,
     ProjectItemInfoFromResponse,
 )
@@ -149,7 +148,6 @@ __all__ = [
     "get_vpop_design_content",
     "list_project_item_versions",
     "get_project_item_new",
-    "CoreItemId",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
     "get_calib_status",
