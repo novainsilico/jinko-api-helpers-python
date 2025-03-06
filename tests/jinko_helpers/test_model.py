@@ -5,7 +5,7 @@ import json
 
 
 class TestDownloadModel(unittest.TestCase):
-    @patch("jinko_helpers.get_project_item_new")
+    @patch("jinko_helpers.get_project_item")
     @patch("jinko_helpers.make_request")
     @patch(
         "os.path.join",
@@ -13,10 +13,10 @@ class TestDownloadModel(unittest.TestCase):
     )
     @patch("builtins.open", new_callable=mock_open)
     def test_download_model(
-        self, mock_file, mock_path_join, mock_make_request, mock_get_project_item_new
+        self, mock_file, mock_path_join, mock_make_request, mock_get_project_item
     ):
-        # Mock the response for `get_project_item_new`
-        mock_get_project_item_new.return_value = {
+        # Mock the response for `get_project_item`
+        mock_get_project_item.return_value = {
             "sid": "example-sid",
             "coreId": {
                 "id": "example-core-item-id",
@@ -66,7 +66,7 @@ class TestDownloadModel(unittest.TestCase):
         # Ensure the written content matches the expected JSON
         self.assertEqual(json.loads(written_content), expected_json_response)
 
-    @patch("jinko_helpers.get_project_item_new")
+    @patch("jinko_helpers.get_project_item")
     @patch("jinko_helpers.make_request")
     @patch(
         "os.path.join",
@@ -78,11 +78,11 @@ class TestDownloadModel(unittest.TestCase):
         mock_file,
         mock_path_join,
         mock_make_request,
-        mock_get_project_item_new,
+        mock_get_project_item,
     ):
 
-        # Mock the response for `get_project_item_new`
-        mock_get_project_item_new.return_value = {
+        # Mock the response for `get_project_item`
+        mock_get_project_item.return_value = {
             "sid": "example-sid",
             "coreId": {
                 "id": "example-core-item-id",

@@ -25,7 +25,6 @@ def deprecate_alias(old_name, new_name, new_func):
 from .jinko_helpers import (
     initialize,
     checkAuthentication as _check_authentication,
-    getProjectItem as _get_project_item,
     getCoreItemId as _get_core_item_id,
     makeRequest as _make_request,
     getProjectItemInfoFromResponse as _get_project_item_info_from_response,
@@ -36,7 +35,8 @@ from .jinko_helpers import (
     getProjectItemUrlByCoreItemId as _get_project_item_url_by_core_item_id,
     show_plot_conditionally,
     list_project_item_versions,
-    get_project_item as get_project_item_new,
+    get_project_item,
+    get_sid_revision_from_url,
     MakeRequestOptions,
     ProjectItemInfoFromResponse,
 )
@@ -57,9 +57,6 @@ from .data_table import data_table_to_sqlite, df_to_sqlite, csv_to_df
 # Apply deprecations with the proper decorator
 checkAuthentication = deprecate_alias(
     "checkAuthentication", "check_authentication", _check_authentication
-)
-getProjectItem = deprecate_alias(
-    "getProjectItem", "get_project_item", _get_project_item
 )
 getCoreItemId = deprecate_alias("getCoreItemId", "get_core_item_id", _get_core_item_id)
 makeRequest = deprecate_alias("makeRequest", "make_request", _make_request)
@@ -91,7 +88,6 @@ getProjectItemUrlByCoreItemId = deprecate_alias(
 
 # Assign snake_case versions directly
 check_authentication = _check_authentication
-get_project_item = _get_project_item
 get_core_item_id = _get_core_item_id
 make_request = _make_request
 get_project_item_info_from_response = _get_project_item_info_from_response
@@ -120,7 +116,6 @@ __all__ = [
     "initialize",
     "checkAuthentication",
     "check_authentication",
-    "getProjectItem",
     "get_project_item",
     "getCoreItemId",
     "get_core_item_id",
@@ -147,7 +142,8 @@ __all__ = [
     "get_vpop_content",
     "get_vpop_design_content",
     "list_project_item_versions",
-    "get_project_item_new",
+    "get_project_item",
+    "get_sid_revision_from_url",
     "MakeRequestOptions",
     "ProjectItemInfoFromResponse",
     "get_calib_status",

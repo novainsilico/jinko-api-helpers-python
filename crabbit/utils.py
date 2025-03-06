@@ -1,7 +1,6 @@
 """Utility functions used in the crabbit package."""
 
 __all__ = [
-    "get_sid_revision_from_url",
     "bold_text",
     "clear_directory",
     "merge_vpops",
@@ -11,43 +10,12 @@ __all__ = [
 
 import shutil
 import os
-import re
 import csv
 import json
 from typing import List, Generator
 
 import jinko_helpers as jinko
 from jinko_helpers.types import asDict as jinko_types
-
-
-def get_sid_revision_from_url(url: str) -> tuple[str | None, int | None]:
-    """Return the sid and revision number from a jinko URL."""
-    # start with a generic URL match
-    pattern = (
-        r"^"
-        r"((?P<schema>.+?)://)?"
-        r"(?P<host>.*?)"
-        r"(:(?P<port>\d+?))?"
-        r"(/(?P<path>.*?))?"
-        r"(?P<query>[?].*?)?"
-        r"$"
-    )
-    regex = re.compile(pattern)
-    match = regex.match(url)
-    if match is None:
-        return None, None
-    # sid should directly follow the base URL
-    path = match.groupdict()["path"]
-    if not path or "/" in path:
-        return None, None
-    sid = path
-    # revision number should be an integer
-    query = match.groupdict()["query"]
-    try:
-        revision = int(query.split("revision=")[1]) if query is not None else None
-    except ValueError:
-        revision = None
-    return sid, revision
 
 
 def bold_text(text: str) -> str:
@@ -164,7 +132,7 @@ def get_vpop_index_set(vpop_data: jinko_types.Vpop | None) -> set:
 def stream_input_paths(item_paths: List[str]) -> Generator:
     """Stream a list of input items, given by either URL or file paths."""
     for item_path in item_paths:
-        sid, _ = get_sid_revision_from_url(item_path)
+        sid, _ = jinko.get_sid_revision_from_url(item_path)
         if sid is None:
             yield os.path.split(item_path)[1], True, item_path
         else:

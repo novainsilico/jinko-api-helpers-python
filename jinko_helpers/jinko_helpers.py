@@ -2,7 +2,7 @@
 
 - configure authentication (jinko.initialize)
 - check authentication (jinko.checkAuthentication)
-- retrieve a ProjectItem (jinko.getProjectItem)
+- retrieve a ProjectItem (jinko.get_project_item)
 - retrieve the CoreItemId of a ProjectItem (jinko.getCoreItemId)
 - make HTTP requests (jinko.makeRequest)
 """
@@ -19,6 +19,7 @@ from typing import List, Any, Optional, TypedDict
 from urllib.parse import urlparse
 import warnings
 import tempfile
+import re
 
 USER_AGENT = "jinko-api-helpers-python/%s" % __version__
 AUTHORIZATION_PREFIX = "Bearer"
@@ -398,38 +399,6 @@ def initialize(
     sys.stderr.write("Authentication successful\n")
 
 
-def getProjectItem(shortId: str, revision: int | None = None) -> dict:
-    """Retrieves a single ProjectItem from its short Id
-    and optionally its revision number
-
-    Args:
-        shortId (str): short Id of the ProjectItem
-        revision (int | None, optional): revision number. Defaults to None
-
-    Returns:
-        dict: ProjectItem
-
-    Raises:
-        Exception: if HTTP status code is not 200
-
-    Examples:
-        projectItem = jinko.getProjectItem('tr-EUsp-WjjI')
-
-        projectItem = jinko.getProjectItem('tr-EUsp-WjjI', 1)
-    """
-    warnings.warn(
-        "The function get_project_item with the old signature is deprecated. "
-        "Please use the updated function with the ability to use coreItemId and snapshotId.",
-        category=DeprecationWarning,
-    )
-    if revision is None:
-        return makeRequest("/app/v1/project-item/%s" % (shortId)).json()
-    else:
-        return makeRequest(
-            "/app/v1/project-item/%s?revision=%s" % (shortId, revision)
-        ).json()
-
-
 def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemIdDict:
     """Retrieves the CoreItemId dictionnary corresponding to a ProjectItem
 
@@ -449,7 +418,7 @@ def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemIdDict:
 
         id = jinko.getCoreItemId('tr-EUsp-WjjI', 1)
     """
-    item = getProjectItem(shortId, revision)
+    item = get_project_item(sid=shortId, revision=revision)
     if "coreId" not in item or item["coreId"] is None:
         message = 'ProjectItem "%s" has no CoreItemId' % (shortId)
         sys.stderr.write(message + "\n")
@@ -500,6 +469,50 @@ def getProjectItemUrlFromSid(sid: str):
     """
     url = f"{_jinkoUrl}/{sid}"
     return url
+
+
+def get_sid_revision_from_url(url: str) -> tuple[str | None, int | None]:
+    """
+    Return the sid and revision number from a jinko URL.
+
+    Args:
+        url (str): The URL of a Jinko ProjectItem.
+
+    Returns:
+        tuple[str | None, int | None]: The sid and revision number of the ProjectItem, or None if the URL does not match the expected pattern.
+
+    Examples:
+        >>> jinko.get_sid_revision_from_url("https://jinko.ai/ca-foo-bar")
+        ("ca-foo-bar", None)
+        >>> jinko.get_sid_revision_from_url("https://jinko.ai/ca-foo-bar?revision=42")
+        ("ca-foo-bar", 42)
+    """
+    # start with a generic URL match
+    pattern = (
+        r"^"
+        r"((?P<schema>.+?)://)?"
+        r"(?P<host>.*?)"
+        r"(:(?P<port>\d+?))?"
+        r"(/(?P<path>.*?))?"
+        r"(?P<query>[?].*?)?"
+        r"$"
+    )
+    regex = re.compile(pattern)
+    match = regex.match(url)
+    if match is None:
+        return None, None
+    # sid should directly follow the base URL
+    path = match.groupdict()["path"]
+    if not path or "/" in path:
+        return None, None
+    sid = path
+    # revision number should be an integer
+    query = match.groupdict()["query"]
+    try:
+        revision = int(query.split("revision=")[1]) if query is not None else None
+    except ValueError:
+        revision = None
+    return sid, revision
 
 
 def getProjectItemUrlFromResponse(response: _requests.Response):
@@ -601,6 +614,7 @@ def get_project_item(
     core_item_id=None,
     snapshot_id=None,
     sid: Optional[str] = None,
+    url: Optional[str] = None,
     revision: Optional[float] = None,
     label: Optional[str] = None,
 ):
@@ -611,6 +625,7 @@ def get_project_item(
         core_item_id (str, optional): The CoreItemId of the ProjectItem.
         snapshot_id (str, optional): The snapshotId of the ProjectItem.
         sid (str, optional): The SID of the ProjectItem.
+        url (str, optional): The URL of the ProjectItem.
         revision (int, optional): The revision of the ProjectItem.
         label (str, optional): The label of the ProjectItem.
 
@@ -621,6 +636,8 @@ def get_project_item(
         ValueError: If neither 'sid' nor 'core_item_id' is provided.
         Exception: If the parameters are ambiguous, i.e. they do not point to the same project item.
     """
+    if url and not sid:
+        sid, _ = get_sid_revision_from_url(url)
 
     if core_item_id:
         return makeRequest(

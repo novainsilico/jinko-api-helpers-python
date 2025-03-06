@@ -158,7 +158,7 @@ class TestGetProjectItem(unittest.TestCase):
         mock_request.return_value = mock_response
 
         # Call the function with SID
-        result = jinko_helpers.get_project_item_new(sid="example-sid", revision=1)
+        result = jinko_helpers.get_project_item(sid="example-sid", revision=1)
 
         # Assertions
         self.assertEqual(result, mock_response.json())
@@ -166,7 +166,7 @@ class TestGetProjectItem(unittest.TestCase):
     def test_get_project_item_with_missing_parameters(self):
         # Call the function without SID or CoreItemId and check for ValueError
         with self.assertRaises(ValueError) as context:
-            jinko_helpers.get_project_item_new()
+            jinko_helpers.get_project_item()
         self.assertEqual(
             str(context.exception), "You must provide either 'sid' or 'core_item_id'"
         )
@@ -195,9 +195,42 @@ class TestGetProjectItem(unittest.TestCase):
             },
         ]
         mock_request.return_value = mock_response
-        result = jinko_helpers.get_project_item_new(sid="example-sid", label="v1")
+        result = jinko_helpers.get_project_item(sid="example-sid", label="v1")
 
         self.assertEqual(result, mock_response.json()[0])
+
+
+class TestGetSidRevisionFomUrl(unittest.TestCase):
+    def test_get_sid_revision_from_url_normal(self):
+        self.assertEqual(
+            jinko_helpers.get_sid_revision_from_url(
+                "https://jinko.ai/ca-foo-bar?revision=42"
+            ),
+            ("ca-foo-bar", 42),
+        )
+
+    def test_get_sid_revision_from_url_no_revision(self):
+        self.assertEqual(
+            jinko_helpers.get_sid_revision_from_url("https://jinko.ai/cm-baz-nix"),
+            ("cm-baz-nix", None),
+        )
+
+    def test_get_sid_revision_from_url_bad_url(self):
+        self.assertEqual(
+            jinko_helpers.get_sid_revision_from_url("https://jinko.ai"), (None, None)
+        )
+        self.assertEqual(
+            jinko_helpers.get_sid_revision_from_url("https://jinko.ai/one/two"),
+            (None, None),
+        )
+
+    def test_get_sid_revision_from_url_localhost_url(self):
+        self.assertEqual(
+            jinko_helpers.get_sid_revision_from_url(
+                "http://localhost:8000/cm-bla-bla?revision=1"
+            ),
+            ("cm-bla-bla", 1),
+        )
 
 
 if __name__ == "__main__":

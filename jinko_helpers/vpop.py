@@ -14,7 +14,7 @@ def get_vpop_content(vpop_sid: str):
         None: If an HTTP error occurs during the request.
     """
     try:
-        vpop_id = jinko.getProjectItem(vpop_sid)["coreId"]["id"]
+        vpop_id = jinko.get_project_item(sid=vpop_sid)["coreId"]["id"]
         response = jinko.makeRequest(
             path=f"/core/v2/vpop_manager/vpop/{vpop_id}",
             method="GET",
@@ -38,7 +38,7 @@ def get_vpop_design_content(
         None: If an HTTP error occurs during the request.
     """
     try:
-        vpop_design_id = jinko.getProjectItem(vpop_design_sid)["coreId"]
+        vpop_design_id = jinko.get_project_item(sid=vpop_design_sid)["coreId"]
         response = jinko.makeRequest(
             path=f"/core/v2/vpop_manager/vpop_generator/{vpop_design_id['id']}/snapshots/{vpop_design_id['snapshotId']}",
             method="GET",

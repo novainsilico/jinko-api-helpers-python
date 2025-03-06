@@ -96,8 +96,8 @@ def download_model_or_model_interface(
         dict: The model or model interface data.
     """
 
-    model_project_item = jinko.get_project_item_new(
-        model_core_item_id, model_snapshot_id, model_sid, model_revision
+    model_project_item = jinko.get_project_item(
+        model_core_item_id, model_snapshot_id, model_sid, revision=model_revision
     )
     if model_project_item is None:
         raise Exception("Model not found")
