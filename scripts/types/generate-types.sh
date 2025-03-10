@@ -5,10 +5,6 @@ script_dir="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)" || {
   echo "Couldn't determine the script's running directory, which probably matters, bailing out" >&2
   exit 2
 }
-script_name="$(basename "$(readlink -f "$0")")" || {
-  echo "Couldn't determine the script's name, which probably matters, bailing out" >&2
-  exit 2
-}
 
 DEFAULT_OPENAPI_SPEC="https://api.jinko.ai/openapi.json"
 DEFAULT_OUTPUT_FILE="${script_dir}/../../jinko_helpers/types/api_types_dict.py"
@@ -33,13 +29,6 @@ die()
   exit "${_ret}"
 }
 
-
-begins_with_short_option()
-{
-  local first_option all_short_options='ioh'
-  first_option="${1:0:1}"
-  test "$all_short_options" = "${all_short_options/$first_option/}" && return 1 || return 0
-}
 
 # THE DEFAULTS INITIALIZATION - OPTIONALS
 _arg_input="$DEFAULT_OPENAPI_SPEC"
@@ -124,16 +113,16 @@ output_file="${output_dir}/${output_filename}"
 
 echo "Generating Python types from ${_arg_input}..." 1>&2
 
-cd ${root_dir} && datamodel-codegen ${url_arg} ${input_arg} --output "${output_file}" \
+cd "${root_dir}" && datamodel-codegen ${url_arg} ${input_arg} --output "${output_file}" \
   --input-file-type openapi --output-model-type typing.TypedDict \
   --use-schema-description --use-field-description \
   --strict-nullable --target-python-version 3.12 \
-  --custom-template-dir ${template_dir} || exit $?
+  --custom-template-dir "${template_dir}" || exit $?
 
 echo "Python types successfully generated in ${output_file}" 1>&2
 
 echo "Linting the types file..."
-black ${output_file}
+black "${output_file}"
 
 exit 0
 
