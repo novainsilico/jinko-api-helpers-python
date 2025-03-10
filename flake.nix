@@ -49,7 +49,7 @@
               shellHook = ''
                 ${shellInit}
                 poetry install
-                poetry shell
+                eval $(poetry env activate)
               '';
             };
           };
