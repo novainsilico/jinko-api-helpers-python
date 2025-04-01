@@ -308,7 +308,7 @@ def checkAuthentication() -> bool:
     if response.status_code == 401:
         return False
     if response.status_code != 200:
-        sys.stderr.write(response.json() + "\n")
+        sys.stderr.write(response.text + "\n")
         response.raise_for_status()
     return True
 
