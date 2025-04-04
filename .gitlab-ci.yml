@@ -28,6 +28,13 @@ build:
       - Dockerfile
       - poetry.lock
 
+build-jinko-env:
+  stage: test
+  tags: [ nix ]
+  script:
+    # will populate the nix binary cache
+    - nix build .#jinkoEnv
+
 pytest:
   stage: test
   image: $PYTHON_IMAGE

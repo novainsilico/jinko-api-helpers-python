@@ -1,0 +1,23 @@
+[project]
+# After modifying this file, run "nix run .#jinkoEnv.lock" from the root
+# of the project to update lock.x86_64-linux.json
+name = "jinko-sdk-with-tools"
+version = "1.0.0"
+dependencies = [
+  "jinko-sdk @ file://..",
+  "deepdiff",
+  "black[jupyter]",
+  "ipykernel",
+  "jupyter",
+  "jupyter-server",
+  "jupyterlab",
+  "kaleido",
+  "matplotlib",
+  "pandas",
+  "plotly",
+  "seaborn",
+  "scikit-learn",
+  "scikit-survival",
+  "lifelines",
+  "numpy"
+]
