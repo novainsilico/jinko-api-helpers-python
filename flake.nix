@@ -86,7 +86,10 @@
             };
 
             jinkoEnv = pkgs.mkShell {
-              buildInputs = [ self.packages.${system}.jinkoEnv.pythonWithEnv ];
+              buildInputs = [
+                pkgs.bashInteractive
+                self.packages.${system}.jinkoEnv.pythonWithEnv 
+              ];
             };
           };
         }
