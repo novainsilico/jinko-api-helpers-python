@@ -19,5 +19,12 @@ dependencies = [
   "scikit-learn",
   "scikit-survival",
   "lifelines",
-  "numpy"
+  "numpy",
+  "scipy",
+  "ndtest @ git+https://github.com/syrte/ndtest.git",
+  "plotnine",
+  "bayesian-optimization",
+  "libroadrunner",
+  "modal-python"
+
 ]
