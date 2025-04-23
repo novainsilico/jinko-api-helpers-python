@@ -44,12 +44,17 @@
                   deps = {nixpkgs, ...}: {
                     python = nixpkgs.python312;
                     poetry = nixpkgs.poetry;
+                    patchelf = nixpkgs.patchelf;
                   };
 
                   public.pythonWithEnv = config.deps.python.withPackages (_: config.mkDerivation.propagatedBuildInputs);
                   mkDerivation.src = ./jinko_env;
                   paths.projectRoot = ./.;
                   paths.package = "jinko_env";
+                  pip.overrides.kaleido.mkDerivation.postFixup = ''
+                    sed -i -e "s@/bin/bash@/bin/sh@" $out/lib/python*/site-packages/kaleido/executable/kaleido
+                    ${config.deps.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/lib/python*/site-packages/kaleido/executable/bin/kaleido
+                  '';
                   # Not sure how to properly build a folder, so we turn
                   # it into a whl file which is the known case
                   pip.overrides.jinko-sdk.mkDerivation.src = let
