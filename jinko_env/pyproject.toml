@@ -5,6 +5,7 @@ name = "jinko-sdk-with-tools"
 version = "1.0.0"
 dependencies = [
   "jinko-sdk @ file://..",
+  "setuptools<77",  # Prevents Metadata-Version: 2.4 https://setuptools.pypa.io/en/stable/history.html#v77-0-0
   "deepdiff",
   "black[jupyter]",
   "ipykernel",
@@ -25,6 +26,6 @@ dependencies = [
   "plotnine",
   "bayesian-optimization",
   "libroadrunner",
-  "modal-python"
-
+  "modal-python",
+  "openai"
 ]
