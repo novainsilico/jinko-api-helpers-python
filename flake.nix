@@ -1,7 +1,7 @@
 {
   description = "Jinko API Helper Python Package";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.nixpkgs.follows = "dream2nix/nixpkgs";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.dream2nix.url = "github:nix-community/dream2nix";
   outputs =
     { self

@@ -892,10 +892,10 @@
       },
       "setuptools": {
         "is_direct": false,
-        "sha256": "34750dcb17d046929f545dec9b8349fe42bf4ba13ddffee78428aec422dbfb73",
+        "sha256": "ea8e00d7992054c4c592aeb892f6ad51fe1b4d90cc6947cc45c45717c40ec537",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/62/fb/47dc84839f2743553075c80d08543b3d0f498f42329141b6717504abcdfd/setuptools-76.1.0-py3-none-any.whl",
-        "version": "76.1.0"
+        "url": "https://files.pythonhosted.org/packages/53/7e/5d8af3317ddbf9519b687bd1c39d8737fde07d97f54df65553faca5cffb1/setuptools-80.3.1-py3-none-any.whl",
+        "version": "80.3.1"
       },
       "six": {
         "is_direct": false,
@@ -1614,5 +1614,5 @@
       }
     }
   },
-  "invalidationHash": "2809d1504ec1d4d1418c4bb6b1106f10abe8b66ed545a13ba135010fee715af2"
+  "invalidationHash": "75aad7bd4031ce82936cad167f0eac74b1ba55ba5b22f9476cb4fefeb5d45b7d"
 }
