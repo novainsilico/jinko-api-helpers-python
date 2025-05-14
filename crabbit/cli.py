@@ -463,7 +463,7 @@ class CrabbitMerger:
         if self.ext == self.CSV:
             self.merge_csv_()
             return
-        if os.path.split(self.to_merge[0])[1].startswith("VpopDesign"):
+        if "VpopDesign" in os.path.split(self.to_merge[0])[1]:
             json_output = self.merge_vpop_designs_()
         else:
             json_output = self.merge_vpops_()
@@ -532,7 +532,7 @@ class CrabbitMerger:
         print(f"Writing the output... (size = {len(merged_vpop['patients'])})")
         return merged_vpop
 
-    def merge_designs_(self):
+    def merge_vpop_designs_(self):
         """Merge VpopDesign from local files or jinko to a JSON"""
         merged_vpop_design = merge_vpop_designs(self.to_merge)
         if merged_vpop_design is None:
