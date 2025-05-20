@@ -22,7 +22,7 @@ dependencies = [
   "numpy",
   "scipy",
   "ndtest @ git+https://github.com/syrte/ndtest.git",
-  "plotnine",
+  "plotnine==0.15.0a1",
   "bayesian-optimization",
   "libroadrunner",
   "modal-python",
