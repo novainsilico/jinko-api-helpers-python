@@ -1,8 +1,8 @@
-from jinko_stats.dependencies.dependency_checker import check_dependencies
+from jinko_nn.dependencies.dependency_checker import check_dependencies
 
 check_dependencies(["FrEIA", "torch"])
 
-import jinko_stats.calibration.utils.layers as l
+import jinko_nn.calibration.utils.layers as l
 import FrEIA.framework as Ff
 import FrEIA.modules as Fm
 import torch

@@ -1,9 +1,9 @@
-from jinko_stats.dependencies.dependency_checker import check_dependencies
+from jinko_nn.dependencies.dependency_checker import check_dependencies
 
 check_dependencies(["matplotlib", "torch"])
 
-from jinko_stats.calibration.inn import INN
-from jinko_stats.calibration.utils.data import (
+from jinko_nn.calibration.inn import INN
+from jinko_nn.calibration.utils.data import (
     normalize_df,
     remove_outliers,
     denormalize_input_df,

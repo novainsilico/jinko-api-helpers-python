@@ -1,4 +1,4 @@
-from jinko_stats.dependencies.dependency_checker import check_dependencies
+from jinko_nn.dependencies.dependency_checker import check_dependencies
 
 check_dependencies(["torch"])
 

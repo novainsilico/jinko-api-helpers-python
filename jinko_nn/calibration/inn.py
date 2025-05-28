@@ -1,16 +1,16 @@
-from jinko_stats.dependencies.dependency_checker import check_dependencies
+from jinko_nn.dependencies.dependency_checker import check_dependencies
 
 check_dependencies(["sklearn.model_selection", "seaborn", "matplotlib", "torch"])
 
-from jinko_stats.calibration.utils.nn import invertible_nn
-from jinko_stats.calibration.utils.data import (
+from jinko_nn.calibration.utils.nn import invertible_nn
+from jinko_nn.calibration.utils.data import (
     normalize_df,
     normalize_input_df,
     TrajectoriesDataset,
     denormalize,
     create_normalization_df,
 )
-from jinko_stats.calibration.utils.train import train_model_display
+from jinko_nn.calibration.utils.train import train_model_display
 from jinko_helpers.types import asDict as jinko_types
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader

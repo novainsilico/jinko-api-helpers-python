@@ -8,6 +8,7 @@ packages = [
     { include = "jinko_helpers" },
     { include = "crabbit" },
     { include = "jinko_stats" },
+    { include = "jinko_nn" },
 ]
 
 [tool.poetry.dependencies]
@@ -15,16 +16,15 @@ python = ">=3.10,<4.0"
 pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
+# Optional dependencies declared here
+freia = { version = "^0.2", optional = true }
+torch = { version = "^2.4.1", optional = true }
+scikit-learn = { version = "^1.5.2", optional = true }
+seaborn = { version = "^0.13.2", optional = true }
+matplotlib = { version = "^3.9.2", optional = true }
 
-[tool.poetry.group.jinko-stats] # poetry install --with jinko-stats
-optional = true
-
-[tool.poetry.group.jinko-stats.dependencies]
-freia = "^0.2"
-torch = "^2.4.1"
-scikit-learn = "^1.5.2"
-seaborn = "^0.13.2"
-matplotlib = "^3.9.2"
+[tool.poetry.extras]
+jinko_nn = ["freia", "torch", "scikit-learn", "seaborn", "matplotlib"]
 
 [tool.poetry.group.dev.dependencies]
 datamodel-code-generator = { extras = ["http"], version = "^0.26.3" }
