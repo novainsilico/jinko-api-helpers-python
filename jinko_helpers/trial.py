@@ -4,6 +4,8 @@ import requests
 import time
 import pandas as pd
 from tqdm import tqdm
+import io 
+import zipfile
 
 
 def is_trial_completed(trial_core_id) -> bool | None:
@@ -139,3 +141,80 @@ def get_task_count(per_arm_data: dict):
     completed_tasks = total_success + total_error
 
     return {"total_tasks": total_tasks, "completed_tasks": completed_tasks}
+
+def get_trial_scalars_summary(trial_core_item_id, trial_snapshot_id, print_summary = False):
+    """
+    Gets the summary of the trial scalars
+
+    Args:
+        trial_core_item_id (str): The CoreItemId of the trial.
+        trial_snapshot_id (str): The snapshot ID of the trial.
+        print_summary (bool): whether to print the summary
+
+    Returns:
+        dict: the trial results summary
+    """
+    summary = jinko.makeRequest(
+        path=f"/core/v2/trial_manager/trial/{trial_core_item_id}/snapshots/{trial_snapshot_id}/results_summary"
+    ).json()
+    if print_summary:
+        # Print a summary of the results content
+        print(f"Number of patients: {len(summary["patients"])}")
+        print(f"\nAvailable arms: {summary["arms"]}")
+        print(
+            "\nAvailable scalars:\n",
+            [scalar["id"] for scalar in summary["scalars"]],
+        )
+        print(
+            "\nAvailable cross-arm scalars:\n",
+            [scalar["id"] for scalar in summary["scalarsCrossArm"]],
+        )
+        print(
+            "\nAvailable categorical parameters:\n",
+            [scalar["id"] for scalar in summary["categoricals"]],
+        )
+        print(
+            "\nAvailable cross-arm categorical parameters:\n",
+            [scalar["id"] for scalar in summary["categoricalsCrossArm"]],
+        )
+    return summary
+
+
+def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar_ids):
+    """
+    Gets the trial scalars values in the form of a pandas dataframe
+
+    Args:
+        trial_core_item_id (str): The CoreItemId of the trial.
+        trial_snapshot_id (str): The snapshot ID of the trial.
+        scalar_ids (list): the list of scalar IDs to get
+
+    Returns:
+        pd.DataFrame: the scalar values
+    """
+    try:
+        response = jinko.make_request(
+            "/core/v2/result_manager/scalars_summary",
+            method="POST",
+            json={
+                "select": scalar_ids,
+                "trialId": {
+                    "coreItemId": trial_core_item_id,
+                    "snapshotId": trial_snapshot_id,
+                },
+            },
+        )
+        if response.status_code == 200:
+            archive = zipfile.ZipFile(io.BytesIO(response.content))
+            filename = archive.namelist()[0]
+            archive_content = archive.read(filename).decode("utf-8")
+            scalars_dataframe = pd.read_csv(io.StringIO(archive_content))
+            return scalars_dataframe
+        else:
+            print(
+                f"Failed to retrieve scalar results, error code: {response.status_code}\n reason: {response.reason}"
+            )
+            response.raise_for_status()
+    except Exception as e:
+        print(f"Error during scalar results retrieval or processing: {e}")
+        raise

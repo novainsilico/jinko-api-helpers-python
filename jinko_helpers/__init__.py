@@ -101,6 +101,8 @@ from .trial import (
     is_trial_completed,
     monitor_trial_until_completion,
     is_trial_running,
+    get_trial_scalars_summary,
+    get_trial_scalars_as_dataframe,
 )
 
 from .vpop import (
@@ -138,6 +140,8 @@ __all__ = [
     "monitor_trial_until_completion",
     "is_trial_completed",
     "is_trial_running",
+    "get_trial_scalars_summary",
+    "get_trial_scalars_as_dataframe",
     "show_plot_conditionally",
     "get_vpop_content",
     "get_vpop_design_content",
