@@ -16,6 +16,8 @@ python = ">=3.10,<4.0"
 pandas = "^2.2.2"
 requests = "^2.25.1"
 tqdm = "^4.66.5"
+scipy = "^1.15.3"
+
 # Optional dependencies declared here
 freia = { version = "^0.2", optional = true }
 torch = { version = "^2.4.1", optional = true }
