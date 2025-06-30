@@ -35,6 +35,19 @@ build-jinko-env:
     # will populate the nix binary cache
     - nix build .#jinkoEnv
 
+build-jinko-env-big:
+  stage: test
+  tags: [ nix ]
+  script:
+    # will populate the nix binary cache
+    - nix build .#jinkoEnvBig
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - when: manual
+
 pytest:
   stage: test
   image: $PYTHON_IMAGE
