@@ -4,7 +4,7 @@ import requests
 import time
 import pandas as pd
 from tqdm import tqdm
-import io 
+import io
 import zipfile
 
 
@@ -142,7 +142,10 @@ def get_task_count(per_arm_data: dict):
 
     return {"total_tasks": total_tasks, "completed_tasks": completed_tasks}
 
-def get_trial_scalars_summary(trial_core_item_id, trial_snapshot_id, print_summary = False):
+
+def get_trial_scalars_summary(
+    trial_core_item_id, trial_snapshot_id, print_summary=False
+):
     """
     Gets the summary of the trial scalars
 
@@ -192,29 +195,43 @@ def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar
     Returns:
         pd.DataFrame: the scalar values
     """
-    try:
-        response = jinko.make_request(
-            "/core/v2/result_manager/scalars_summary",
-            method="POST",
-            json={
-                "select": scalar_ids,
-                "trialId": {
-                    "coreItemId": trial_core_item_id,
-                    "snapshotId": trial_snapshot_id,
-                },
-            },
+    trial_summary = get_trial_scalars_summary(
+        trial_core_item_id, trial_snapshot_id, print_summary=False
+    )
+    trial_scalars = set(s["id"] for s in trial_summary["scalars"]).union(
+        set(s["id"] for s in trial_summary["scalarsCrossArm"]),
+        set(s["id"] for s in trial_summary["categoricals"]),
+        set(s["id"] for s in trial_summary["categoricalsCrossArm"]),
+    )
+    diff = set(scalar_ids).difference(trial_scalars)
+    if len(diff) > 0:
+        raise Exception(
+            f"The following scalars are not part of the trial results: {diff}"
         )
-        if response.status_code == 200:
-            archive = zipfile.ZipFile(io.BytesIO(response.content))
-            filename = archive.namelist()[0]
-            archive_content = archive.read(filename).decode("utf-8")
-            scalars_dataframe = pd.read_csv(io.StringIO(archive_content))
-            return scalars_dataframe
-        else:
-            print(
-                f"Failed to retrieve scalar results, error code: {response.status_code}\n reason: {response.reason}"
+    else:
+        try:
+            response = jinko.make_request(
+                "/core/v2/result_manager/scalars_summary",
+                method="POST",
+                json={
+                    "select": scalar_ids,
+                    "trialId": {
+                        "coreItemId": trial_core_item_id,
+                        "snapshotId": trial_snapshot_id,
+                    },
+                },
             )
-            response.raise_for_status()
-    except Exception as e:
-        print(f"Error during scalar results retrieval or processing: {e}")
-        raise
+            if response.status_code == 200:
+                archive = zipfile.ZipFile(io.BytesIO(response.content))
+                filename = archive.namelist()[0]
+                archive_content = archive.read(filename).decode("utf-8")
+                scalars_dataframe = pd.read_csv(io.StringIO(archive_content))
+                return scalars_dataframe
+            else:
+                print(
+                    f"Failed to retrieve scalar results, error code: {response.status_code}\n reason: {response.reason}"
+                )
+                response.raise_for_status()
+        except Exception as e:
+            print(f"Error during scalar results retrieval or processing: {e}")
+            raise
