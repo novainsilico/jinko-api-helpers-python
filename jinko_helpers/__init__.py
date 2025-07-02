@@ -103,6 +103,7 @@ from .trial import (
     is_trial_running,
     get_trial_scalars_summary,
     get_trial_scalars_as_dataframe,
+    get_latest_trial_with_status,
 )
 
 from .vpop import (
@@ -152,6 +153,7 @@ __all__ = [
     "ProjectItemInfoFromResponse",
     "get_calib_status",
     "get_latest_calib_with_status",
+    "get_latest_trial_with_status",
     "get_models_in_folder",
     "download_model",
     "download_model_interface",

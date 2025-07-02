@@ -235,3 +235,33 @@ def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar
         except Exception as e:
             print(f"Error during scalar results retrieval or processing: {e}")
             raise
+
+
+def get_latest_trial_with_status(
+    shortId: str,
+    statuses: list[str],
+) -> dict:
+    """
+    Retrieve the latest Trial whose status is a member of the prescribed list of statuses
+
+    Args:
+        core_item_id (str): The CoreItemId of the Trial
+        statuses (list of str): a list of statuses, e.g. ["completed", "stopped"]
+    Returns:
+        core ID dictionary
+        Dictionary Attributes:
+            coreItemId (str): The unique identifier of the CoreItem.
+            snapshotId (str): Identifies a specific version of the CoreItem.
+    Raises:
+        ValueError: If no calibration having the prescribed status is found
+    """
+
+    core_item_id = jinko.getCoreItemId(shortId=shortId)["id"]
+    versions = jinko.make_request(
+        f"/core/v2/trial_manager/trial/{core_item_id}/status"
+    ).json()
+    try:
+        latest_version = next(item for item in versions if item["status"] in statuses)
+        return latest_version["simulationId"]
+    except StopIteration:
+        raise ValueError(f"Found no trial with status among {statuses}")
