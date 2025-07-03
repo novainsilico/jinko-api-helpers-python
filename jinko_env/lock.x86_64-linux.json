@@ -218,6 +218,13 @@
         "url": "https://files.pythonhosted.org/packages/90/2b/0817a2b257fe88725c25589d89aec060581aabf668707a8d03b2e9e0cb2a/fastjsonschema-2.21.1-py3-none-any.whl",
         "version": "2.21.1"
       },
+      "filelock": {
+        "is_direct": false,
+        "sha256": "c401f4f8377c4464e6db25fff06205fd89bdd83b65eb0488ed1b160f780e21de",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/4d/36/2a115987e2d8c300a974597416d9de88f2444426de9571f4b59b2cca3acc/filelock-3.18.0-py3-none-any.whl",
+        "version": "3.18.0"
+      },
       "fonttools": {
         "is_direct": false,
         "sha256": "2d42c63020a922154add0a326388a60a55504629edc3274bc273cd3806b4659f",
@@ -238,6 +245,20 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/cf/58/8acf1b3e91c58313ce5cb67df61001fc9dcd21be4fadb76c1a2d540e09ed/fqdn-1.5.1-py3-none-any.whl",
         "version": "1.5.1"
+      },
+      "fsspec": {
+        "is_direct": false,
+        "sha256": "24d3a2e663d5fc735ab256263c4075f374a174c3410c0b25e5bd1970bceaa462",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/bb/61/78c7b3851add1481b048b5fdc29067397a1784e2910592bc81bb3f608635/fsspec-2025.5.1-py3-none-any.whl",
+        "version": "2025.5.1"
+      },
+      "gpytorch": {
+        "is_direct": false,
+        "sha256": "9b17ff7bd70dc39c3a3c03eb2bb9a87aa4b840c26e71ac68d120b96487bf5a12",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/0e/58/ac756b7c9b7daec0382d7c8e0b2c70819df227826edd8aa5bce115470d5a/gpytorch-1.14-py3-none-any.whl",
+        "version": "1.14"
       },
       "h11": {
         "is_direct": false,
@@ -308,6 +329,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/7b/55/e5326141505c5d5e34c5e0935d2908a74e4561eca44108fbfb9c13d2911a/isoduration-20.11.0-py3-none-any.whl",
         "version": "20.11.0"
+      },
+      "jaxtyping": {
+        "is_direct": false,
+        "sha256": "6a020fd276226ddb5ac4f5725323843dd65e3c7e85c64fd62431e5f738c74e04",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/c9/b9/281e10e2d967ea5e481683eaec99f55ac5a61085ee60551c36942ef32bef/jaxtyping-0.3.2-py3-none-any.whl",
+        "version": "0.3.2"
       },
       "jedi": {
         "is_direct": false,
@@ -429,10 +457,10 @@
       },
       "jupyterlab": {
         "is_direct": false,
-        "sha256": "164302f6d4b6c44773dfc38d585665a4db401a16e5296c37df5cba63904fbdea",
+        "sha256": "711611e4f59851152eb93316c3547c3ec6291f16bb455f1f4fa380d25637e0dd",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/c6/4d/7dd5c2ffbb960930452a031dc8410746183c924580f2ab4e68ceb5b3043f/jupyterlab-4.4.3-py3-none-any.whl",
-        "version": "4.4.3"
+        "url": "https://files.pythonhosted.org/packages/f8/82/66910ce0995dbfdb33609f41c99fe32ce483b9624a3e7d672af14ff63b9f/jupyterlab-4.4.4-py3-none-any.whl",
+        "version": "4.4.4"
       },
       "jupyterlab-pygments": {
         "is_direct": false,
@@ -483,6 +511,13 @@
         "url": "https://files.pythonhosted.org/packages/14/f7/379e185a75ac8166ac70756d0ba68d9a2b02b555c7fde4983246752396bd/lifelines-0.30.0-py3-none-any.whl",
         "version": "0.30.0"
       },
+      "linear-operator": {
+        "is_direct": false,
+        "sha256": "b7c30ce0f6599e19c1cb970e00811828df98783b20c1dd2f765928415012f41c",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/ed/c7/8a27fd8e182c611d4bf0aa9f0ea9046a7c843901d0f06c8cdcb599840a38/linear_operator-0.6-py3-none-any.whl",
+        "version": "0.6"
+      },
       "markupsafe": {
         "is_direct": false,
         "sha256": "e17c96c14e19278594aa4841ec148115f9c7615a47382ecb6b82bd8fea3ab0c8",
@@ -524,6 +559,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/b2/ab/0c61d12d5c40a80a15970f5a98765fe06beb27c9b1d900168249e6854d14/modAL_python-0.4.2.1-py3-none-any.whl",
         "version": "0.4.2.1"
+      },
+      "mpmath": {
+        "is_direct": false,
+        "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl",
+        "version": "1.3.0"
       },
       "mypy-extensions": {
         "is_direct": false,
@@ -575,12 +617,19 @@
         "url": "https://files.pythonhosted.org/packages/a0/c4/c2971a3ba4c6103a3d10c4b0f24f461ddc027f0f09763220cf35ca1401b3/nest_asyncio-1.6.0-py3-none-any.whl",
         "version": "1.6.0"
       },
+      "networkx": {
+        "is_direct": false,
+        "sha256": "0030d386a9a06dee3565298b4a734b68589749a544acbb6c412dc9e2489ec6ec",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/eb/8d/776adee7bbf76365fdd7f2552710282c79a4ead5d2a46408c9043a2b70ba/networkx-3.5-py3-none-any.whl",
+        "version": "3.5"
+      },
       "notebook": {
         "is_direct": false,
-        "sha256": "9cdeee954e04101cadb195d90e2ab62b7c9286c1d4f858bf3bb54e40df16c0c3",
+        "sha256": "32840f7f777b6bff79bb101159336e9b332bdbfba1495b8739e34d1d65cbc1c0",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/76/1b/16c809d799e3ddd7a97c8b43734f79624b74ddef9707e7d92275a13777bc/notebook-7.4.3-py3-none-any.whl",
-        "version": "7.4.3"
+        "url": "https://files.pythonhosted.org/packages/b3/c0/e64d2047fd752249b0b69f6aee2a7049eb94e7273e5baabc8b8ad05cc068/notebook-7.4.4-py3-none-any.whl",
+        "version": "7.4.4"
       },
       "notebook-shim": {
         "is_direct": false,
@@ -612,10 +661,10 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "207f87aa3bc49365e014fac2f7e291b99929f4fe126c4654143440e0ad446a5f",
+        "sha256": "3d746fe5498f0dd72e0d9ab706f26c91c0f646bf7459e5629af8ba7c9dbdf090",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/7a/d2/f99bdd6fc737d6b3cf0df895508d621fc9a386b375a1230ee81d46c5436e/openai-1.91.0-py3-none-any.whl",
-        "version": "1.91.0"
+        "url": "https://files.pythonhosted.org/packages/64/46/a10d9df4673df56f71201d129ba1cb19eaff3366d08c8664d61a7df52e65/openai-1.93.0-py3-none-any.whl",
+        "version": "1.93.0"
       },
       "orderly-set": {
         "is_direct": false,
@@ -703,10 +752,10 @@
       },
       "plotly": {
         "is_direct": false,
-        "sha256": "f1548a8ed9158d59e03d7fed548c7db5549f3130d9ae19293c8638c202648f6d",
+        "sha256": "32c444d4c940887219cb80738317040363deefdfee4f354498cc0b6dab8978bd",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/bf/6f/759d5da0517547a5d38aabf05d04d9f8adf83391d2c7fc33f904417d3ba2/plotly-6.1.2-py3-none-any.whl",
-        "version": "6.1.2"
+        "url": "https://files.pythonhosted.org/packages/ed/20/f2b7ac96a91cc5f70d81320adad24cc41bf52013508d649b1481db225780/plotly-6.2.0-py3-none-any.whl",
+        "version": "6.2.0"
       },
       "plotnine": {
         "is_direct": false,
@@ -946,6 +995,13 @@
         "url": "https://files.pythonhosted.org/packages/fa/e1/60a652f18996a40a7410aeb7eb476c18da8a39792c7effe67f06883e9852/statsmodels-0.14.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
         "version": "0.14.4"
       },
+      "sympy": {
+        "is_direct": false,
+        "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl",
+        "version": "1.14.0"
+      },
       "tabulate": {
         "is_direct": false,
         "sha256": "024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f",
@@ -980,6 +1036,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/33/f0/3fe8c6e69135a845f4106f2ff8b6805638d4e85c264e70114e8126689587/tokenize_rt-6.2.0-py2.py3-none-any.whl",
         "version": "6.2.0"
+      },
+      "torch": {
+        "is_direct": true,
+        "sha256": "8f8b3cfc53010a4b4a3c7ecb88c212e9decc4f5eeb6af75c3c803937d2d60947",
+        "type": "url",
+        "url": "https://download.pytorch.org/whl/cpu/torch-2.7.1%2Bcpu-cp312-cp312-manylinux_2_28_x86_64.whl",
+        "version": "2.7.1+cpu"
       },
       "tornado": {
         "is_direct": false,
@@ -1043,6 +1106,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl",
         "version": "2.5.0"
+      },
+      "wadler-lindig": {
+        "is_direct": false,
+        "sha256": "e3ec83835570fd0a9509f969162aeb9c65618f998b1f42918cfc8d45122fe953",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/8d/96/04e7b441807b26b794da5b11e59ed7f83b2cf8af202bd7eba8ad2fa6046e/wadler_lindig-0.1.7-py3-none-any.whl",
+        "version": "0.1.7"
       },
       "wcwidth": {
         "is_direct": false,
@@ -1164,6 +1234,7 @@
         ],
         "executing": [],
         "fastjsonschema": [],
+        "filelock": [],
         "fonttools": [],
         "formulaic": [
           "interface-meta",
@@ -1174,6 +1245,14 @@
           "wrapt"
         ],
         "fqdn": [],
+        "fsspec": [],
+        "gpytorch": [
+          "jaxtyping",
+          "linear-operator",
+          "mpmath",
+          "scikit-learn",
+          "scipy"
+        ],
         "h11": [],
         "httpcore": [
           "certifi",
@@ -1224,6 +1303,9 @@
         ],
         "isoduration": [
           "arrow"
+        ],
+        "jaxtyping": [
+          "wadler-lindig"
         ],
         "jedi": [
           "parso"
@@ -1363,6 +1445,12 @@
           "pandas",
           "scipy"
         ],
+        "linear-operator": [
+          "jaxtyping",
+          "mpmath",
+          "scipy",
+          "torch"
+        ],
         "markupsafe": [],
         "matplotlib": [
           "contourpy",
@@ -1391,6 +1479,7 @@
           "scipy",
           "skorch"
         ],
+        "mpmath": [],
         "mypy-extensions": [],
         "narwhals": [],
         "nbclient": [
@@ -1426,6 +1515,7 @@
           "scipy"
         ],
         "nest-asyncio": [],
+        "networkx": [],
         "notebook": [
           "jupyter-server",
           "jupyterlab",
@@ -1584,6 +1674,9 @@
           "patsy",
           "scipy"
         ],
+        "sympy": [
+          "mpmath"
+        ],
         "tabulate": [],
         "terminado": [
           "ptyprocess",
@@ -1592,6 +1685,15 @@
         "threadpoolctl": [],
         "tinycss2": [
           "webencodings"
+        ],
+        "torch": [
+          "filelock",
+          "fsspec",
+          "jinja2",
+          "networkx",
+          "setuptools",
+          "sympy",
+          "typing-extensions"
         ],
         "tornado": [],
         "tqdm": [],
@@ -1604,6 +1706,7 @@
         "tzdata": [],
         "uri-template": [],
         "urllib3": [],
+        "wadler-lindig": [],
         "wcwidth": [],
         "webcolors": [],
         "webencodings": [],
@@ -1625,5 +1728,5 @@
       }
     }
   },
-  "invalidationHash": "d10c8aaba4a778ac8f3e580f795ed39bd28571ef5841ef3f3decbd1b1f86eba9"
+  "invalidationHash": "c8fc345471f924681c21d8904a50acfd100da4ef2238d5cc5c036bb29f79fe86"
 }

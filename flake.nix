@@ -43,18 +43,17 @@
                   poetry = nixpkgs.poetry;
                   patchelf = nixpkgs.patchelf;
                   rdma-core = nixpkgs.rdma-core;
+                  fetchurl = nixpkgs.fetchurl;
+                  runCommand = nixpkgs.runCommand;
+                  rename = nixpkgs.rename;
                 };
 
                 public.pythonWithEnv = config.deps.python.withPackages (_: config.mkDerivation.propagatedBuildInputs);
                 mkDerivation.src = env_path;
                 paths.projectRoot = ./.;
                 paths.package = name;
-                pip.overrides.nvidia-cufile-cu12.mkDerivation.buildInputs = [
-                  config.deps.rdma-core
-                ];
-                # There are some collisions between this and nvidia-nvtx-cu12
-                pip.overrides.nvidia-cufile-cu12.mkDerivation.postFixup = ''
-                  rm -rf $out/lib/python*/site-packages/nvidia/__pycache__
+                pip.overrides.torch.mkDerivation.preBuild = ''
+                  ${config.deps.rename}/bin/rename -v "s/-2B/+/" dist/*.whl
                 '';
                 pip.overrides.kaleido.mkDerivation.postFixup = ''
                   sed -i -e "s@/bin/bash@/bin/sh@" $out/lib/python*/site-packages/kaleido/executable/kaleido
@@ -78,7 +77,6 @@
         {
           packages = {
             jinkoEnv = mkJinkoEnv ./jinko_env "jinko_env";
-            jinkoEnvBig = mkJinkoEnv ./jinko_env_big "jinko_env_big";
           };
           # Default shell with only poetry installed
           devShells = {
@@ -104,12 +102,6 @@
               buildInputs = [
                 pkgs.bashInteractive
                 self.packages.${system}.jinkoEnv.pythonWithEnv 
-              ];
-            };
-            jinkoEnvBig = pkgs.mkShell {
-              buildInputs = [
-                pkgs.bashInteractive
-                self.packages.${system}.jinkoEnvBig.pythonWithEnv 
               ];
             };
           };
