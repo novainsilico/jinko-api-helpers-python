@@ -108,10 +108,10 @@
       },
       "certifi": {
         "is_direct": false,
-        "sha256": "d842783a14f8fdd646895ac26f719a061408834473cfc10203f6a575beb15d39",
+        "sha256": "6b31f564a415d79ee77df69d757bb49a5bb53bd9f756cbbe24394ffd6fc1f4b2",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/66/f3/80a3f974c8b535d394ff960a11ac20368e06b736da395b551a49ce950cce/certifi-2025.7.9-py3-none-any.whl",
-        "version": "2025.7.9"
+        "url": "https://files.pythonhosted.org/packages/4f/52/34c6cf5bb9285074dc3531c437b3919e825d976fde097a7a73f79e726d03/certifi-2025.7.14-py3-none-any.whl",
+        "version": "2025.7.14"
       },
       "cffi": {
         "is_direct": false,
@@ -164,10 +164,10 @@
       },
       "debugpy": {
         "is_direct": false,
-        "sha256": "f6bb5c0dcf80ad5dbc7b7d6eac484e2af34bdacdf81df09b6a3e62792b722826",
+        "sha256": "047a493ca93c85ccede1dbbaf4e66816794bdc214213dde41a9a61e42d27f8fc",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/10/53/0a0cb5d79dd9f7039169f8bf94a144ad3efa52cc519940b3b7dde23bcb89/debugpy-1.8.14-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "1.8.14"
+        "url": "https://files.pythonhosted.org/packages/99/8d/7f6ef1097e7fecf26b4ef72338d08e41644a41b7ee958a19f494ffcffc29/debugpy-1.8.15-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "1.8.15"
       },
       "decorator": {
         "is_direct": false,
@@ -227,17 +227,17 @@
       },
       "fonttools": {
         "is_direct": false,
-        "sha256": "2af65836cf84cd7cb882d0b353bdc73643a497ce23b7414c26499bb8128ca1af",
+        "sha256": "4536f2695fe5c1ffb528d84a35a7d3967e5558d2af58b4775e7ab1449d65767b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/c1/d7/3c87cf147185d91c2e946460a5cf68c236427b4a23ab96793ccb7d8017c9/fonttools-4.58.5-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
-        "version": "4.58.5"
+        "url": "https://files.pythonhosted.org/packages/54/97/c6101a7e60ae138c4ef75b22434373a0da50a707dad523dd19a4889315bf/fonttools-4.59.0-cp312-cp312-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
+        "version": "4.59.0"
       },
       "formulaic": {
         "is_direct": false,
-        "sha256": "bbb7e38f99e4bcdc62cb0a6a818ad33b370b4e98e9e4f0b276561448482c8268",
+        "sha256": "2c5f48886a979f034e9fce67b8a36223aa22020256a291abceecd6763291193b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/d2/c2/a34097e53efe70a538ae97574ff9e9866e60fc1c792c19da5fd6b56ce7b5/formulaic-1.1.1-py3-none-any.whl",
-        "version": "1.1.1"
+        "url": "https://files.pythonhosted.org/packages/dd/c4/7e791ff347c3f8eb394596d7a6e6e0a48ef12bbbc3fcc99240e36a6ddd01/formulaic-1.2.0-py3-none-any.whl",
+        "version": "1.2.0"
       },
       "fqdn": {
         "is_direct": false,
@@ -248,10 +248,10 @@
       },
       "fsspec": {
         "is_direct": false,
-        "sha256": "24d3a2e663d5fc735ab256263c4075f374a174c3410c0b25e5bd1970bceaa462",
+        "sha256": "8b012e39f63c7d5f10474de957f3ab793b47b45ae7d39f2fb735f8bbe25c0e21",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/bb/61/78c7b3851add1481b048b5fdc29067397a1784e2910592bc81bb3f608635/fsspec-2025.5.1-py3-none-any.whl",
-        "version": "2025.5.1"
+        "url": "https://files.pythonhosted.org/packages/2f/e0/014d5d9d7a4564cf1c40b5039bc882db69fd881111e03ab3657ac0b218e2/fsspec-2025.7.0-py3-none-any.whl",
+        "version": "2025.7.0"
       },
       "gpytorch": {
         "is_direct": false,
@@ -297,10 +297,10 @@
       },
       "ipykernel": {
         "is_direct": false,
-        "sha256": "afdb66ba5aa354b09b91379bac28ae4afebbb30e8b39510c9690afb7a10421b5",
+        "sha256": "fd2936e55c4a1c2ee8b1e5fa6a372b8eecc0ab1338750dee76f48fa5cca1301e",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/94/5c/368ae6c01c7628438358e6d337c19b05425727fbb221d2a3c4303c372f42/ipykernel-6.29.5-py3-none-any.whl",
-        "version": "6.29.5"
+        "url": "https://files.pythonhosted.org/packages/1f/3d/00813c3d9b46e3dcd88bd4530e0a3c63c0509e5d8c9eff34723ea243ab04/ipykernel-6.30.0-py3-none-any.whl",
+        "version": "6.30.0"
       },
       "ipython": {
         "is_direct": false,
@@ -387,10 +387,10 @@
       },
       "jsonschema": {
         "is_direct": false,
-        "sha256": "a462455f19f5faf404a7902952b6f0e3ce868f3ee09a359b05eca6673bd8412d",
+        "sha256": "24c2e8da302de79c8b9382fee3e76b355e44d2a4364bb207159ce10b517bd716",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/a2/3d/023389198f69c722d039351050738d6755376c8fd343e91dc493ea485905/jsonschema-4.24.0-py3-none-any.whl",
-        "version": "4.24.0"
+        "url": "https://files.pythonhosted.org/packages/fe/54/c86cd8e011fe98803d7e382fd67c0df5ceab8d2b7ad8c5a81524f791551c/jsonschema-4.25.0-py3-none-any.whl",
+        "version": "4.25.0"
       },
       "jsonschema-specifications": {
         "is_direct": false,
@@ -436,10 +436,10 @@
       },
       "jupyter-lsp": {
         "is_direct": false,
-        "sha256": "45fbddbd505f3fbfb0b6cb2f1bc5e15e83ab7c79cd6e89416b248cb3c00c11da",
+        "sha256": "283783752bf0b459ee7fa88effa72104d87dd343b82d5c06cf113ef755b15b6d",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/07/e0/7bd7cff65594fd9936e2f9385701e44574fc7d721331ff676ce440b14100/jupyter_lsp-2.2.5-py3-none-any.whl",
-        "version": "2.2.5"
+        "url": "https://files.pythonhosted.org/packages/47/7c/12f68daf85b469b4896d5e4a629baa33c806d61de75ac5b39d8ef27ec4a2/jupyter_lsp-2.2.6-py3-none-any.whl",
+        "version": "2.2.6"
       },
       "jupyter-server": {
         "is_direct": false,
@@ -457,10 +457,10 @@
       },
       "jupyterlab": {
         "is_direct": false,
-        "sha256": "711611e4f59851152eb93316c3547c3ec6291f16bb455f1f4fa380d25637e0dd",
+        "sha256": "e76244cceb2d1fb4a99341f3edc866f2a13a9e14c50368d730d75d8017be0863",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/f8/82/66910ce0995dbfdb33609f41c99fe32ce483b9624a3e7d672af14ff63b9f/jupyterlab-4.4.4-py3-none-any.whl",
-        "version": "4.4.4"
+        "url": "https://files.pythonhosted.org/packages/47/74/e144ce85b34414e44b14c1f6bf2e3bfe17964c8e5670ebdc7629f2e53672/jupyterlab-4.4.5-py3-none-any.whl",
+        "version": "4.4.5"
       },
       "jupyterlab-pygments": {
         "is_direct": false,
@@ -496,6 +496,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/bc/b3/9458adb9472e61a998c8c4d95cfdfec91c73c53a375b30b1428310f923e4/kiwisolver-1.4.8-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
         "version": "1.4.8"
+      },
+      "lark": {
+        "is_direct": false,
+        "sha256": "c2276486b02f0f1b90be155f2c8ba4a8e194d42775786db622faccd652d8e80c",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/2d/00/d90b10b962b4277f5e64a78b6609968859ff86889f5b898c1a778c06ec00/lark-1.2.2-py3-none-any.whl",
+        "version": "1.2.2"
       },
       "libroadrunner": {
         "is_direct": false,
@@ -576,10 +583,10 @@
       },
       "narwhals": {
         "is_direct": false,
-        "sha256": "f15d2255695d7e99f624f76aa5b765eb3fff8a509d3215049707af3a3feebc90",
+        "sha256": "2bbddc3adeed0c5b15ead8fe61f1d5e459f00c1d2fa60921e52a0f9bdc06077d",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/75/64/c46ba7517d90e330c4f35af1256d4b12ba037e2ef17d4aa4d4f11b4a143d/narwhals-1.46.0-py3-none-any.whl",
-        "version": "1.46.0"
+        "url": "https://files.pythonhosted.org/packages/75/72/5406044d4c251f3d8f78cec05b74839d0332d34c9e94b59120f3697ecf48/narwhals-1.48.0-py3-none-any.whl",
+        "version": "1.48.0"
       },
       "nbclient": {
         "is_direct": false,
@@ -661,17 +668,17 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "41aaa7594c7d141b46eed0a58dcd75d20edcc809fdd2c931ecbb4957dc98a892",
+        "sha256": "a1c24d96f4609f3f7f51c9e1c2606d97cc6e334833438659cfd687e9c972c610",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/8b/b9/0df6351b25c6bd494c534d2a8191dc9460fb5bb09c88b1427775d49fde05/openai-1.93.3-py3-none-any.whl",
-        "version": "1.93.3"
+        "url": "https://files.pythonhosted.org/packages/8a/91/1f1cf577f745e956b276a8b1d3d76fa7a6ee0c2b05db3b001b900f2c71db/openai-1.97.0-py3-none-any.whl",
+        "version": "1.97.0"
       },
       "orderly-set": {
         "is_direct": false,
-        "sha256": "b5e21d21680bd9ef456885db800c5cb4f76a03879880c0175e1b077fb166fd83",
+        "sha256": "46f0b801948e98f427b412fcabb831677194c05c3b699b80de260374baa0b1e7",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/12/bc/e0dfb4db9210d92b44e49d6e61ba5caefbd411958357fa9d7ff489eeb835/orderly_set-5.4.1-py3-none-any.whl",
-        "version": "5.4.1"
+        "url": "https://files.pythonhosted.org/packages/12/27/fb8d7338b4d551900fa3e580acbe7a0cf655d940e164cb5c00ec31961094/orderly_set-5.5.0-py3-none-any.whl",
+        "version": "5.5.0"
       },
       "osqp": {
         "is_direct": false,
@@ -910,6 +917,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/9e/51/17023c0f8f1869d8806b979a2bffa3f861f26a3f1a66b094288323fba52f/rfc3986_validator-0.1.1-py2.py3-none-any.whl",
         "version": "0.1.1"
+      },
+      "rfc3987-syntax": {
+        "is_direct": false,
+        "sha256": "6c3d97604e4c5ce9f714898e05401a0445a641cfa276432b0a648c80856f6a3f",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/7e/71/44ce230e1b7fadd372515a97e32a83011f906ddded8d03e3c6aafbdedbb7/rfc3987_syntax-1.1.0-py3-none-any.whl",
+        "version": "1.1.0"
       },
       "rpds-py": {
         "is_direct": false,
@@ -1252,6 +1266,7 @@
         "fonttools": [],
         "formulaic": [
           "interface-meta",
+          "narwhals",
           "numpy",
           "pandas",
           "scipy",
@@ -1347,6 +1362,7 @@
           "referencing",
           "rfc3339-validator",
           "rfc3986-validator",
+          "rfc3987-syntax",
           "rpds-py",
           "uri-template",
           "webcolors"
@@ -1447,6 +1463,7 @@
         "jupyterlab-widgets": [],
         "kaleido": [],
         "kiwisolver": [],
+        "lark": [],
         "libroadrunner": [
           "numpy"
         ],
@@ -1642,6 +1659,9 @@
           "six"
         ],
         "rfc3986-validator": [],
+        "rfc3987-syntax": [
+          "lark"
+        ],
         "rpds-py": [],
         "scikit-learn": [
           "joblib",
@@ -1746,5 +1766,5 @@
       }
     }
   },
-  "invalidationHash": "8daad2c804aa47f456125c2c842960ea3bc8c7dd3eb6a807bed4080fdc32bfce"
+  "invalidationHash": "fc01faea87bc3e4c4d9da8a2a2965751a716477f8efceb66965ba989d22361e7"
 }

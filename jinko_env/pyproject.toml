@@ -14,6 +14,7 @@ dependencies = [
   "odfpy",
   "kaleido<1.0.0",
   "matplotlib",
+  "matplotlib-inline",
   "pandas",
   "plotly",
   "seaborn",
