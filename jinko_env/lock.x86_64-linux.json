@@ -204,6 +204,13 @@
         "url": "https://files.pythonhosted.org/packages/82/12/42f4d953f9284571726b085f99e13bfa84522bf63bf2e7a81460013b09e6/ecos-2.0.14-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
         "version": "2.0.14"
       },
+      "et-xmlfile": {
+        "is_direct": false,
+        "sha256": "7a91720bc756843502c3b7504c77b8fe44217c85c537d85037f0f536151b2caa",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/c1/8b/5fe2cc11fee489817272089c4203e679c63b570a5aaeb18d852ae3cbba6a/et_xmlfile-2.0.0-py3-none-any.whl",
+        "version": "2.0.0"
+      },
       "executing": {
         "is_direct": false,
         "sha256": "11387150cad388d62750327a53d3339fad4888b39a6fe233c3afbb54ecffd3aa",
@@ -668,10 +675,17 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "a1c24d96f4609f3f7f51c9e1c2606d97cc6e334833438659cfd687e9c972c610",
+        "sha256": "4e96bbdf672ec3d44968c9ea39d2c375891db1acc1794668d8149d5fa6000606",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/8a/91/1f1cf577f745e956b276a8b1d3d76fa7a6ee0c2b05db3b001b900f2c71db/openai-1.97.0-py3-none-any.whl",
-        "version": "1.97.0"
+        "url": "https://files.pythonhosted.org/packages/ee/35/412a0e9c3f0d37c94ed764b8ac7adae2d834dbd20e69f6aca582118e0f55/openai-1.97.1-py3-none-any.whl",
+        "version": "1.97.1"
+      },
+      "openpyxl": {
+        "is_direct": false,
+        "sha256": "5282c12b107bffeef825f4617dc029afaf41d0ea60823bbb665ef3079dc79de2",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl",
+        "version": "3.1.5"
       },
       "orderly-set": {
         "is_direct": false,
@@ -1260,6 +1274,7 @@
           "numpy",
           "scipy"
         ],
+        "et-xmlfile": [],
         "executing": [],
         "fastjsonschema": [],
         "filelock": [],
@@ -1574,6 +1589,9 @@
           "tqdm",
           "typing-extensions"
         ],
+        "openpyxl": [
+          "et-xmlfile"
+        ],
         "orderly-set": [],
         "osqp": [
           "numpy",
@@ -1766,5 +1784,5 @@
       }
     }
   },
-  "invalidationHash": "fc01faea87bc3e4c4d9da8a2a2965751a716477f8efceb66965ba989d22361e7"
+  "invalidationHash": "122faff1cd480cc1d96e04284a3c7825056ba1e755638b0527f7ee8acf3663e9"
 }

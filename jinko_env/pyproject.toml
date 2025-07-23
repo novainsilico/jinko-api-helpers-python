@@ -15,6 +15,7 @@ dependencies = [
   "kaleido<1.0.0",
   "matplotlib",
   "matplotlib-inline",
+  "openpyxl",
   "pandas",
   "plotly",
   "seaborn",
