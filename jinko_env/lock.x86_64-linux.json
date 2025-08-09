@@ -122,10 +122,10 @@
       },
       "charset-normalizer": {
         "is_direct": false,
-        "sha256": "4e594135de17ab3866138f496755f302b72157d115086d100c3f19370839dd3a",
+        "sha256": "1606f4a55c0fd363d754049cdf400175ee96c992b1f8018b993941f221221c5f",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/8c/73/6ede2ec59bce19b3edf4209d70004253ec5f4e319f9a2e3f2f15601ed5f7/charset_normalizer-3.4.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "3.4.2"
+        "url": "https://files.pythonhosted.org/packages/16/ab/0233c3231af734f5dfcf0844aa9582d5a1466c985bbed6cedab85af9bfe3/charset_normalizer-3.4.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "3.4.3"
       },
       "click": {
         "is_direct": false,
@@ -178,10 +178,10 @@
       },
       "deepdiff": {
         "is_direct": false,
-        "sha256": "d4599db637f36a1c285f5fdfc2cd8d38bde8d8be8636b65ab5e425b67c54df26",
+        "sha256": "db80677a434ac1f84147fd1598e93f1beb06d467e107af45fcf77cf8a681169f",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/4a/3b/2e0797200c51531a6d8c97a8e4c9fa6fb56de7e6e2a15c1c067b6b10a0b0/deepdiff-8.5.0-py3-none-any.whl",
-        "version": "8.5.0"
+        "url": "https://files.pythonhosted.org/packages/4a/4d/4c9ba906175430d6f1cb40b7aa90673720c2c4b3fcea03a3719b1906f983/deepdiff-8.6.0-py3-none-any.whl",
+        "version": "8.6.0"
       },
       "defusedxml": {
         "is_direct": false,
@@ -405,6 +405,20 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/01/0e/b27cdbaccf30b890c40ed1da9fd4a3593a5cf94dae54fb34f8a4b74fcd3f/jsonschema_specifications-2025.4.1-py3-none-any.whl",
         "version": "2025.4.1"
+      },
+      "juliacall": {
+        "is_direct": false,
+        "sha256": "4a5c93b477cc13ddc48a6a5526626edc0826d5128c522d91e0e0da1b5abe09bc",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/06/e2/9ba7fb4869d2675d53f8c157c84bde77d25240f3cc96b2d33cc2f8aa39b2/juliacall-0.9.26-py3-none-any.whl",
+        "version": "0.9.26"
+      },
+      "juliapkg": {
+        "is_direct": false,
+        "sha256": "f5b28fe2ae7cbf6f7cfead3567e7630040fe52701a4dd7551ac8d17c87fafd50",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/0d/77/f98f17e061c4bd0bd29101eb53a0795e04e2dbe6d6e4676db80b46f60330/juliapkg-0.1.17-py3-none-any.whl",
+        "version": "0.1.17"
       },
       "jupyter": {
         "is_direct": false,
@@ -675,10 +689,10 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "c786a03f6cddadb5ee42c6d749aa4f6134fe14fdd7d69a667e5e7ce7fd29a719",
+        "sha256": "4e870f9501b7c36132e2be13313ce3c4d6915a837e7a299c483aab6a6d4412e9",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/92/bc/e52f49940b4e320629da7db09c90a2407a48c612cff397b4b41b7e58cdf9/openai-1.99.3-py3-none-any.whl",
-        "version": "1.99.3"
+        "url": "https://files.pythonhosted.org/packages/e6/f2/2472ae020f5156a994710bf926a76915c71bc7b5debf7b81a11506ec8414/openai-1.99.5-py3-none-any.whl",
+        "version": "1.99.5"
       },
       "openpyxl": {
         "is_direct": false,
@@ -848,13 +862,6 @@
         "url": "https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl",
         "version": "2.19.2"
       },
-      "pymultinest": {
-        "is_direct": false,
-        "sha256": "c643d789364169f3a98c2f1966fdbe2eabff923747d42dc44eac7f8206052722",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/69/25/a603aa4cf4d7653e8ff492da93302920fecdd3bb3e3b1b05bb1a1176f721/pymultinest-2.12-py2.py3-none-any.whl",
-        "version": "2.12"
-      },
       "pyparsing": {
         "is_direct": false,
         "sha256": "a749938e02d6fd0b59b356ca504a24982314bb090c383e3cf201c95ef7e2bfcf",
@@ -981,6 +988,13 @@
         "url": "https://files.pythonhosted.org/packages/83/11/00d3c3dfc25ad54e731d91449895a79e4bf2384dc3ac01809010ba88f6d5/seaborn-0.13.2-py3-none-any.whl",
         "version": "0.13.2"
       },
+      "semver": {
+        "is_direct": false,
+        "sha256": "9c824d87ba7f7ab4a1890799cec8596f15c1241cb473404ea1cb0c55e4b04746",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/a6/24/4d91e05817e92e3a61c8a21e08fd0f390f5301f1c448b137c57c4bc6e543/semver-3.0.4-py3-none-any.whl",
+        "version": "3.0.4"
+      },
       "send2trash": {
         "is_direct": false,
         "sha256": "0c31227e0bd08961c7665474a3d1ef7193929fedda4233843689baa056be46c9",
@@ -1095,10 +1109,10 @@
       },
       "tornado": {
         "is_direct": false,
-        "sha256": "308473f4cc5a76227157cdf904de33ac268af770b2c5f05ca6c1161d82fdd95e",
+        "sha256": "e792706668c87709709c18b353da1f7662317b563ff69f00bab83595940c7108",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/7d/f7/0c48ba992d875521ac761e6e04b0a1750f8150ae42ea26df1852d6a98942/tornado-6.5.1-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "6.5.1"
+        "url": "https://files.pythonhosted.org/packages/f9/41/fb15f06e33d7430ca89420283a8762a4e6b8025b800ea51796ab5e6d9559/tornado-6.5.2-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "6.5.2"
       },
       "tqdm": {
         "is_direct": false,
@@ -1116,10 +1130,10 @@
       },
       "types-python-dateutil": {
         "is_direct": false,
-        "sha256": "4d6d0cc1cc4d24a2dc3816024e502564094497b713f7befda4d5bc7a8e3fd21f",
+        "sha256": "768890cac4f2d7fd9e0feb6f3217fce2abbfdfc0cadd38d11fba325a815e4b9f",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/72/52/43e70a8e57fefb172c22a21000b03ebcc15e47e97f5cb8495b9c2832efb4/types_python_dateutil-2.9.0.20250708-py3-none-any.whl",
-        "version": "2.9.0.20250708"
+        "url": "https://files.pythonhosted.org/packages/43/5e/67312e679f612218d07fcdbd14017e6d571ce240a5ba1ad734f15a8523cc/types_python_dateutil-2.9.0.20250809-py3-none-any.whl",
+        "version": "2.9.0.20250809"
       },
       "typing-extensions": {
         "is_direct": false,
@@ -1390,6 +1404,13 @@
         "jsonschema-specifications": [
           "referencing"
         ],
+        "juliacall": [
+          "juliapkg"
+        ],
+        "juliapkg": [
+          "filelock",
+          "semver"
+        ],
         "jupyter": [
           "ipykernel",
           "ipywidgets",
@@ -1652,7 +1673,6 @@
           "typing-extensions"
         ],
         "pygments": [],
-        "pymultinest": [],
         "pyparsing": [],
         "python-calamine": [
           "packaging"
@@ -1711,6 +1731,7 @@
           "numpy",
           "pandas"
         ],
+        "semver": [],
         "send2trash": [],
         "setuptools": [],
         "six": [],
@@ -1790,5 +1811,5 @@
       }
     }
   },
-  "invalidationHash": "edbbd181d218b562ec95ac6df7b7856367ff967e8e862ae178c990ef9b527017"
+  "invalidationHash": "02bef5d81c4b562d41f349ac0d7ec17f353b0dd7393cf07d5b706edc92c81c57"
 }
