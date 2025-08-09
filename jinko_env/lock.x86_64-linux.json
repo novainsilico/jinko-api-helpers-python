@@ -406,20 +406,6 @@
         "url": "https://files.pythonhosted.org/packages/01/0e/b27cdbaccf30b890c40ed1da9fd4a3593a5cf94dae54fb34f8a4b74fcd3f/jsonschema_specifications-2025.4.1-py3-none-any.whl",
         "version": "2025.4.1"
       },
-      "juliacall": {
-        "is_direct": false,
-        "sha256": "4a5c93b477cc13ddc48a6a5526626edc0826d5128c522d91e0e0da1b5abe09bc",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/06/e2/9ba7fb4869d2675d53f8c157c84bde77d25240f3cc96b2d33cc2f8aa39b2/juliacall-0.9.26-py3-none-any.whl",
-        "version": "0.9.26"
-      },
-      "juliapkg": {
-        "is_direct": false,
-        "sha256": "f5b28fe2ae7cbf6f7cfead3567e7630040fe52701a4dd7551ac8d17c87fafd50",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/0d/77/f98f17e061c4bd0bd29101eb53a0795e04e2dbe6d6e4676db80b46f60330/juliapkg-0.1.17-py3-none-any.whl",
-        "version": "0.1.17"
-      },
       "jupyter": {
         "is_direct": false,
         "sha256": "7a59533c22af65439b24bbe60373a4e95af8f16ac65a6c00820ad378e3f7cc83",
@@ -988,13 +974,6 @@
         "url": "https://files.pythonhosted.org/packages/83/11/00d3c3dfc25ad54e731d91449895a79e4bf2384dc3ac01809010ba88f6d5/seaborn-0.13.2-py3-none-any.whl",
         "version": "0.13.2"
       },
-      "semver": {
-        "is_direct": false,
-        "sha256": "9c824d87ba7f7ab4a1890799cec8596f15c1241cb473404ea1cb0c55e4b04746",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/a6/24/4d91e05817e92e3a61c8a21e08fd0f390f5301f1c448b137c57c4bc6e543/semver-3.0.4-py3-none-any.whl",
-        "version": "3.0.4"
-      },
       "send2trash": {
         "is_direct": false,
         "sha256": "0c31227e0bd08961c7665474a3d1ef7193929fedda4233843689baa056be46c9",
@@ -1404,13 +1383,6 @@
         "jsonschema-specifications": [
           "referencing"
         ],
-        "juliacall": [
-          "juliapkg"
-        ],
-        "juliapkg": [
-          "filelock",
-          "semver"
-        ],
         "jupyter": [
           "ipykernel",
           "ipywidgets",
@@ -1731,7 +1703,6 @@
           "numpy",
           "pandas"
         ],
-        "semver": [],
         "send2trash": [],
         "setuptools": [],
         "six": [],
@@ -1811,5 +1782,5 @@
       }
     }
   },
-  "invalidationHash": "02bef5d81c4b562d41f349ac0d7ec17f353b0dd7393cf07d5b706edc92c81c57"
+  "invalidationHash": "946299da9b8fa921bc6fb4721e8210518dca87a350bfb0ae517333738117b746"
 }
