@@ -203,6 +203,8 @@ def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar
         set(s["id"] for s in trial_summary["categoricals"]),
         set(s["id"] for s in trial_summary["categoricalsCrossArm"]),
     )
+    arm_names = trial_summary["arms"]
+    arm_names_with_cross_arms = [*arm_names, "crossArms"]
     diff = set(scalar_ids).difference(trial_scalars)
     if len(diff) > 0:
         raise Exception(
@@ -211,14 +213,10 @@ def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar
     else:
         try:
             response = jinko.make_request(
-                "/core/v2/result_manager/scalars_summary",
+                f"/core/v2/result_manager/trial/{trial_core_item_id}/snapshots/{trial_snapshot_id}/scalars/download",
                 method="POST",
                 json={
-                    "select": scalar_ids,
-                    "trialId": {
-                        "coreItemId": trial_core_item_id,
-                        "snapshotId": trial_snapshot_id,
-                    },
+                    "scalars": {id: arm_names_with_cross_arms for id in scalar_ids},
                 },
             )
             if response.status_code == 200:
