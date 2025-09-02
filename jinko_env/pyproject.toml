@@ -13,6 +13,7 @@ dependencies = [
   "jupyterlab",
   "odfpy",
   "kaleido<1.0.0",
+  "python-libsbml",
   "matplotlib",
   "matplotlib-inline",
   "openpyxl",
