@@ -56,6 +56,7 @@ class CrabbitAppLauncher:
         )
         sid, revision = jinko.get_sid_revision_from_url(self.input[0])
         if sid is None:
+            print(message)
             return None
         try:
             project_item = jinko.get_project_item(sid=sid, revision=revision)

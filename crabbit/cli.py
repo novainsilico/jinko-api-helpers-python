@@ -7,6 +7,7 @@ import json
 import zipfile
 import io
 import requests
+import itertools
 import pandas as pd
 
 import jinko_helpers as jinko
@@ -143,21 +144,23 @@ class CrabbitDownloader:
         """Return the "patientNumber" of the best calibration patient, i.e. highest optimizationWeightedScore."""
         print("Finding the ID of the best calib patient...")
         response = jinko.make_request(
-            path=f"/core/v2/result_manager/calibration/sorted_patients",
+            path=f"/core/v2/result_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/sorted_patients",
             method="POST",
             json={
-                "calibId": {
-                    "coreItemId": self.core_id_dict["id"],
-                    "snapshotId": self.core_id_dict["snapshotId"],
-                },
                 "sortBy": "optimizationWeightedScore",
             },
         )
         if not response.json():
             print("Warning: best patient cannot be found! (is it the correct version?)")
             return None
-        best_patient = response.json()[0]["patientNumber"]
-        print("Best patient is", best_patient, end="\n\n")
+        best_patient = response.json()[0]
+        print(
+            "Best patient is",
+            best_patient["patientNumber"],
+            "(iteration",
+            best_patient["iteration"],
+            end=")\n\n",
+        )
         return best_patient
 
     def download_scorings(self, calib):
@@ -264,22 +267,19 @@ class CrabbitDownloader:
                 print("Error: failed to download the timeseries.")
                 return
             response = jinko.make_request(
-                path=f"/core/v2/result_manager/calibration/model_result",
+                path=f"/core/v2/result_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/timeseries/per_patient",
                 method="POST",
                 json={
-                    "calibId": {
-                        "coreItemId": self.core_id_dict["id"],
-                        "snapshotId": self.core_id_dict["snapshotId"],
-                    },
-                    "patientId": patient_id,
+                    "patientId": patient_id["patientNumber"],
+                    "iteration": patient_id["iteration"],
                     "select": ts_ids,
                 },
             )
             for arm_item in response.json():
-                arm_name = arm_item["indexes"]["scenarioArm"]
+                arm_name = arm_item["scenarioArm"]
                 arms.append(arm_name)
                 assert (
-                    arm_item["indexes"]["patientNumber"] == patient_id
+                    arm_item["patientNumber"] == patient_id["patientNumber"]
                 ), "Something wrong happened (patient number mismatch between requests)!"
                 result_path = os.path.join(
                     timeseries_path, f"{self.pretty_patient_name}_{arm_name}.json"
@@ -306,15 +306,15 @@ class CrabbitDownloader:
                 method="GET",
             )
             ts_ids = [item["id"] for item in response.json()]
+            arms = jinko.make_request(
+                path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
+                method="GET",
+            ).json()["arms"]
             response = jinko.make_request(
-                path=f"/core/v2/result_manager/timeseries_summary",
+                path=f"/core/v2/result_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/timeseries/download",
                 method="POST",
                 json={
-                    "select": ts_ids,
-                    "trialId": {
-                        "coreItemId": self.core_id_dict["id"],
-                        "snapshotId": self.core_id_dict["snapshotId"],
-                    },
+                    "timeseries": {ts_id: arms for ts_id in ts_ids},
                 },
             )
             with open(timeseries_path, "wb") as output_file:
@@ -335,106 +335,73 @@ class CrabbitDownloader:
         metadata_path = os.path.join(self.output_path, "ScalarMetaData.json")
         os.mkdir(scalar_array_path)
         os.mkdir(categorical_array_path)
-        scalars, categoricals, scalars_cross, categoricals_cross = {}, {}, {}, {}
-        arms = set()
+
+        result_summary = jinko.make_request(
+            path=f"/core/v2/calibration_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
+            method="GET",
+        ).json()
+        # save the scalar metadata
+        arms = result_summary["arms"]
+        metadata_json = {
+            "arms": arms,
+            "patients": [self.pretty_patient_name],
+            "categoricals": [],
+            "categoricalsCrossArm": [],
+            "scalars": result_summary["scalars"],
+            "scalarsCrossArm": result_summary["scalarsCrossArm"],
+        }
+        json.dump(metadata_json, open(metadata_path, "w", encoding="utf-8"))
+
+        # save the scalar array per arm
         try:
             response = jinko.make_request(
-                path=f"/core/v2/result_manager/calibration/scalar_result",
+                path=f"/core/v2/result_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/scalars/per_patient",
                 method="POST",
                 json={
-                    "calibId": {
-                        "coreItemId": self.core_id_dict["id"],
-                        "snapshotId": self.core_id_dict["snapshotId"],
-                    },
-                    "patientId": patient_id,
+                    "patientNumber": patient_id["patientNumber"],
+                    "iteration": patient_id["iteration"],
+                    "arms": arms,
+                    "scalars": [scalar["id"] for scalar in result_summary["scalars"]],
                 },
-            )
-            response = response.json()
-            for (
-                response_subtype,
-                multi_field,
-                array_path,
-                metadata_dict,
-                cross_metadata_dict,
-                has_unit,
-            ) in zip(
-                ["outputs", "outputsCategorical"],
-                ["scalarValues", "categoricalLevels"],
-                [scalar_array_path, categorical_array_path],
-                [scalars, categoricals],
-                [scalars_cross, categoricals_cross],
-                [True, False],
+            ).json()
+            response_cross = jinko.make_request(
+                path=f"/core/v2/result_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/scalars/per_patient",
+                method="POST",
+                json={
+                    "patientNumber": patient_id["patientNumber"],
+                    "iteration": patient_id["iteration"],
+                    "arms": ["crossArms"],
+                    "scalars": [
+                        scalar["id"] for scalar in result_summary["scalarsCrossArm"]
+                    ],
+                },
+            ).json()
+            for arm_item in itertools.chain(
+                response["outputs"], response_cross["outputs"]
             ):
-                for arm_item in response[response_subtype]:
-                    arm_name = arm_item["indexes"]["scenarioArm"]
-                    is_cross = arm_name == "crossArms"
-                    if not is_cross:
-                        arms.add(arm_name)
-                    assert (
-                        arm_item["indexes"]["patientNumber"] == patient_id
-                    ), "Something wrong happened (patient number mismatch between requests)!"
-                    scalar_array = []
-                    for one_scalar in arm_item["res"]:
-                        # fetch scalar metadata
-                        scalar_id = one_scalar["id"]
-                        scalar_unit = (
-                            one_scalar["unit"] if "unit" in one_scalar else None
-                        )
-                        if is_cross:
-                            if scalar_id not in cross_metadata_dict:
-                                cross_metadata_dict[scalar_id] = {
-                                    "description": None,
-                                    "id": scalar_id,
-                                    "type": one_scalar["type"],
-                                }
-                                if has_unit:
-                                    cross_metadata_dict[scalar_id]["unit"] = scalar_unit
-                        else:
-                            if scalar_id not in metadata_dict:
-                                metadata_dict[scalar_id] = {
-                                    "arms": set(),
-                                    "description": None,
-                                    "id": scalar_id,
-                                    "type": one_scalar["type"],
-                                }
-                                if has_unit:
-                                    metadata_dict[scalar_id]["unit"] = scalar_unit
-                            metadata_dict[scalar_id]["arms"].add(arm_name)
+                arm_name = arm_item["scenarioArm"]
+                assert (
+                    arm_item["patientNumber"] == patient_id["patientNumber"]
+                ), "Something wrong happened (patient number mismatch between requests)!"
+                scalar_array = []
+                for one_scalar in arm_item["res"]:
+                    # turn the single-patient scalar result into the multi-patient scalar array format
+                    one_scalar["scalarValues"] = []
+                    one_scalar["errors"] = []
+                    if "value" in one_scalar:
+                        one_scalar["scalarValues"] = [one_scalar["value"]]
+                        del one_scalar["value"]
+                    if "error" in one_scalar:
+                        one_scalar["errors"] = [one_scalar["error"]]
+                        del one_scalar["error"]
+                    scalar_array.append(one_scalar)
 
-                        # turn the scalar array record into multi-patient format
-                        one_scalar[multi_field] = []
-                        one_scalar["errors"] = []
-                        if "value" in one_scalar:
-                            one_scalar[multi_field] = [one_scalar["value"]]
-                            del one_scalar["value"]
-                        if "error" in one_scalar:
-                            one_scalar["errors"] = [one_scalar["error"]]
-                            del one_scalar["error"]
-                        scalar_array.append(one_scalar)
-
-                    # save the scalar array
-                    result_path = os.path.join(array_path, f"{arm_name}.json")
-                    json.dump(scalar_array, open(result_path, "w", encoding="utf-8"))
+                result_path = os.path.join(scalar_array_path, f"{arm_name}.json")
+                json.dump(scalar_array, open(result_path, "w", encoding="utf-8"))
 
         except (requests.exceptions.HTTPError, TypeError, KeyError):
             print("Error: failed to download the scalar results.")
             return
-
-        # save the scalar metadata
-        metadata_json = {"arms": list(arms), "patients": [self.pretty_patient_name]}
-        for metadata_dict, metadata_array in zip(
-            [scalars, categoricals, scalars_cross, categoricals_cross],
-            ["scalars", "categoricals", "scalarsCrossArm", "categoricalsCrossArm"],
-        ):
-            metadata_json[metadata_array] = []
-            # flatten the metadata dict (scalarID-indexed) into array
-            for scalar_id, one_scalar_metadata in metadata_dict.items():
-                if "arms" in one_scalar_metadata:
-                    one_scalar_metadata["arms"] = list(one_scalar_metadata["arms"])
-                metadata_json[metadata_array].append(
-                    {"id": scalar_id} | one_scalar_metadata
-                )
-        json.dump(metadata_json, open(metadata_path, "w", encoding="utf-8"))
 
         arm_count = len(arms)
         print(
