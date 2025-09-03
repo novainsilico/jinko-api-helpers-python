@@ -33,6 +33,7 @@ dependencies = [
   "openai",
   "bayesian-optimization==2.0.4",
   "torch @ https://download.pytorch.org/whl/cpu/torch-2.10.0%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl",
+  "torchvision @ https://download.pytorch.org/whl/cpu/torchvision-0.25.0%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl",
   "gpytorch",
   "timedelta-isoformat",
   "python-calamine",
@@ -47,5 +48,7 @@ dependencies = [
   "pip",
   "shap",
   "cma",
-  "fpdf2"
+  "fpdf2",
+  "easyocr",
+  "opencv-python-headless", 
 ]

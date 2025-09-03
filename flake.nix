@@ -65,6 +65,9 @@
                 pip.overrides.torch.mkDerivation.preBuild = ''
                   ${config.deps.rename}/bin/rename -v "s/-2B/+/" dist/*.whl
                 '';
+                pip.overrides.torchvision.mkDerivation.preBuild = ''
+                  ${config.deps.rename}/bin/rename -v "s/-2B/+/" dist/*.whl
+                '';
                 pip.overrides.kaleido.mkDerivation.postFixup = ''
                   sed -i -e "s@/bin/bash@/bin/sh@" $out/lib/python*/site-packages/kaleido/executable/kaleido
                   ${config.deps.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/lib/python*/site-packages/kaleido/executable/bin/kaleido
@@ -118,7 +121,6 @@
                 ${shellInit}
               '';
             };
-
             # Install and load a poetry shell
             poetry = pkgs.mkShell {
               buildInputs = shellBuildInputs;
