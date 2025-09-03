@@ -253,6 +253,13 @@
         "url": "https://files.pythonhosted.org/packages/cf/58/8acf1b3e91c58313ce5cb67df61001fc9dcd21be4fadb76c1a2d540e09ed/fqdn-1.5.1-py3-none-any.whl",
         "version": "1.5.1"
       },
+      "freia": {
+        "is_direct": false,
+        "sha256": "e9f1732b4a238b85b0ad3bc14b279a653a6063d14152028e164b989582026bdc",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/d4/76/5660f714a3a8c8df9c3301161b53fbdaa7a911ee0f660eaa65fa5a5b36f9/FrEIA-0.2.tar.gz",
+        "version": "0.2"
+      },
       "fsspec": {
         "is_direct": false,
         "sha256": "530dc2a2af60a414a832059574df4a6e10cce927f6f4a78209390fe38955cfb7",
@@ -478,10 +485,10 @@
       },
       "jupyterlab": {
         "is_direct": false,
-        "sha256": "e877e930f46dde2e3ee9da36a935c6cd4fdb15aa7440519d0fde696f9fadb833",
+        "sha256": "808bae6136b507a4d18f04254218bfe71ed8ba399a36ef3280d5f259e69abf80",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/53/38/6182d63f39428821e705e86fba61704fc69769a24ca5a9578c2c04986c9a/jupyterlab-4.4.6-py3-none-any.whl",
-        "version": "4.4.6"
+        "url": "https://files.pythonhosted.org/packages/7e/01/44f35124896dd5c73b26705c25bb8af2089895b32f057a1e4a3488847333/jupyterlab-4.4.7-py3-none-any.whl",
+        "version": "4.4.7"
       },
       "jupyterlab-pygments": {
         "is_direct": false,
@@ -689,10 +696,10 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "0148951da12ea651f890ef38f8adef75b78c053dba37ea2bdba857c8945860d4",
+        "sha256": "3ad7635132b0705769ccae31ca7319f59ec0c7d09e94e5e713ce2d130e5b021f",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/46/9c/d0b56971e5584aea338bb00d3ca96a7f6694dff77006581b21cd773497ce/openai-1.104.2-py3-none-any.whl",
-        "version": "1.104.2"
+        "url": "https://files.pythonhosted.org/packages/51/01/186845829d3a3609bb5b474067959076244dd62540d3e336797319b13924/openai-1.105.0-py3-none-any.whl",
+        "version": "1.105.0"
       },
       "openpyxl": {
         "is_direct": false,
@@ -1329,6 +1336,11 @@
           "wrapt"
         ],
         "fqdn": [],
+        "freia": [
+          "numpy",
+          "scipy",
+          "torch"
+        ],
         "fsspec": [],
         "gpytorch": [
           "jaxtyping",
@@ -1851,5 +1863,5 @@
       }
     }
   },
-  "invalidationHash": "245a23715f68896dc1f782d3372af989572eb6b5cbf60e0df1a11e9b35bc0b5a"
+  "invalidationHash": "3cd55b567242988ba55103c06381dd737023d12493fc01da9972814edad3c962"
 }

@@ -36,4 +36,5 @@ dependencies = [
   "timedelta-isoformat",
   "python-calamine",
   "transformers",
+  "freia",
 ]
