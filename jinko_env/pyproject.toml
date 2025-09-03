@@ -35,4 +35,5 @@ dependencies = [
   "gpytorch",
   "timedelta-isoformat",
   "python-calamine",
+  "transformers",
 ]
