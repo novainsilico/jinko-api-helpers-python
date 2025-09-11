@@ -70,6 +70,9 @@
                   ${config.deps.poetry}/bin/poetry build -o $HOME/dist
                   cp $HOME/dist/${filename} $out
                 '';
+                # "sbmlxdf" depends on "libsbml-experimental" while "tellurium" depends on "libsbml" which 
+                # generates collisions. This is fixed by telling Nix to prioritize the "libsbml-experimental"
+                pip.overrides.python-libsbml.mkDerivation.meta.priority = 10;
               })
             ];
           };

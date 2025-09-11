@@ -13,7 +13,7 @@ dependencies = [
   "jupyterlab",
   "odfpy",
   "kaleido<1.0.0",
-  "python-libsbml",
+  "python-libsbml-experimental",
   "matplotlib",
   "matplotlib-inline",
   "openpyxl",
@@ -35,6 +35,8 @@ dependencies = [
   "gpytorch",
   "timedelta-isoformat",
   "python-calamine",
+  "sbmlxdf",
+  "tellurium",
   "transformers",
   "freia",
 ]
