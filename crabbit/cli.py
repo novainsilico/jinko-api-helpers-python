@@ -8,6 +8,7 @@ import zipfile
 import io
 import requests
 import itertools
+import time
 import pandas as pd
 
 import jinko_helpers as jinko
@@ -22,9 +23,10 @@ from crabbit.utils import (
 class CrabbitDownloader:
     """CLI app for running the crabbit "download" mode."""
 
-    def __init__(self, project_item, output_path):
+    def __init__(self, project_item, output_path, download_csv):
         self.project_item = project_item
         self.output_path = output_path
+        self.download_csv = download_csv
         self.core_id_dict = self.project_item.get("coreId", {})
 
         self.pretty_patient_name = (
@@ -43,6 +45,7 @@ class CrabbitDownloader:
             best_patient = self.find_best_calib_patient()
             if best_patient is None:
                 return
+            self.download_calib_patient_augmented_data_table(best_patient)
             self.download_calib_patient_timeseries(best_patient)
             self.download_calib_patient_scalar_results(best_patient)
             print(
@@ -51,15 +54,26 @@ class CrabbitDownloader:
             )
 
         elif download_type == "Trial":
-            if not self.check_trial_status() or not self.check_trial_without_vpop():
+            if not self.check_trial_status():
                 return
-            self.download_scorings(calib=False)
-            self.download_trial_without_vpop_timeseries()
-            print(
-                bold_text("Done!"),
-                f"To visualize: dark-crabbit -- trialViz {self.output_path}",
-            )
-
+            if not self.download_csv:
+                self.download_scorings(calib=False)
+                if not self.check_trial_without_vpop():
+                    return
+                self.download_trial_without_vpop_timeseries()
+                print(
+                    bold_text("Done!"),
+                    f"To visualize: dark-crabbit -- trialViz {self.output_path}",
+                )
+            else:
+                scalars = self.check_download_csv()
+                if not scalars:
+                    return
+                self.download_trial_scalars(scalars)
+                print(
+                    bold_text("Done!"),
+                    f"Trial results saved to: {self.output_path}/scalars.csv",
+                )
         elif download_type == "ComputationalModel":
             model = jinko.make_request(
                 f"/core/v2/model_manager/jinko_model/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}"
@@ -139,6 +153,32 @@ class CrabbitDownloader:
             return True
         except requests.exceptions.HTTPError:
             return False
+
+    def check_download_csv(self):
+        scalars = []
+        input_path = os.path.abspath(self.download_csv)
+        try:
+            with open(input_path, "r", encoding="utf-8") as qoi_file:
+                for line in qoi_file.readlines():
+                    line = line.rstrip()
+                    if not line:
+                        continue
+                    scalars.append(line)
+        except FileNotFoundError:
+            print(
+                bold_text("Error:"),
+                f"The input path for the scalars of interest is not valid ({input_path}).",
+            )
+        if not scalars:
+            print(
+                bold_text("Error:"),
+                "Failed to read the list of scalars of interest.",
+            )
+        nb_scalars = len(scalars)
+        print(
+            f'Found {nb_scalars} scalar{"s" if nb_scalars > 1 else ""} of interest to download.'
+        )
+        return scalars
 
     def find_best_calib_patient(self):
         """Return the "patientNumber" of the best calibration patient, i.e. highest optimizationWeightedScore."""
@@ -250,6 +290,27 @@ class CrabbitDownloader:
             f"Downloaded {pretty_name} inputs (scorings and data tables).", end="\n\n"
         )
         return True
+
+    def download_calib_patient_augmented_data_table(self, patient_id):
+        response = jinko.make_request(
+            path=f"/core/v2/result_manager/calibration/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/augment_data_tables",
+            method="POST",
+            json={
+                "patientId": patient_id["patientNumber"],
+                "iteration": patient_id["iteration"],
+            },
+        )
+        archive = zipfile.ZipFile(io.BytesIO(response.content))
+        for item in archive.namelist():
+            if not item.endswith(".csv"):
+                continue
+            csv_data = pd.read_csv(
+                io.StringIO(archive.read(item).decode("utf-8")), sep=","
+            )
+            csv_data.to_csv(
+                os.path.join(self.output_path, item),
+                index=False,
+            )
 
     def download_calib_patient_timeseries(self, patient_id):
         """Download one calibration patient's timeseries."""
@@ -408,6 +469,51 @@ class CrabbitDownloader:
             f'Successfully downloaded the scalar results of {arm_count} protocol arm{"s" if arm_count > 1 else ""}.',
             end="\n\n",
         )
+
+    def download_trial_scalars(self, scalars):
+        print("Downloading (this might take a few minutes for large vpops)...")
+        t0 = time.time()
+        try:
+            arms = jinko.make_request(
+                path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
+                method="GET",
+            ).json()["arms"] + ["crossArms"]
+            binary_results = jinko.make_request(
+                path=f"/core/v2/result_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/scalars/download",
+                method="POST",
+                json={"scalars": {scalar: arms for scalar in scalars}},
+            )
+            zipped_results = zipfile.ZipFile(io.BytesIO(binary_results.content))
+        except (requests.exceptions.HTTPError, KeyError, zipfile.BadZipFile):
+            print("Error: failed to download the scalar results.")
+            return
+        csv_file_name = zipped_results.namelist()[0]
+        csv_path = os.path.join(self.output_path, "scalars.csv")
+        with open(csv_path, "w") as f:
+            with zipped_results.open(csv_file_name) as csv_file:
+                while True:
+                    line = csv_file.readline().decode("utf-8")
+                    if not line:
+                        break
+                    line = ",".join(line.split(",")[0:4])
+                    f.write(line)
+                    f.write("\n")
+        # pivot the raw CSV file twice to convert it into the wide format
+        table = pd.read_csv(csv_path)
+        # first pivot to distribute the scalarId
+        pivotted = table.pivot(
+            columns="scalarId", index=["patientId", "armId"], values="value"
+        )
+        pivotted.reset_index(inplace=True)
+        # second pivot to distribute the armId (used as prefix)
+        repivotted = pivotted.pivot(columns="armId", index="patientId")
+        repivotted.columns = [
+            "_".join(name[::-1]) for name in repivotted.columns.to_flat_index()
+        ]
+        repivotted.dropna(axis=1, how="all", inplace=True)
+        repivotted.to_csv(csv_path)
+        print(f"\nTime elapsed: {round(time.time() - t0, 2)} (second)")
+        print(f"Size of the scalar table: {repivotted.shape}")
 
 
 class CrabbitMerger:

@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.3 | 2025-09-27
+
+### Changed
+- (crabbit/download) extend `download` to any trial for scalars
+
 ## v0.4.9 | 2025-02-03
 
 ### Changed

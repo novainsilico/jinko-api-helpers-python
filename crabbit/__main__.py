@@ -34,6 +34,11 @@ parser.add_argument(
     action="store_true",
     help="download: force cleaning the directory when downloading calibration best patient (not asking for confirmation).",
 )
+parser.add_argument(
+    "-c",
+    "--csv",
+    help="download: specify the scalars of interest to download.",
+)
 
 crab = launcher.CrabbitAppLauncher()
 parser.parse_args(namespace=crab)

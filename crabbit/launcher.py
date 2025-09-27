@@ -18,6 +18,7 @@ class CrabbitAppLauncher:
         self.input = None
         self.output = ""
         self.force = False
+        self.csv = ""
 
     def run(self):
         self.output = os.path.abspath(self.output)
@@ -30,7 +31,7 @@ class CrabbitAppLauncher:
             project_item = self.check_project_item_url()
             if project_item is None:
                 return
-            crab = cli.CrabbitDownloader(project_item, self.output)
+            crab = cli.CrabbitDownloader(project_item, self.output, self.csv)
             print(
                 f'Downloading jinko project item "{self.input[0]}" to {self.output}\n',
             )
