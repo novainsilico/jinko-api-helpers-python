@@ -8,6 +8,7 @@ dependencies = [
   "deepdiff",
   "black[jupyter]",
   "ipykernel",
+  "isodate",
   "jupyter",
   "jupyter-server",
   "jupyterlab",
