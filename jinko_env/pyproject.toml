@@ -40,4 +40,5 @@ dependencies = [
   "tellurium",
   "transformers",
   "freia",
+  "langfuse",
 ]

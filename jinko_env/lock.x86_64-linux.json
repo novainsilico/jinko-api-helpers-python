@@ -92,6 +92,13 @@
         "url": "https://files.pythonhosted.org/packages/b7/b8/3fe70c75fe32afc4bb507f75563d39bc5642255d1d94f1f23604725780bf/babel-2.17.0-py3-none-any.whl",
         "version": "2.17.0"
       },
+      "backoff": {
+        "is_direct": false,
+        "sha256": "63579f9a0628e06278f7e47b7d7d5b6ce20dc65c5e96a6f3ca99a6adca0396e8",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/df/73/b6e24bd22e6720ca8ee9a85a0c4a2971af8497d8f3193fa05390cbd46e09/backoff-2.2.1-py3-none-any.whl",
+        "version": "2.2.1"
+      },
       "bayesian-optimization": {
         "is_direct": false,
         "sha256": "e575c3621d551dc908af43400b48306a8efafe919b43503f0f7364d904ce746b",
@@ -281,6 +288,13 @@
         "url": "https://files.pythonhosted.org/packages/47/71/70db47e4f6ce3e5c37a607355f80da8860a33226be640226ac52cb05ef2e/fsspec-2025.9.0-py3-none-any.whl",
         "version": "2025.9.0"
       },
+      "googleapis-common-protos": {
+        "is_direct": false,
+        "sha256": "b8bfcca8c25a2bb253e0e0b0adaf8c00773e5e6af6fd92397576680b807e0fd8",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/86/f1/62a193f0227cf15a920390abe675f386dec35f7ae3ffe6da582d3ade42c7/googleapis_common_protos-1.70.0-py3-none-any.whl",
+        "version": "1.70.0"
+      },
       "gpytorch": {
         "is_direct": false,
         "sha256": "9b17ff7bd70dc39c3a3c03eb2bb9a87aa4b840c26e71ac68d120b96487bf5a12",
@@ -329,6 +343,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl",
         "version": "3.10"
+      },
+      "importlib-metadata": {
+        "is_direct": false,
+        "sha256": "e5dd1551894c77868a30651cef00984d50e1002d06942a7101d34870c5f02afd",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/20/b0/36bd937216ec521246249be3bf9855081de4c5e06a0c9b4219dbeda50373/importlib_metadata-8.7.0-py3-none-any.whl",
+        "version": "8.7.0"
       },
       "iniconfig": {
         "is_direct": false,
@@ -553,6 +574,13 @@
         "url": "https://files.pythonhosted.org/packages/70/90/6d240beb0f24b74371762873e9b7f499f1e02166a2d9c5801f4dbf8fa12e/kiwisolver-1.4.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
         "version": "1.4.9"
       },
+      "langfuse": {
+        "is_direct": false,
+        "sha256": "51527aed5a3237410e587b04e07268382063435a4af2d53e7d9096a7b6535c94",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/14/c9/44189f008cac5f1bb252fb1a4f89dd3cf466f808d7f44eb56c8ed3c0319a/langfuse-3.5.2-py3-none-any.whl",
+        "version": "3.5.2"
+      },
       "lark": {
         "is_direct": false,
         "sha256": "80661f261fb2584a9828a097a2432efd575af27d20be0fd35d17f0fe37253831",
@@ -736,6 +764,48 @@
         "url": "https://files.pythonhosted.org/packages/c0/da/977ded879c29cbd04de313843e76868e6e13408a94ed6b987245dc7c8506/openpyxl-3.1.5-py2.py3-none-any.whl",
         "version": "3.1.5"
       },
+      "opentelemetry-api": {
+        "is_direct": false,
+        "sha256": "accf2024d3e89faec14302213bc39550ec0f4095d1cf5ca688e1bfb1c8612f47",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/91/48/28ed9e55dcf2f453128df738210a980e09f4e468a456fa3c763dbc8be70a/opentelemetry_api-1.37.0-py3-none-any.whl",
+        "version": "1.37.0"
+      },
+      "opentelemetry-exporter-otlp-proto-common": {
+        "is_direct": false,
+        "sha256": "53038428449c559b0c564b8d718df3314da387109c4d36bd1b94c9a641b0292e",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/08/13/b4ef09837409a777f3c0af2a5b4ba9b7af34872bc43609dda0c209e4060d/opentelemetry_exporter_otlp_proto_common-1.37.0-py3-none-any.whl",
+        "version": "1.37.0"
+      },
+      "opentelemetry-exporter-otlp-proto-http": {
+        "is_direct": false,
+        "sha256": "54c42b39945a6cc9d9a2a33decb876eabb9547e0dcb49df090122773447f1aef",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/e9/e9/70d74a664d83976556cec395d6bfedd9b85ec1498b778367d5f93e373397/opentelemetry_exporter_otlp_proto_http-1.37.0-py3-none-any.whl",
+        "version": "1.37.0"
+      },
+      "opentelemetry-proto": {
+        "is_direct": false,
+        "sha256": "8ed8c066ae8828bbf0c39229979bdf583a126981142378a9cbe9d6fd5701c6e2",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/c4/25/f89ea66c59bd7687e218361826c969443c4fa15dfe89733f3bf1e2a9e971/opentelemetry_proto-1.37.0-py3-none-any.whl",
+        "version": "1.37.0"
+      },
+      "opentelemetry-sdk": {
+        "is_direct": false,
+        "sha256": "8f3c3c22063e52475c5dbced7209495c2c16723d016d39287dfc215d1771257c",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/9f/62/9f4ad6a54126fb00f7ed4bb5034964c6e4f00fcd5a905e115bd22707e20d/opentelemetry_sdk-1.37.0-py3-none-any.whl",
+        "version": "1.37.0"
+      },
+      "opentelemetry-semantic-conventions": {
+        "is_direct": false,
+        "sha256": "5564905ab1458b96684db1340232729fce3b5375a06e140e8904c78e4f815b28",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/07/90/68152b7465f50285d3ce2481b3aec2f82822e3f52e5152eeeaf516bab841/opentelemetry_semantic_conventions-0.58b0-py3-none-any.whl",
+        "version": "0.58b0"
+      },
       "orderly-set": {
         "is_direct": false,
         "sha256": "46f0b801948e98f427b412fcabb831677194c05c3b699b80de260374baa0b1e7",
@@ -854,6 +924,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/84/03/0d3ce49e2505ae70cf43bc5bb3033955d2fc9f932163e84dc0779cc47f48/prompt_toolkit-3.0.52-py3-none-any.whl",
         "version": "3.0.52"
+      },
+      "protobuf": {
+        "is_direct": false,
+        "sha256": "b1864818300c297265c83a4982fd3169f97122c299f56a56e2445c3698d34710",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/5c/f6/88d77011b605ef979aace37b7703e4eefad066f7e84d935e5a696515c2dd/protobuf-6.32.1-cp39-abi3-manylinux2014_x86_64.whl",
+        "version": "6.32.1"
       },
       "psutil": {
         "is_direct": false,
@@ -1344,6 +1421,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/9f/81/5d931d78d0eb732b95dc3ddaeeb71c8bb572fb01356e9133916cd729ecdd/wrapt-1.17.3-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
         "version": "1.17.3"
+      },
+      "zipp": {
+        "is_direct": false,
+        "sha256": "071652d6115ed432f5ce1d34c336c0adfd6a884660d1e9712a256d3d3bd4b14e",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/2e/54/647ade08bf0db230bfea292f893923872fd20be6ac6f53b2b936ba839d75/zipp-3.23.0-py3-none-any.whl",
+        "version": "3.23.0"
       }
     },
     "targets": {
@@ -1377,6 +1461,7 @@
           "scipy"
         ],
         "babel": [],
+        "backoff": [],
         "bayesian-optimization": [
           "colorama",
           "numpy",
@@ -1443,6 +1528,9 @@
           "torch"
         ],
         "fsspec": [],
+        "googleapis-common-protos": [
+          "protobuf"
+        ],
         "gpytorch": [
           "jaxtyping",
           "linear-operator",
@@ -1473,6 +1561,9 @@
           "typing-extensions"
         ],
         "idna": [],
+        "importlib-metadata": [
+          "zipp"
+        ],
         "iniconfig": [],
         "interface-meta": [],
         "ipykernel": [
@@ -1643,6 +1734,17 @@
         "jupyterlab-widgets": [],
         "kaleido": [],
         "kiwisolver": [],
+        "langfuse": [
+          "backoff",
+          "httpx",
+          "opentelemetry-api",
+          "opentelemetry-exporter-otlp-proto-http",
+          "opentelemetry-sdk",
+          "packaging",
+          "pydantic",
+          "requests",
+          "wrapt"
+        ],
         "lark": [],
         "libroadrunner": [
           "numpy"
@@ -1757,6 +1859,34 @@
         "openpyxl": [
           "et-xmlfile"
         ],
+        "opentelemetry-api": [
+          "importlib-metadata",
+          "typing-extensions"
+        ],
+        "opentelemetry-exporter-otlp-proto-common": [
+          "opentelemetry-proto"
+        ],
+        "opentelemetry-exporter-otlp-proto-http": [
+          "googleapis-common-protos",
+          "opentelemetry-api",
+          "opentelemetry-exporter-otlp-proto-common",
+          "opentelemetry-proto",
+          "opentelemetry-sdk",
+          "requests",
+          "typing-extensions"
+        ],
+        "opentelemetry-proto": [
+          "protobuf"
+        ],
+        "opentelemetry-sdk": [
+          "opentelemetry-api",
+          "opentelemetry-semantic-conventions",
+          "typing-extensions"
+        ],
+        "opentelemetry-semantic-conventions": [
+          "opentelemetry-api",
+          "typing-extensions"
+        ],
         "orderly-set": [],
         "osqp": [
           "numpy",
@@ -1799,6 +1929,7 @@
         "prompt-toolkit": [
           "wcwidth"
         ],
+        "protobuf": [],
         "psutil": [],
         "ptyprocess": [],
         "pure-eval": [],
@@ -1990,7 +2121,8 @@
         "webencodings": [],
         "websocket-client": [],
         "widgetsnbextension": [],
-        "wrapt": []
+        "wrapt": [],
+        "zipp": []
       },
       "jupyter": {
         "black": [
@@ -2007,5 +2139,5 @@
       }
     }
   },
-  "invalidationHash": "230e3295a9fde4dc10c8267622f4c94f7415e0d15284a1b40d4130ddd2065c7d"
+  "invalidationHash": "8560ba9a67638363276dfd9cd12bd6b10bcb220407a74eb073bf499d28febbcf"
 }
