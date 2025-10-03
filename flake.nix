@@ -48,7 +48,7 @@
                   rename = nixpkgs.rename;
                 };
 
-                public.pythonWithEnv = config.deps.python.withPackages (_: config.mkDerivation.propagatedBuildInputs);
+                public.pythonWithEnv = config.deps.python.withPackages (p: [ p.tkinter ] ++ config.mkDerivation.propagatedBuildInputs);
                 mkDerivation.src = env_path;
                 paths.projectRoot = ./.;
                 paths.package = name;
