@@ -39,7 +39,7 @@
               dream2nix.modules.dream2nix.WIP-python-pyproject
               ({ config, ... }: {
                 deps = {nixpkgs, ...}: {
-                  python = nixpkgs.python312;
+                  python = nixpkgs.python313;
                   poetry = nixpkgs.poetry;
                   patchelf = nixpkgs.patchelf;
                   rdma-core = nixpkgs.rdma-core;
@@ -52,6 +52,15 @@
                 mkDerivation.src = env_path;
                 paths.projectRoot = ./.;
                 paths.package = name;
+                # Environment needed for ecos (dependency of
+                # scikit-survival) during the locking
+                pip.env = {
+                  LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc ];
+                };
+                pip.overrides.vpop-calibration = {
+                  buildPythonPackage.pyproject = true;
+                  mkDerivation.propagatedBuildInputs = [ config.deps.python.pkgs.poetry-core ];
+                };
                 pip.overrides.torch.mkDerivation.preBuild = ''
                   ${config.deps.rename}/bin/rename -v "s/-2B/+/" dist/*.whl
                 '';
@@ -73,6 +82,21 @@
                 # "sbmlxdf" depends on "libsbml-experimental" while "tellurium" depends on "libsbml" which 
                 # generates collisions. This is fixed by telling Nix to prioritize the "libsbml-experimental"
                 pip.overrides.python-libsbml.mkDerivation.meta.priority = 10;
+              })
+              ({ config, lib, ... }: {
+                pip.overrides = let
+                  deps = [
+                    "autograd-gamma"
+                    "ecos"
+                    "freia"
+                    "ndtest"
+                    "odfpy"
+                    "uuid"
+                  ];
+                in lib.genAttrs deps (_: {
+                  buildPythonPackage.pyproject = true;
+                  buildPythonPackage.build-system = [ config.deps.python.pkgs.setuptools ];
+                });
               })
             ];
           };
