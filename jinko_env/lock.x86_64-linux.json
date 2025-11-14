@@ -176,6 +176,13 @@
         "url": "https://files.pythonhosted.org/packages/4b/32/e0f13a1c5b0f8572d0ec6ae2f6c677b7991fafd95da523159c19eff0696a/contourpy-1.3.3-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
         "version": "1.3.3"
       },
+      "coverage": {
+        "is_direct": false,
+        "sha256": "004cdcea3457c0ea3233622cd3464c1e32ebba9b41578421097402bee6461b63",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/7f/9c/dab1a4e8e75ce053d14259d3d7485d68528a662e286e184685ea49e71156/coverage-7.11.3-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+        "version": "7.11.3"
+      },
       "cycler": {
         "is_direct": false,
         "sha256": "85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30",
@@ -752,10 +759,10 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "116f522f4427f8a0a59b51655a356da85ce092f3ed6abeca65f03c8be6e073d9",
+        "sha256": "ba975e347f6add2fe13529ccb94d54a578280e960765e5224c34b08d7e029ddf",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/25/66/22cfe4b695b5fd042931b32c67d685e867bfd169ebf46036b95b57314c33/openai-2.7.2-py3-none-any.whl",
-        "version": "2.7.2"
+        "url": "https://files.pythonhosted.org/packages/5b/e1/0a6560bab7fb7b5a88d35a505b859c6d969cb2fa2681b568eb5d95019dec/openai-2.8.0-py3-none-any.whl",
+        "version": "2.8.0"
       },
       "openpyxl": {
         "is_direct": false,
@@ -927,10 +934,10 @@
       },
       "protobuf": {
         "is_direct": false,
-        "sha256": "35be49fd3f4fefa4e6e2aacc35e8b837d6703c37a2168a55ac21e9b1bc7559ef",
+        "sha256": "8fd7d5e0eb08cd5b87fd3df49bc193f5cfd778701f47e11d127d0afc6c39f1d1",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/21/51/0b1cbad62074439b867b4e04cc09b93f6699d78fd191bed2bbb44562e077/protobuf-6.33.0-cp39-abi3-manylinux2014_x86_64.whl",
-        "version": "6.33.0"
+        "url": "https://files.pythonhosted.org/packages/1d/2a/3c5f05a4af06649547027d288747f68525755de692a26a7720dced3652c0/protobuf-6.33.1-cp39-abi3-manylinux2014_x86_64.whl",
+        "version": "6.33.1"
       },
       "psutil": {
         "is_direct": false,
@@ -994,6 +1001,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/0b/8b/6300fb80f858cda1c51ffa17075df5d846757081d11ab4aa35cef9e6258b/pytest-9.0.1-py3-none-any.whl",
         "version": "9.0.1"
+      },
+      "pytest-cov": {
+        "is_direct": false,
+        "sha256": "3b8e9558b16cc1479da72058bdecf8073661c7f57f7d3c5f22a1c23507f2d861",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/ee/49/1377b49de7d0c1ce41292161ea0f721913fa8722c19fb9c1e3aa0367eecb/pytest_cov-7.0.0-py3-none-any.whl",
+        "version": "7.0.0"
       },
       "python-calamine": {
         "is_direct": false,
@@ -1375,8 +1389,8 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "4defb1b99d45ad234542ea4eab44890dd65f3a0d",
-        "sha256": "0c91137i41dkzsalf1kvr75c1v2ndi299vy00f9lvnkr1sakhzkp",
+        "rev": "e2735a7812dfd03da338d8be5257a7623c48108c",
+        "sha256": "1shj7wfxbc5nkflj8s2c2w5b1qnm208583r0r2q4x57zfy18b6qb",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
         "version": "0.1.0"
@@ -1502,6 +1516,7 @@
         "contourpy": [
           "numpy"
         ],
+        "coverage": [],
         "cycler": [],
         "debugpy": [],
         "decorator": [],
@@ -1959,6 +1974,11 @@
           "pluggy",
           "pygments"
         ],
+        "pytest-cov": [
+          "coverage",
+          "pluggy",
+          "pytest"
+        ],
         "python-calamine": [],
         "python-dateutil": [
           "six"
@@ -2128,6 +2148,7 @@
           "numpy",
           "pandas",
           "plotly",
+          "pytest-cov",
           "scipy",
           "torch",
           "tqdm",
