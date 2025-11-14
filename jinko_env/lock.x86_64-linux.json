@@ -176,13 +176,6 @@
         "url": "https://files.pythonhosted.org/packages/4b/32/e0f13a1c5b0f8572d0ec6ae2f6c677b7991fafd95da523159c19eff0696a/contourpy-1.3.3-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
         "version": "1.3.3"
       },
-      "coverage": {
-        "is_direct": false,
-        "sha256": "004cdcea3457c0ea3233622cd3464c1e32ebba9b41578421097402bee6461b63",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/7f/9c/dab1a4e8e75ce053d14259d3d7485d68528a662e286e184685ea49e71156/coverage-7.11.3-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
-        "version": "7.11.3"
-      },
       "cycler": {
         "is_direct": false,
         "sha256": "85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30",
@@ -583,10 +576,10 @@
       },
       "langfuse": {
         "is_direct": false,
-        "sha256": "0afe88773f20fc67636d8a52dd3a5fb4e10f1c6e226f2c99ace8c65190fb5697",
+        "sha256": "c7c10607c6fe560990d0973566afd3c5513f7ff97cc31691af72711ad5441d8c",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/01/bc/af86791c761b820097e3ec2faa747bc6a507f6bf0cd6d7b7bbe4d087a6d6/langfuse-3.9.3-py3-none-any.whl",
-        "version": "3.9.3"
+        "url": "https://files.pythonhosted.org/packages/86/05/343e8fa3e5d48035422e1385105aeb986130d3de3264ec732c890dab2d16/langfuse-3.10.0-py3-none-any.whl",
+        "version": "3.10.0"
       },
       "lark": {
         "is_direct": false,
@@ -1002,13 +995,6 @@
         "url": "https://files.pythonhosted.org/packages/0b/8b/6300fb80f858cda1c51ffa17075df5d846757081d11ab4aa35cef9e6258b/pytest-9.0.1-py3-none-any.whl",
         "version": "9.0.1"
       },
-      "pytest-cov": {
-        "is_direct": false,
-        "sha256": "3b8e9558b16cc1479da72058bdecf8073661c7f57f7d3c5f22a1c23507f2d861",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/ee/49/1377b49de7d0c1ce41292161ea0f721913fa8722c19fb9c1e3aa0367eecb/pytest_cov-7.0.0-py3-none-any.whl",
-        "version": "7.0.0"
-      },
       "python-calamine": {
         "is_direct": false,
         "sha256": "f8304fc19322f05dc0af78851ca47255a088a9c0cc3874648b42038e7f27ff2f",
@@ -1389,8 +1375,8 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "e2735a7812dfd03da338d8be5257a7623c48108c",
-        "sha256": "1shj7wfxbc5nkflj8s2c2w5b1qnm208583r0r2q4x57zfy18b6qb",
+        "rev": "a80d3b647c6a0e0a9c6061435ad5eec4495a8b54",
+        "sha256": "0s4xhmn2x42s94cv6z545sz95lqiabbhg695fa3x8ky8aickzzzw",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
         "version": "0.1.0"
@@ -1516,7 +1502,6 @@
         "contourpy": [
           "numpy"
         ],
-        "coverage": [],
         "cycler": [],
         "debugpy": [],
         "decorator": [],
@@ -1974,11 +1959,6 @@
           "pluggy",
           "pygments"
         ],
-        "pytest-cov": [
-          "coverage",
-          "pluggy",
-          "pytest"
-        ],
         "python-calamine": [],
         "python-dateutil": [
           "six"
@@ -2148,7 +2128,6 @@
           "numpy",
           "pandas",
           "plotly",
-          "pytest-cov",
           "scipy",
           "torch",
           "tqdm",
