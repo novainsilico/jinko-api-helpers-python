@@ -10,10 +10,10 @@
       },
       "antimony": {
         "is_direct": false,
-        "sha256": "fd7513e351452f8010659f45d89e9eeeb754558a5a741bcf723ebc9b82ae8f1f",
+        "sha256": "8747a9984d4afb0769f05f0c8a60eb2dd1531e0350706c844800d70046c0b7b2",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/88/6d/bdfe787416b1e95c792c2e8cc63f98b9acd6c1340be7226f06377768b3cf/antimony-3.1.0-py3-none-manylinux_2_28_x86_64.whl",
-        "version": "3.1.0"
+        "url": "https://files.pythonhosted.org/packages/b0/6d/59ff2b66cef26c9bb454843dd3aec8e94311f7bb2fb730ab112575ebfc9c/antimony-3.1.1-py3-none-manylinux_2_28_x86_64.whl",
+        "version": "3.1.1"
       },
       "anyio": {
         "is_direct": false,
@@ -576,10 +576,10 @@
       },
       "langfuse": {
         "is_direct": false,
-        "sha256": "c7c10607c6fe560990d0973566afd3c5513f7ff97cc31691af72711ad5441d8c",
+        "sha256": "78582905874e17f923a3fa6eba9d1a15e1547139bbd5c11d498ce90670e1fdae",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/86/05/343e8fa3e5d48035422e1385105aeb986130d3de3264ec732c890dab2d16/langfuse-3.10.0-py3-none-any.whl",
-        "version": "3.10.0"
+        "url": "https://files.pythonhosted.org/packages/0d/83/254c8d38bd46e9c49cc2814da0ece5cb361315e6728578112ffae9bffbe8/langfuse-3.10.1-py3-none-any.whl",
+        "version": "3.10.1"
       },
       "lark": {
         "is_direct": false,
@@ -710,10 +710,10 @@
       },
       "networkx": {
         "is_direct": false,
-        "sha256": "0030d386a9a06dee3565298b4a734b68589749a544acbb6c412dc9e2489ec6ec",
+        "sha256": "cdb395b105806062473d3be36458d8f1459a4e4b98e236a66c3a48996e07684f",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/eb/8d/776adee7bbf76365fdd7f2552710282c79a4ead5d2a46408c9043a2b70ba/networkx-3.5-py3-none-any.whl",
-        "version": "3.5"
+        "url": "https://files.pythonhosted.org/packages/07/c7/d64168da60332c17d24c0d2f08bdf3987e8d1ae9d84b5bbd0eec2eb26a55/networkx-3.6-py3-none-any.whl",
+        "version": "3.6"
       },
       "notebook": {
         "is_direct": false,
@@ -997,10 +997,10 @@
       },
       "python-calamine": {
         "is_direct": false,
-        "sha256": "f8304fc19322f05dc0af78851ca47255a088a9c0cc3874648b42038e7f27ff2f",
+        "sha256": "f7c569c97e2c80bfc0948b4b174ac5d4c5859bb58daae513e92b9aceea0930a4",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/43/4f/a5f167a95ef57c3e37fe8ae0a41745061442f44e4c0c4395d70c8740e453/python_calamine-0.5.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "0.5.4"
+        "url": "https://files.pythonhosted.org/packages/b2/f5/9209863dd01ba814f2d73bd944fb1936f08f6003ad918c8eb1cece947673/python_calamine-0.6.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "0.6.0"
       },
       "python-dateutil": {
         "is_direct": false,
@@ -1137,10 +1137,10 @@
       },
       "safetensors": {
         "is_direct": false,
-        "sha256": "8045db2c872db8f4cbe3faa0495932d89c38c899c603f21e9b6486951a5ecb8f",
+        "sha256": "dac7252938f0696ddea46f5e855dd3138444e82236e3be475f54929f0c510d48",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/fe/5d/5a514d7b88e310c8b146e2404e0dc161282e78634d9358975fd56dfd14be/safetensors-0.6.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "0.6.2"
+        "url": "https://files.pythonhosted.org/packages/a0/60/429e9b1cb3fc651937727befe258ea24122d9663e4d5709a48c9cbfceecb/safetensors-0.7.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "0.7.0"
       },
       "sbmlxdf": {
         "is_direct": false,
@@ -1326,10 +1326,10 @@
       },
       "transformers": {
         "is_direct": false,
-        "sha256": "b10d05da8fa67dc41644dbbf9bc45a44cb86ae33da6f9295f5fbf5b7890bd267",
+        "sha256": "0918df354853c9931a637792cec519e137aceb150effd4c7924d6b8d36918fab",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/71/d3/c16c3b3cf7655a67db1144da94b021c200ac1303f82428f2beef6c2e72bb/transformers-4.57.1-py3-none-any.whl",
-        "version": "4.57.1"
+        "url": "https://files.pythonhosted.org/packages/d3/21/15c69470cf94857d4664e74554fa01248eb57428fed831929405a0a63b0a/transformers-4.57.2-py3-none-any.whl",
+        "version": "4.57.2"
       },
       "typing-extensions": {
         "is_direct": false,
@@ -1375,11 +1375,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "a446803d3c18a3315ce82b65af029ae6b7d88a78",
-        "sha256": "15f69l0zi7bdhh3pn3xkf2532gh96sfmnlq4vzv141m7jyssyd6f",
+        "rev": "2a2ba21834e230253fd4fa995bf21799e589e634",
+        "sha256": "01v4wdms9abrhlk3bbcdj1l5bd1w0c10qh97vmdkv0jdmjv14xx5",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "1.1.0"
+        "version": "2.0.0"
       },
       "wadler-lindig": {
         "is_direct": false,
