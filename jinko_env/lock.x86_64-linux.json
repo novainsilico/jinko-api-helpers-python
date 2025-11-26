@@ -997,10 +997,10 @@
       },
       "python-calamine": {
         "is_direct": false,
-        "sha256": "f7c569c97e2c80bfc0948b4b174ac5d4c5859bb58daae513e92b9aceea0930a4",
+        "sha256": "7c3e6aeedeb289311907f8d59b2a32a404433d1af4dfce0ba4e3badd30f9775d",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/b2/f5/9209863dd01ba814f2d73bd944fb1936f08f6003ad918c8eb1cece947673/python_calamine-0.6.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "0.6.0"
+        "url": "https://files.pythonhosted.org/packages/0c/0d/7482fcded940d1adc4c8eaf47488a69ef1e3fd86eb8c6d33a981ddf5f82a/python_calamine-0.6.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "0.6.1"
       },
       "python-dateutil": {
         "is_direct": false,
@@ -1326,10 +1326,10 @@
       },
       "transformers": {
         "is_direct": false,
-        "sha256": "0918df354853c9931a637792cec519e137aceb150effd4c7924d6b8d36918fab",
+        "sha256": "c77d353a4851b1880191603d36acb313411d3577f6e2897814f333841f7003f4",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/d3/21/15c69470cf94857d4664e74554fa01248eb57428fed831929405a0a63b0a/transformers-4.57.2-py3-none-any.whl",
-        "version": "4.57.2"
+        "url": "https://files.pythonhosted.org/packages/6a/6b/2f416568b3c4c91c96e5a365d164f8a4a4a88030aa8ab4644181fdadce97/transformers-4.57.3-py3-none-any.whl",
+        "version": "4.57.3"
       },
       "typing-extensions": {
         "is_direct": false,
@@ -1375,11 +1375,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "2a2ba21834e230253fd4fa995bf21799e589e634",
-        "sha256": "01v4wdms9abrhlk3bbcdj1l5bd1w0c10qh97vmdkv0jdmjv14xx5",
+        "rev": "4dcf7e40a712a21f9592c61cdf2fb334b0af636c",
+        "sha256": "0ks77rw81i9kykh6cp94k0f3zq60k1b7wrrvnr866bfd52ahhlih",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.0.0"
+        "version": "2.0.1"
       },
       "wadler-lindig": {
         "is_direct": false,
