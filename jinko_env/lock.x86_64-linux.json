@@ -1375,8 +1375,8 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "4dcf7e40a712a21f9592c61cdf2fb334b0af636c",
-        "sha256": "0ks77rw81i9kykh6cp94k0f3zq60k1b7wrrvnr866bfd52ahhlih",
+        "rev": "04727fdbbdc7057ad1744ec9744dd74df9a329e7",
+        "sha256": "14a2fdm40jnn6gyxd7g0ghila2i1cqphgbxz5lwhvbmni0l2549s",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
         "version": "2.0.1"
