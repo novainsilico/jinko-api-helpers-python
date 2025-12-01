@@ -576,10 +576,10 @@
       },
       "langfuse": {
         "is_direct": false,
-        "sha256": "78582905874e17f923a3fa6eba9d1a15e1547139bbd5c11d498ce90670e1fdae",
+        "sha256": "b9a2e6506f8f0923c2f4b8c9e3fa355231994197a17f75509a37f335660ce334",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/0d/83/254c8d38bd46e9c49cc2814da0ece5cb361315e6728578112ffae9bffbe8/langfuse-3.10.1-py3-none-any.whl",
-        "version": "3.10.1"
+        "url": "https://files.pythonhosted.org/packages/fd/04/f07c2a23f2822f73f8576b1ba7348c014c4be65127384b4bee475f913f3b/langfuse-3.10.3-py3-none-any.whl",
+        "version": "3.10.3"
       },
       "lark": {
         "is_direct": false,
@@ -667,10 +667,10 @@
       },
       "narwhals": {
         "is_direct": false,
-        "sha256": "baeba5d448a30b04c299a696bd9ee5ff73e4742143e06c49ca316b46539a7cbb",
+        "sha256": "9b795523c179ca78204e3be53726da374168f906e38de2ff174c2363baaaf481",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/0b/9a/c6f79de7ba3a0a8473129936b7b90aa461d3d46fec6f1627672b1dccf4e9/narwhals-2.12.0-py3-none-any.whl",
-        "version": "2.12.0"
+        "url": "https://files.pythonhosted.org/packages/87/0d/1861d1599571974b15b025e12b142d8e6b42ad66c8a07a89cb0fc21f1e03/narwhals-2.13.0-py3-none-any.whl",
+        "version": "2.13.0"
       },
       "nbclient": {
         "is_direct": false,
@@ -1375,8 +1375,8 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "a506af77ed87ff6c6f3861a4b86588eefe5799dc",
-        "sha256": "15psg8ph9ab228y43abyl0lfzns0xb1w52cwyxkdaci15869lrcl",
+        "rev": "c1f5fe4a90cb868365f5d81634c81c0576373fd3",
+        "sha256": "1zgqim7681qcbxrfwc520s81138sb9i1mbq9jk3dz2sd4kkjj5cp",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
         "version": "2.1.1"
