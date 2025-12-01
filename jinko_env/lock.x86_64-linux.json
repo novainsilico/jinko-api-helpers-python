@@ -17,10 +17,10 @@
       },
       "anyio": {
         "is_direct": false,
-        "sha256": "0287e96f4d26d4149305414d4e3bc32f0dcd0862365a4bddea19d7a1ec38c4fc",
+        "sha256": "dad2376a628f98eeca4881fc56cd06affd18f659b17a747d3ff0307ced94b1bb",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/15/b3/9b1a8074496371342ec1e796a96f99c82c945a339cd81a8e73de28b4cf9e/anyio-4.11.0-py3-none-any.whl",
-        "version": "4.11.0"
+        "url": "https://files.pythonhosted.org/packages/7f/9c/36c5c37947ebfb8c7f22e0eb6e4d188ee2d53aa3880f3f2744fb894f0cb1/anyio-4.12.0-py3-none-any.whl",
+        "version": "4.12.0"
       },
       "appdirs": {
         "is_direct": false,
@@ -108,10 +108,10 @@
       },
       "beautifulsoup4": {
         "is_direct": false,
-        "sha256": "5ef6fa3a8cbece8488d66985560f97ed091e22bbc4e9c2338508a9d5de6d4515",
+        "sha256": "0918bfe44902e6ad8d57732ba310582e98da931428d231a5ecb9e7c703a735bb",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/94/fe/3aed5d0be4d404d12d36ab97e2f1791424d9ca39c2f754a6285d59a3b01d/beautifulsoup4-4.14.2-py3-none-any.whl",
-        "version": "4.14.2"
+        "url": "https://files.pythonhosted.org/packages/1a/39/47f9197bdd44df24d67ac8893641e16f386c984a0619ef2ee4c51fbbc019/beautifulsoup4-4.14.3-py3-none-any.whl",
+        "version": "4.14.3"
       },
       "black": {
         "is_direct": false,
@@ -255,10 +255,10 @@
       },
       "fonttools": {
         "is_direct": false,
-        "sha256": "b33a7884fabd72bdf5f910d0cf46be50dce86a0362a65cfc746a4168c67eb96c",
+        "sha256": "b2b734d8391afe3c682320840c8191de9bd24e7eb85768dd4dc06ed1b63dbb1b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/2d/8b/371ab3cec97ee3fe1126b3406b7abd60c8fec8975fd79a3c75cdea0c3d83/fonttools-4.60.1-cp313-cp313-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
-        "version": "4.60.1"
+        "url": "https://files.pythonhosted.org/packages/4e/80/c87bc524a90dbeb2a390eea23eae448286983da59b7e02c67fa0ca96a8c5/fonttools-4.61.0-cp313-cp313-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl",
+        "version": "4.61.0"
       },
       "formulaic": {
         "is_direct": false,
@@ -297,10 +297,10 @@
       },
       "gpytorch": {
         "is_direct": false,
-        "sha256": "02428b9c419eadf391739e9e82960177da33bfa29df43d7cd50c124e0dd1b18c",
+        "sha256": "7f52f6bdf20c24e13aac95744853986a8d440a138fa8d7fec6e1084ae50c6bf7",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/d5/72/3fa2a6a75bf62d2d3909324cc307f9aa5cf3d8f19917207706e932801232/gpytorch-1.14.2-py3-none-any.whl",
-        "version": "1.14.2"
+        "url": "https://files.pythonhosted.org/packages/df/dd/9f5252f474e851fc9ac4b6d2dbdf23a01b7dfd8ed8a1fdce780432af74df/gpytorch-1.14.3-py3-none-any.whl",
+        "version": "1.14.3"
       },
       "h11": {
         "is_direct": false,
@@ -962,10 +962,10 @@
       },
       "pydantic": {
         "is_direct": false,
-        "sha256": "92d3d202a745d46f9be6df459ac5a064fdaa3c1c4cd8adcfa332ccf3c05f871e",
+        "sha256": "e561593fccf61e8a20fc46dfc2dfe075b8be7d0188df33f221ad1f0139180f9d",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/82/2f/e68750da9b04856e2a7ec56fc6f034a5a79775e9b9a81882252789873798/pydantic-2.12.4-py3-none-any.whl",
-        "version": "2.12.4"
+        "url": "https://files.pythonhosted.org/packages/5a/87/b70ad306ebb6f9b585f114d0ac2137d792b48be34d732d60e597c2f8465a/pydantic-2.12.5-py3-none-any.whl",
+        "version": "2.12.5"
       },
       "pydantic-core": {
         "is_direct": false,
@@ -1130,10 +1130,10 @@
       },
       "rpds-py": {
         "is_direct": false,
-        "sha256": "de73e40ebc04dd5d9556f50180395322193a78ec247e637e741c1b954810f295",
+        "sha256": "9027da1ce107104c50c81383cae773ef5c24d296dd11c99e2629dbd7967a20c6",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/b9/42/555b4ee17508beafac135c8b450816ace5a96194ce97fefc49d58e5652ea/rpds_py-0.29.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "0.29.0"
+        "url": "https://files.pythonhosted.org/packages/b7/de/f7192e12b21b9e9a68a6d0f249b4af3fdcdff8418be0767a627564afa1f1/rpds_py-0.30.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "0.30.0"
       },
       "safetensors": {
         "is_direct": false,
@@ -1375,11 +1375,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "04727fdbbdc7057ad1744ec9744dd74df9a329e7",
-        "sha256": "14a2fdm40jnn6gyxd7g0ghila2i1cqphgbxz5lwhvbmni0l2549s",
+        "rev": "a506af77ed87ff6c6f3861a4b86588eefe5799dc",
+        "sha256": "15psg8ph9ab228y43abyl0lfzns0xb1w52cwyxkdaci15869lrcl",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.0.1"
+        "version": "2.1.1"
       },
       "wadler-lindig": {
         "is_direct": false,
@@ -1443,8 +1443,7 @@
         "annotated-types": [],
         "antimony": [],
         "anyio": [
-          "idna",
-          "sniffio"
+          "idna"
         ],
         "appdirs": [],
         "argon2-cffi": [
