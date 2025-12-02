@@ -127,6 +127,13 @@
         "url": "https://files.pythonhosted.org/packages/cd/3a/577b549de0cc09d95f11087ee63c739bba856cd3952697eec4c4bb91350a/bleach-6.3.0-py3-none-any.whl",
         "version": "6.3.0"
       },
+      "cachetools": {
+        "is_direct": false,
+        "sha256": "6c09c98183bf58560c97b2abfcedcbaf6a896a490f534b031b661d3723b45ace",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/e6/46/eb6eca305c77a4489affe1c5d8f4cae82f285d9addd8de4ec084a7184221/cachetools-6.2.2-py3-none-any.whl",
+        "version": "6.2.2"
+      },
       "certifi": {
         "is_direct": false,
         "sha256": "97de8790030bbd5c2d96b7ec782fc2f7820ef8dba6db909ccf95449f2d062d4b",
@@ -287,6 +294,20 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/eb/02/a6b21098b1d5d6249b7c5ab69dde30108a71e4e819d4a9778f1de1d5b70d/fsspec-2025.10.0-py3-none-any.whl",
         "version": "2025.10.0"
+      },
+      "google-auth": {
+        "is_direct": false,
+        "sha256": "af628ba6fa493f75c7e9dbe9373d148ca9f4399b5ea29976519e0a3848eddd16",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/6f/d1/385110a9ae86d91cc14c5282c61fe9f4dc41c0b9f7d423c6ad77038c4448/google_auth-2.43.0-py2.py3-none-any.whl",
+        "version": "2.43.0"
+      },
+      "google-genai": {
+        "is_direct": false,
+        "sha256": "c8352b9f065ae14b9322b949c7debab8562982f03bf71d44130cd2b798c20743",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/ec/66/03f663e7bca7abe9ccfebe6cb3fe7da9a118fd723a5abb278d6117e7990e/google_genai-1.52.0-py3-none-any.whl",
+        "version": "1.52.0"
       },
       "googleapis-common-protos": {
         "is_direct": false,
@@ -953,6 +974,20 @@
         "url": "https://files.pythonhosted.org/packages/8e/37/efad0257dc6e593a18957422533ff0f87ede7c9c6ea010a2177d738fb82f/pure_eval-0.2.3-py3-none-any.whl",
         "version": "0.2.3"
       },
+      "pyasn1": {
+        "is_direct": false,
+        "sha256": "0d632f46f2ba09143da3a8afe9e33fb6f92fa2320ab7e886e2d0f7672af84629",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/c8/f1/d6a797abb14f6283c0ddff96bbdd46937f64122b8c925cab503dd37f8214/pyasn1-0.6.1-py3-none-any.whl",
+        "version": "0.6.1"
+      },
+      "pyasn1-modules": {
+        "is_direct": false,
+        "sha256": "29253a9207ce32b64c3ac6600edc75368f98473906e8fd1043bd6b5b1de2c14a",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/47/8d/d529b5d697919ba8c11ad626e835d4039be708a35b0d22de83a269a6682c/pyasn1_modules-0.4.2-py3-none-any.whl",
+        "version": "0.4.2"
+      },
       "pycparser": {
         "is_direct": false,
         "sha256": "e5c6e8d3fbad53479cab09ac03729e0a9faf2bee3db8208a550daf5af81a5934",
@@ -1135,6 +1170,13 @@
         "url": "https://files.pythonhosted.org/packages/b7/de/f7192e12b21b9e9a68a6d0f249b4af3fdcdff8418be0767a627564afa1f1/rpds_py-0.30.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
         "version": "0.30.0"
       },
+      "rsa": {
+        "is_direct": false,
+        "sha256": "68635866661c6836b8d39430f97a996acbd61bfa49406748ea243539fe239762",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/64/8d/0133e4eb4beed9e425d9a98ed6e081a55d195481b7632472be1af08d2f6b/rsa-4.9.1-py3-none-any.whl",
+        "version": "4.9.1"
+      },
       "safetensors": {
         "is_direct": false,
         "sha256": "dac7252938f0696ddea46f5e855dd3138444e82236e3be475f54929f0c510d48",
@@ -1253,6 +1295,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/89/9f/efa5443510b5579592550f36f2d3dd877e262538133f677f3e0191cf7d87/tellurium-2.2.11.1-py3-none-any.whl",
         "version": "2.2.11.1"
+      },
+      "tenacity": {
+        "is_direct": false,
+        "sha256": "f77bf36710d8b73a50b2dd155c97b870017ad21afe6ab300326b0371b3b05138",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/e5/30/643397144bfbfec6f6ef821f36f33e57d35946c44a2352d3c9f0ae847619/tenacity-9.1.2-py3-none-any.whl",
+        "version": "9.1.2"
       },
       "terminado": {
         "is_direct": false,
@@ -1416,6 +1465,13 @@
         "url": "https://files.pythonhosted.org/packages/34/db/b10e48aa8fff7407e67470363eac595018441cf32d5e1001567a7aeba5d2/websocket_client-1.9.0-py3-none-any.whl",
         "version": "1.9.0"
       },
+      "websockets": {
+        "is_direct": false,
+        "sha256": "0f3c1e2ab208db911594ae5b4f79addeb3501604a165019dd221c0bdcabe4db8",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/ff/b2/83a6ddf56cdcbad4e3d841fcc55d6ba7d19aeb89c50f24dd7e859ec0805f/websockets-15.0.1-cp313-cp313-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "15.0.1"
+      },
       "widgetsnbextension": {
         "is_direct": false,
         "sha256": "8156704e4346a571d9ce73b84bee86a29906c9abfd7223b7228a28899ccf3366",
@@ -1490,6 +1546,7 @@
           "tinycss2",
           "webencodings"
         ],
+        "cachetools": [],
         "certifi": [],
         "cffi": [
           "pycparser"
@@ -1534,6 +1591,21 @@
           "torch"
         ],
         "fsspec": [],
+        "google-auth": [
+          "cachetools",
+          "pyasn1-modules",
+          "rsa"
+        ],
+        "google-genai": [
+          "anyio",
+          "google-auth",
+          "httpx",
+          "pydantic",
+          "requests",
+          "tenacity",
+          "typing-extensions",
+          "websockets"
+        ],
         "googleapis-common-protos": [
           "protobuf"
         ],
@@ -1940,6 +2012,10 @@
         "psutil": [],
         "ptyprocess": [],
         "pure-eval": [],
+        "pyasn1": [],
+        "pyasn1-modules": [
+          "pyasn1"
+        ],
         "pycparser": [],
         "pydantic": [
           "annotated-types",
@@ -1995,6 +2071,9 @@
           "lark"
         ],
         "rpds-py": [],
+        "rsa": [
+          "pyasn1"
+        ],
         "safetensors": [],
         "sbmlxdf": [
           "numpy",
@@ -2077,6 +2156,7 @@
           "requests",
           "scipy"
         ],
+        "tenacity": [],
         "terminado": [
           "ptyprocess",
           "tornado"
@@ -2137,6 +2217,7 @@
         "webcolors": [],
         "webencodings": [],
         "websocket-client": [],
+        "websockets": [],
         "widgetsnbextension": [],
         "wrapt": [],
         "zipp": []
@@ -2156,5 +2237,5 @@
       }
     }
   },
-  "invalidationHash": "e958e8e4936b74a5760ff55a042f960e7e9e0ae8bd2ebfac01c70956454f1ff0"
+  "invalidationHash": "278ce07ab3e5891ce5234fc915840ef2f3e9b24c1d1997387e6d71e53fbcace9"
 }
