@@ -20,6 +20,7 @@ from urllib.parse import urlparse
 import warnings
 import tempfile
 import re
+import logging
 
 USER_AGENT = "jinko-api-helpers-python/%s" % __version__
 AUTHORIZATION_PREFIX = "Bearer"
@@ -223,17 +224,18 @@ def makeRequest(
         params=params,
         **({data_param: data} if data_param else {}),  # type: ignore
     )
-    if response.status_code not in [200, 204]:
+    logger = logging.getLogger("jinko_helpers.api_calls")
+    if response.status_code not in [200, 201, 204]:
         if (
             "content-type" in response.headers
             and response.headers["content-type"] == "application/json"
         ):
-            sys.stderr.write(response.json() + "\n")
+            logger.warning(response.json() + "\n")
         else:
-            sys.stderr.write("%s: %s\n" % (response.status_code, response.text))
+            logger.warning("%s: %s\n" % (response.status_code, response.text))
         response.raise_for_status()
     if response.status_code == 204:
-        sys.stderr.write("Query successfully done, got a 204 response\n")
+        logger.info("Query successfully done, got a 204 response\n")
     return response
 
 
@@ -308,7 +310,7 @@ def checkAuthentication() -> bool:
     if response.status_code == 401:
         return False
     if response.status_code != 200:
-        sys.stderr.write(response.text + "\n")
+        logging.getLogger("jinko_helpers").error(response.text)
         response.raise_for_status()
     return True
 
@@ -381,7 +383,7 @@ def initialize(
         _apiKey = _getpass.getpass("Please enter your API key")
     if _apiKey.strip() == "":
         message = "API key cannot be empty"
-        sys.stderr.write(message + "\n")
+        logging.getLogger("jinko_helpers").error(message)
         raise Exception(message)
 
     # Ask user for API key/projectId and check authentication
@@ -389,14 +391,14 @@ def initialize(
         _projectId = _getpass.getpass("Please enter your Project Id")
     if _projectId.strip() == "":
         message = "Project Id cannot be empty"
-        sys.stderr.write(message + "\n")
+        logging.getLogger("jinko_helpers").error(message)
         raise Exception(message)
 
     if not checkAuthentication():
         message = 'Authentication failed for Project "%s"' % (_projectId)
-        sys.stderr.write(message + "\n")
+        logging.getLogger("jinko_helpers").error(message)
         raise Exception(message)
-    sys.stderr.write("Authentication successful\n")
+    logging.getLogger("jinko_helpers").info("Authentication successful")
 
 
 def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemIdDict:
@@ -421,7 +423,7 @@ def getCoreItemId(shortId: str, revision: int | None = None) -> CoreItemIdDict:
     item = get_project_item(sid=shortId, revision=revision)
     if "coreId" not in item or item["coreId"] is None:
         message = 'ProjectItem "%s" has no CoreItemId' % (shortId)
-        sys.stderr.write(message + "\n")
+        logging.getLogger("jinko_helpers.api_calls").error(message)
         raise Exception(message)
     return item["coreId"]
 
@@ -588,7 +590,7 @@ def show_plot_conditionally(fig, file_name=None):
             if tmp_fd is not None:
                 _os.unlink(file_name)
             raise
-        print(f"Plot saved to {file_name} . Please open it in a web browser.")
+        logging.getLogger("jinko_helpers").info(f"Plot saved to {file_name} . Please open it in a web browser.")
 
 
 def list_project_item_versions(sid: str, only_labeled: bool = False):

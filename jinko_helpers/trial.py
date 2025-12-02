@@ -6,6 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 import io
 import zipfile
+import logging
 
 
 def is_trial_completed(trial_core_id) -> bool | None:
@@ -49,7 +50,7 @@ def is_trial_running(trial_core_item_id, trial_snapshot_id):
 
 
 def monitor_trial_until_completion(
-    trial_core_item_id, trial_snapshot_id, time_to_completion=None, retry_interval=5
+    trial_core_item_id, trial_snapshot_id, time_to_completion=None, retry_interval=5, silent=False
 ):
     """
     Polls the Jinko API for the status of a trial and prints a progress view with completed task counts.
@@ -59,6 +60,7 @@ def monitor_trial_until_completion(
         trial_snapshot_id (str): The snapshot ID of the trial.
         time_to_completion (int, optional): Maximum time to monitor the trial in seconds. If not provided, monitors indefinitely.
         retry_interval (int, optional): Interval in seconds between retries. Default is 5 seconds.
+        silent (boolean, False by default): Print a progress bar
 
     Returns:
         pd.DataFrame: A DataFrame summarizing the perArm data.
@@ -66,7 +68,8 @@ def monitor_trial_until_completion(
     Raises:
         RuntimeError: If no 'perArmSummary' data is found in the response or if the trial does not complete in the specified time.
     """
-    pbar = tqdm(total=0, desc="Trial Progress", unit="tasks")  # Initialize with 0 total
+    if not silent:
+        pbar = tqdm(total=0, desc="Trial Progress", unit="tasks")  # Initialize with 0 total
 
     if time_to_completion is not None:
         max_retries = ceil(time_to_completion / retry_interval)
@@ -84,21 +87,23 @@ def monitor_trial_until_completion(
 
         # Check if the job is still running
         if response_json.get("isRunning", False):
-            tasks_count = get_task_count(per_arm_data)
+            if not silent:
+                tasks_count = get_task_count(per_arm_data)
 
-            # Set the progress bar's total to the latest total task count
-            pbar.total = tasks_count["total_tasks"]
-            pbar.n = tasks_count["completed_tasks"]
-            pbar.refresh()
+                # Set the progress bar's total to the latest total task count
+                pbar.total = tasks_count["total_tasks"]
+                pbar.n = tasks_count["completed_tasks"]
+                pbar.refresh()
 
             time.sleep(retry_interval)  # Wait before checking again
             retries += 1
         else:
-            print("Job succeeded.")
-            pbar.total = get_task_count(per_arm_data)["total_tasks"]
-            pbar.n = pbar.total
-            pbar.refresh()
-            pbar.close()
+            if not silent:
+                logging.getLogger("jinko_helper.trial").info("Job succeeded.")
+                pbar.total = get_task_count(per_arm_data)["total_tasks"]
+                pbar.n = pbar.total
+                pbar.refresh()
+                pbar.close()
             break
     else:
         raise RuntimeError(
@@ -226,12 +231,12 @@ def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar
                 scalars_dataframe = pd.read_csv(io.StringIO(archive_content))
                 return scalars_dataframe
             else:
-                print(
+                logging.getLogger("jinko_helper.trial").error(
                     f"Failed to retrieve scalar results, error code: {response.status_code}\n reason: {response.reason}"
                 )
                 response.raise_for_status()
         except Exception as e:
-            print(f"Error during scalar results retrieval or processing: {e}")
+            logging.getLogger("jinko_helper.trial").error(f"Error during scalar results retrieval or processing: {e}")
             raise
 
 

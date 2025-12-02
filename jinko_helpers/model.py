@@ -2,6 +2,7 @@ import os
 import jinko_helpers as jinko
 from typing import List, Any, Literal, Optional, Union, cast
 import json
+import logging
 
 
 def download_model(
@@ -136,7 +137,7 @@ def download_model_or_model_interface(
         local_model_file = os.path.join(file_path_for_saving, model_file_name)
         with open(local_model_file, "w") as f:
             json.dump(model, f, indent=4)
-        print(f"{item_type} file successfully saved at: {local_model_file}")
+        logging.getLogger("jinko_helper.model").info(f"{item_type} file successfully saved at: {local_model_file}")
 
     return model
 
@@ -195,7 +196,7 @@ def upload_model_version(
         json={"model": model},
         options={"version_name": version_name} if version_name else {},
     )
-    print(
+    logging.getLogger("jinko_helper.model").info(
         f"Successfully uploaded model to trial {jinko.get_project_item_url_from_response(response)}"
     )
     return response.json()
@@ -230,7 +231,7 @@ def update_model_in_trial(trial_sid: str, model_core_item_id, model_snapshot_id)
             }
         },
     )
-    print(
+    logging.getLogger("jinko_helper.model").info(
         f"Successfully updated CM in {jinko.get_project_item_url_from_response(response)}"
     )
     return response.json()
