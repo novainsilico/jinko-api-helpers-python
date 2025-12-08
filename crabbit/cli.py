@@ -500,6 +500,8 @@ class CrabbitDownloader:
                     f.write("\n")
         # pivot the raw CSV file twice to convert it into the wide format
         table = pd.read_csv(csv_path)
+        # remove crossArms keyword
+        table["armId"] = table.armId.replace("crossArms", "")
         # first pivot to distribute the scalarId
         pivotted = table.pivot(
             columns="scalarId", index=["patientId", "armId"], values="value"
@@ -508,7 +510,8 @@ class CrabbitDownloader:
         # second pivot to distribute the armId (used as prefix)
         repivotted = pivotted.pivot(columns="armId", index="patientId")
         repivotted.columns = [
-            "_".join(name[::-1]) for name in repivotted.columns.to_flat_index()
+            "_".join(name[::-1]) if name[-1] else "_".join(name[::-1][1:])
+            for name in repivotted.columns.to_flat_index()
         ]
         repivotted.dropna(axis=1, how="all", inplace=True)
         repivotted.to_csv(csv_path)
