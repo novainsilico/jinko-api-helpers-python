@@ -115,10 +115,10 @@
       },
       "black": {
         "is_direct": false,
-        "sha256": "936c4dd07669269f40b497440159a221ee435e3fddcf668e0c05244a9be71993",
+        "sha256": "0e509c858adf63aa61d908061b52e580c40eae0dfa72415fa47ac01b12e29baf",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/99/fe/49b0768f8c9ae57eb74cc10a1f87b4c70453551d8ad498959721cc345cb7/black-25.11.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
-        "version": "25.11.0"
+        "url": "https://files.pythonhosted.org/packages/74/98/38aaa018b2ab06a863974c12b14a6266badc192b20603a81b738c47e902e/black-25.12.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "25.12.0"
       },
       "bleach": {
         "is_direct": false,
@@ -290,10 +290,10 @@
       },
       "fsspec": {
         "is_direct": false,
-        "sha256": "7c7712353ae7d875407f97715f0e1ffcc21e33d5b24556cb1e090ae9409ec61d",
+        "sha256": "8bf1fe301b7d8acfa6e8571e3b1c3d158f909666642431cc78a1b7b4dbc5ec5b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/eb/02/a6b21098b1d5d6249b7c5ab69dde30108a71e4e819d4a9778f1de1d5b70d/fsspec-2025.10.0-py3-none-any.whl",
-        "version": "2025.10.0"
+        "url": "https://files.pythonhosted.org/packages/51/c7/b64cae5dba3a1b138d7123ec36bb5ccd39d39939f18454407e5468f4763f/fsspec-2025.12.0-py3-none-any.whl",
+        "version": "2025.12.0"
       },
       "google-auth": {
         "is_direct": false,
@@ -304,10 +304,10 @@
       },
       "google-genai": {
         "is_direct": false,
-        "sha256": "c8352b9f065ae14b9322b949c7debab8562982f03bf71d44130cd2b798c20743",
+        "sha256": "c06853402814a47bb020f2dc50fc03fb77cc349dff65da35cddbd19046f9bd58",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/ec/66/03f663e7bca7abe9ccfebe6cb3fe7da9a118fd723a5abb278d6117e7990e/google_genai-1.52.0-py3-none-any.whl",
-        "version": "1.52.0"
+        "url": "https://files.pythonhosted.org/packages/5c/93/7096cdc1a4a55cc60bc02638f7077255acd32968c437cc32783e5abe430d/google_genai-1.54.0-py3-none-any.whl",
+        "version": "1.54.0"
       },
       "googleapis-common-protos": {
         "is_direct": false,
@@ -395,10 +395,10 @@
       },
       "ipython": {
         "is_direct": false,
-        "sha256": "bce8ac85eb9521adc94e1845b4c03d88365fd6ac2f4908ec4ed1eb1b0a065f9f",
+        "sha256": "ebe6d1d58d7d988fbf23ff8ff6d8e1622cfdb194daf4b7b73b792c4ec3b85385",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/05/aa/62893d6a591d337aa59dcc4c6f6c842f1fe20cd72c8c5c1f980255243252/ipython-9.7.0-py3-none-any.whl",
-        "version": "9.7.0"
+        "url": "https://files.pythonhosted.org/packages/f1/df/8ee1c5dd1e3308b5d5b2f2dfea323bb2f3827da8d654abb6642051199049/ipython-9.8.0-py3-none-any.whl",
+        "version": "9.8.0"
       },
       "ipython-pygments-lexers": {
         "is_direct": false,
@@ -597,10 +597,10 @@
       },
       "langfuse": {
         "is_direct": false,
-        "sha256": "b9a2e6506f8f0923c2f4b8c9e3fa355231994197a17f75509a37f335660ce334",
+        "sha256": "0223a64109a4293b9bd9b2e0e3229f53b75291cd96341e42cc3eba186973fcdb",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/fd/04/f07c2a23f2822f73f8576b1ba7348c014c4be65127384b4bee475f913f3b/langfuse-3.10.3-py3-none-any.whl",
-        "version": "3.10.3"
+        "url": "https://files.pythonhosted.org/packages/64/6f/dc15775f82d38da62cd2015110f5802bb175a9ee731a4533fe2a0cdf75b6/langfuse-3.10.5-py3-none-any.whl",
+        "version": "3.10.5"
       },
       "lark": {
         "is_direct": false,
@@ -731,10 +731,10 @@
       },
       "networkx": {
         "is_direct": false,
-        "sha256": "cdb395b105806062473d3be36458d8f1459a4e4b98e236a66c3a48996e07684f",
+        "sha256": "d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/07/c7/d64168da60332c17d24c0d2f08bdf3987e8d1ae9d84b5bbd0eec2eb26a55/networkx-3.6-py3-none-any.whl",
-        "version": "3.6"
+        "url": "https://files.pythonhosted.org/packages/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4/networkx-3.6.1-py3-none-any.whl",
+        "version": "3.6.1"
       },
       "notebook": {
         "is_direct": false,
@@ -773,10 +773,10 @@
       },
       "openai": {
         "is_direct": false,
-        "sha256": "c6c3b5a04994734386e8dad3c00a393f56d3b68a27cd2e8acae91a59e4122463",
+        "sha256": "0d168a490fbb45630ad508a6f3022013c155a68fd708069b6a1a01a5e8f0ffad",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/55/4f/dbc0c124c40cb390508a82770fb9f6e3ed162560181a85089191a851c59a/openai-2.8.1-py3-none-any.whl",
-        "version": "2.8.1"
+        "url": "https://files.pythonhosted.org/packages/59/fd/ae2da789cd923dd033c99b8d544071a827c92046b150db01cfa5cea5b3fd/openai-2.9.0-py3-none-any.whl",
+        "version": "2.9.0"
       },
       "openpyxl": {
         "is_direct": false,
@@ -787,45 +787,45 @@
       },
       "opentelemetry-api": {
         "is_direct": false,
-        "sha256": "2891b0197f47124454ab9f0cf58f3be33faca394457ac3e09daba13ff50aa582",
+        "sha256": "3c3b3ca5c5687b1b5b37e5c5027ff68eacea8675241b29f13110a8ffbb8f0459",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/ae/a2/d86e01c28300bd41bab8f18afd613676e2bd63515417b77636fc1add426f/opentelemetry_api-1.38.0-py3-none-any.whl",
-        "version": "1.38.0"
+        "url": "https://files.pythonhosted.org/packages/05/85/d831a9bc0a9e0e1a304ff3d12c1489a5fbc9bf6690a15dcbdae372bbca45/opentelemetry_api-1.39.0-py3-none-any.whl",
+        "version": "1.39.0"
       },
       "opentelemetry-exporter-otlp-proto-common": {
         "is_direct": false,
-        "sha256": "03cb76ab213300fe4f4c62b7d8f17d97fcfd21b89f0b5ce38ea156327ddda74a",
+        "sha256": "3d77be7c4bdf90f1a76666c934368b8abed730b5c6f0547a2ec57feb115849ac",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/a7/9e/55a41c9601191e8cd8eb626b54ee6827b9c9d4a46d736f32abc80d8039fc/opentelemetry_exporter_otlp_proto_common-1.38.0-py3-none-any.whl",
-        "version": "1.38.0"
+        "url": "https://files.pythonhosted.org/packages/ef/c6/215edba62d13a3948c718b289539f70e40965bc37fc82ecd55bb0b749c1a/opentelemetry_exporter_otlp_proto_common-1.39.0-py3-none-any.whl",
+        "version": "1.39.0"
       },
       "opentelemetry-exporter-otlp-proto-http": {
         "is_direct": false,
-        "sha256": "84b937305edfc563f08ec69b9cb2298be8188371217e867c1854d77198d0825b",
+        "sha256": "5789cb1375a8b82653328c0ce13a054d285f774099faf9d068032a49de4c7862",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/e5/77/154004c99fb9f291f74aa0822a2f5bbf565a72d8126b3a1b63ed8e5f83c7/opentelemetry_exporter_otlp_proto_http-1.38.0-py3-none-any.whl",
-        "version": "1.38.0"
+        "url": "https://files.pythonhosted.org/packages/bc/46/e4a102e17205bb05a50dbf24ef0e92b66b648cd67db9a68865af06a242fd/opentelemetry_exporter_otlp_proto_http-1.39.0-py3-none-any.whl",
+        "version": "1.39.0"
       },
       "opentelemetry-proto": {
         "is_direct": false,
-        "sha256": "b6ebe54d3217c42e45462e2a1ae28c3e2bf2ec5a5645236a490f55f45f1a0a18",
+        "sha256": "1e086552ac79acb501485ff0ce75533f70f3382d43d0a30728eeee594f7bf818",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/b6/6a/82b68b14efca5150b2632f3692d627afa76b77378c4999f2648979409528/opentelemetry_proto-1.38.0-py3-none-any.whl",
-        "version": "1.38.0"
+        "url": "https://files.pythonhosted.org/packages/e3/4d/d500e1862beed68318705732d1976c390f4a72ca8009c4983ff627acff20/opentelemetry_proto-1.39.0-py3-none-any.whl",
+        "version": "1.39.0"
       },
       "opentelemetry-sdk": {
         "is_direct": false,
-        "sha256": "1c66af6564ecc1553d72d811a01df063ff097cdc82ce188da9951f93b8d10f6b",
+        "sha256": "90cfb07600dfc0d2de26120cebc0c8f27e69bf77cd80ef96645232372709a514",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/2f/2e/e93777a95d7d9c40d270a371392b6d6f1ff170c2a3cb32d6176741b5b723/opentelemetry_sdk-1.38.0-py3-none-any.whl",
-        "version": "1.38.0"
+        "url": "https://files.pythonhosted.org/packages/a4/b4/2adc8bc83eb1055ecb592708efb6f0c520cc2eb68970b02b0f6ecda149cf/opentelemetry_sdk-1.39.0-py3-none-any.whl",
+        "version": "1.39.0"
       },
       "opentelemetry-semantic-conventions": {
         "is_direct": false,
-        "sha256": "35d3b8833ef97d614136e253c1da9342b4c3c083bbaf29ce31d572a1c3825eed",
+        "sha256": "069530852691136018087b52688857d97bba61cd641d0f8628d2d92788c4f78a",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/24/7d/c88d7b15ba8fe5c6b8f93be50fc11795e9fc05386c44afaf6b76fe191f9b/opentelemetry_semantic_conventions-0.59b0-py3-none-any.whl",
-        "version": "0.59b0"
+        "url": "https://files.pythonhosted.org/packages/d0/56/af0306666f91bae47db14d620775604688361f0f76a872e0005277311131/opentelemetry_semantic_conventions-0.60b0-py3-none-any.whl",
+        "version": "0.60b0"
       },
       "orderly-set": {
         "is_direct": false,
@@ -906,10 +906,10 @@
       },
       "platformdirs": {
         "is_direct": false,
-        "sha256": "e578a81bb873cbb89a41fcc904c7ef523cc18284b7e3b3ccf06aca1403b7ebd3",
+        "sha256": "d03afa3963c806a9bed9d5125c8f4cb2fdaf74a55ab60e5d59b3fde758104d31",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/73/cb/ac7874b3e5d58441674fb70742e6c374b28b0c7cb988d37d991cde47166c/platformdirs-4.5.0-py3-none-any.whl",
-        "version": "4.5.0"
+        "url": "https://files.pythonhosted.org/packages/cb/28/3bfe2fa5a7b9c46fe7e13c97bda14c895fb10fa2ebf1d0abb90e0cea7ee1/platformdirs-4.5.1-py3-none-any.whl",
+        "version": "4.5.1"
       },
       "plotly": {
         "is_direct": false,
@@ -948,10 +948,10 @@
       },
       "protobuf": {
         "is_direct": false,
-        "sha256": "8fd7d5e0eb08cd5b87fd3df49bc193f5cfd778701f47e11d127d0afc6c39f1d1",
+        "sha256": "1f8017c48c07ec5859106533b682260ba3d7c5567b1ca1f24297ce03384d1b4f",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/1d/2a/3c5f05a4af06649547027d288747f68525755de692a26a7720dced3652c0/protobuf-6.33.1-cp39-abi3-manylinux2014_x86_64.whl",
-        "version": "6.33.1"
+        "url": "https://files.pythonhosted.org/packages/56/13/333b8f421738f149d4fe5e49553bc2a2ab75235486259f689b4b91f96cec/protobuf-6.33.2-cp39-abi3-manylinux2014_x86_64.whl",
+        "version": "6.33.2"
       },
       "psutil": {
         "is_direct": false,
@@ -1025,10 +1025,10 @@
       },
       "pytest": {
         "is_direct": false,
-        "sha256": "67be0030d194df2dfa7b556f2e56fb3c3315bd5c8822c6951162b92b32ce7dad",
+        "sha256": "711ffd45bf766d5264d487b917733b453d917afd2b0ad65223959f59089f875b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/0b/8b/6300fb80f858cda1c51ffa17075df5d846757081d11ab4aa35cef9e6258b/pytest-9.0.1-py3-none-any.whl",
-        "version": "9.0.1"
+        "url": "https://files.pythonhosted.org/packages/3b/ab/b3226f0bd7cdcf710fbede2b3548584366da3b19b5021e74f5bde2a8fa3f/pytest-9.0.2-py3-none-any.whl",
+        "version": "9.0.2"
       },
       "python-calamine": {
         "is_direct": false,
@@ -1270,10 +1270,10 @@
       },
       "statsmodels": {
         "is_direct": false,
-        "sha256": "5a085d47c8ef5387279a991633883d0e700de2b0acc812d7032d165888627bef",
+        "sha256": "730f3297b26749b216a06e4327fe0be59b8d05f7d594fb6caff4287b69654589",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/1e/48/973da1ee8bc0743519759e74c3615b39acdc3faf00e0a0710f8c856d8c9d/statsmodels-0.14.5-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
-        "version": "0.14.5"
+        "url": "https://files.pythonhosted.org/packages/10/b9/fd41f1f6af13a1a1212a06bb377b17762feaa6d656947bf666f76300fc05/statsmodels-0.14.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "0.14.6"
       },
       "sympy": {
         "is_direct": false,
@@ -1291,10 +1291,10 @@
       },
       "tellurium": {
         "is_direct": false,
-        "sha256": "7ed7150b393d9ee939524763dba2f547f9e599d7fe36cbc47e1b8ec35f8ca75e",
+        "sha256": "fcc76924a81f4522563d25fd2c715dd3e075cb8d2ea26d2edd5045ca7452862b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/89/9f/efa5443510b5579592550f36f2d3dd877e262538133f677f3e0191cf7d87/tellurium-2.2.11.1-py3-none-any.whl",
-        "version": "2.2.11.1"
+        "url": "https://files.pythonhosted.org/packages/3e/ad/5a371170e8ad36cc0f4f1bbf2abd5a8d9e5ccd38558c450f9d26b45be3cc/tellurium-2.2.11.2-py3-none-any.whl",
+        "version": "2.2.11.2"
       },
       "tenacity": {
         "is_direct": false,
@@ -1410,10 +1410,10 @@
       },
       "urllib3": {
         "is_direct": false,
-        "sha256": "e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc",
+        "sha256": "e67d06fe947c36a7ca39f4994b08d73922d40e6cca949907be05efa6fd75110b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl",
-        "version": "2.5.0"
+        "url": "https://files.pythonhosted.org/packages/bc/56/190ceb8cb10511b730b564fb1e0293fa468363dbad26145c34928a60cb0c/urllib3-2.6.1-py3-none-any.whl",
+        "version": "2.6.1"
       },
       "uuid": {
         "is_direct": false,
@@ -1424,11 +1424,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "c1f5fe4a90cb868365f5d81634c81c0576373fd3",
-        "sha256": "1zgqim7681qcbxrfwc520s81138sb9i1mbq9jk3dz2sd4kkjj5cp",
+        "rev": "4764e43da988fe2267727be7f63cc2aafdfaaff6",
+        "sha256": "0cw1476qldbq43zrhz8vfi9dk0s5x1kr4mrvwahdlhqk878nzhc9",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.1.1"
+        "version": "2.2.0"
       },
       "wadler-lindig": {
         "is_direct": false,
@@ -1594,6 +1594,7 @@
         "google-auth": [
           "cachetools",
           "pyasn1-modules",
+          "requests",
           "rsa"
         ],
         "google-genai": [
