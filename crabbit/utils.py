@@ -169,10 +169,8 @@ def merge_vpop_designs(
 ) -> jinko_types.VpopDesignWithModel | None:
     """
     Merge a stream of vpop designs into one, concatenating the marginals and correlations.
-    When VpopDesigns are attached to different models/versions, the LAST ONE in the list is kept.
-    Note: the resulting VpopDesign can become incompatible with the CM.
+    Note: the resulting VpopDesign is no longer associated with a CM.
     """
-    model_id = {}
     marginals = {}
     correlations = {}
     categoricals = {}
@@ -183,7 +181,6 @@ def merge_vpop_designs(
             vpop_design_content = jinko.get_vpop_design_content(vpop_design_path)
         if vpop_design_content is None:
             return
-        model_id = vpop_design_content["computationalModelId"]
 
         for item in vpop_design_content["correlations"]:
             x = item["x"]["id"] if isinstance(item["x"], dict) else item["x"]
@@ -195,7 +192,7 @@ def merge_vpop_designs(
                     f"Duplicated correlation entry found between {x} and {y}\n",
                 )
                 return
-            correlations[x, y] = item
+            correlations[x, y] = {"x": x, "y": y, "correlationCoefficient": item["correlationCoefficient"]}
         for item in vpop_design_content["marginalDistributions"]:
             if item["id"] in marginals:
                 print(
@@ -213,7 +210,6 @@ def merge_vpop_designs(
                 return
             categoricals[item["id"]] = item
     return {
-        "computationalModelId": model_id,
         "correlations": list(correlations.values()),
         "marginalDistributions": list(marginals.values()),
         "marginalCategoricals": list(categoricals.values()),
