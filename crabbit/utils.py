@@ -186,7 +186,9 @@ def merge_vpop_designs(
         model_id = vpop_design_content["computationalModelId"]
 
         for item in vpop_design_content["correlations"]:
-            x, y = sorted([item["x"], item["y"]])
+            x = item["x"]["id"] if isinstance(item["x"], dict) else item["x"]
+            y = item["y"]["id"] if isinstance(item["y"], dict) else item["y"]
+            x, y = sorted([x, y])
             if (x, y) in correlations:
                 print(
                     bold_text("\nError:"),
