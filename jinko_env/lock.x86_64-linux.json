@@ -192,10 +192,10 @@
       },
       "debugpy": {
         "is_direct": false,
-        "sha256": "3bea3b0b12f3946e098cce9b43c3c46e317b567f79570c3f43f0b96d00788088",
+        "sha256": "1b224887af5121fa702f9f542968170d104e3f9cac827d85fdefe89702dc235c",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/5f/60/ce5c34fcdfec493701f9d1532dba95b21b2f6394147234dce21160bd923f/debugpy-1.8.17-cp313-cp313-manylinux_2_34_x86_64.whl",
-        "version": "1.8.17"
+        "url": "https://files.pythonhosted.org/packages/cc/f4/2de6bf624de05134d1bbe0a8750d484363cd212c3ade3d04f5c77d47d0ce/debugpy-1.8.18-cp313-cp313-manylinux_2_34_x86_64.whl",
+        "version": "1.8.18"
       },
       "decorator": {
         "is_direct": false,
@@ -304,10 +304,10 @@
       },
       "google-genai": {
         "is_direct": false,
-        "sha256": "c06853402814a47bb020f2dc50fc03fb77cc349dff65da35cddbd19046f9bd58",
+        "sha256": "98c422762b5ff6e16b8d9a1e4938e8e0ad910392a5422e47f5301498d7f373a1",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/5c/93/7096cdc1a4a55cc60bc02638f7077255acd32968c437cc32783e5abe430d/google_genai-1.54.0-py3-none-any.whl",
-        "version": "1.54.0"
+        "url": "https://files.pythonhosted.org/packages/3e/86/a5a8e32b2d40b30b5fb20e7b8113fafd1e38befa4d1801abd5ce6991065a/google_genai-1.55.0-py3-none-any.whl",
+        "version": "1.55.0"
       },
       "googleapis-common-protos": {
         "is_direct": false,
@@ -453,7 +453,7 @@
         "is_direct": true,
         "path": ".",
         "type": "local",
-        "version": "0.5.2"
+        "version": "0.5.4"
       },
       "jiter": {
         "is_direct": false,
@@ -506,10 +506,10 @@
       },
       "jupyter-client": {
         "is_direct": false,
-        "sha256": "e8a19cc986cc45905ac3362915f410f3af85424b4c0905e94fa5f2cb08e8f23f",
+        "sha256": "3671a94fd25e62f5f2f554f5e95389c2294d89822378a5f2dd24353e1494a9e0",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/11/85/b0394e0b6fcccd2c1eeefc230978a6f8cb0c5df1e4cd3e7625735a0d7d1e/jupyter_client-8.6.3-py3-none-any.whl",
-        "version": "8.6.3"
+        "url": "https://files.pythonhosted.org/packages/bb/f5/fddaec430367be9d62a7ed125530e133bfd4a1c0350fe221149ee0f2b526/jupyter_client-8.7.0-py3-none-any.whl",
+        "version": "8.7.0"
       },
       "jupyter-console": {
         "is_direct": false,
@@ -639,10 +639,10 @@
       },
       "matplotlib": {
         "is_direct": false,
-        "sha256": "b3c4ea4948d93c9c29dc01c0c23eef66f2101bf75158c291b88de6525c55c3d1",
+        "sha256": "a0a7f52498f72f13d4a25ea70f35f4cb60642b466cbb0a9be951b5bc3f45a486",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/22/ff/6425bf5c20d79aa5b959d1ce9e65f599632345391381c9a104133fe0b171/matplotlib-3.10.7-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
-        "version": "3.10.7"
+        "url": "https://files.pythonhosted.org/packages/75/97/a471f1c3eb1fd6f6c24a31a5858f443891d5127e63a7788678d14e249aea/matplotlib-3.10.8-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
+        "version": "3.10.8"
       },
       "matplotlib-inline": {
         "is_direct": false,
@@ -1044,6 +1044,13 @@
         "url": "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
         "version": "2.9.0.post0"
       },
+      "python-dotenv": {
+        "is_direct": false,
+        "sha256": "b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl",
+        "version": "1.2.1"
+      },
       "python-json-logger": {
         "is_direct": false,
         "sha256": "af09c9daf6a813aa4cc7180395f50f2a9e5fa056034c9953aec92e381c5ba1e2",
@@ -1354,10 +1361,10 @@
       },
       "tornado": {
         "is_direct": false,
-        "sha256": "e792706668c87709709c18b353da1f7662317b563ff69f00bab83595940c7108",
+        "sha256": "de8b3fed4b3afb65d542d7702ac8767b567e240f6a43020be8eaef59328f117b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/f9/41/fb15f06e33d7430ca89420283a8762a4e6b8025b800ea51796ab5e6d9559/tornado-6.5.2-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-        "version": "6.5.2"
+        "url": "https://files.pythonhosted.org/packages/eb/2b/e02da94f4a4aef2bb3b923c838ef284a77548a5f06bac2a8682b36b4eead/tornado-6.5.3-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+        "version": "6.5.3"
       },
       "tqdm": {
         "is_direct": false,
@@ -1424,11 +1431,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "4764e43da988fe2267727be7f63cc2aafdfaaff6",
-        "sha256": "0cw1476qldbq43zrhz8vfi9dk0s5x1kr4mrvwahdlhqk878nzhc9",
+        "rev": "e4358342e7a1237ed78ad65baecf1bc51e47a1ed",
+        "sha256": "1panr12wsq77gwpv36rxnhmx45drracj446chiysbvxmwb19xqdc",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.2.0"
+        "version": "2.2.5"
       },
       "wadler-lindig": {
         "is_direct": false,
@@ -1599,10 +1606,12 @@
         ],
         "google-genai": [
           "anyio",
+          "distro",
           "google-auth",
           "httpx",
           "pydantic",
           "requests",
+          "sniffio",
           "tenacity",
           "typing-extensions",
           "websockets"
@@ -2039,6 +2048,7 @@
         "python-dateutil": [
           "six"
         ],
+        "python-dotenv": [],
         "python-json-logger": [],
         "python-libcombine": [],
         "python-libnuml": [],
@@ -2238,5 +2248,5 @@
       }
     }
   },
-  "invalidationHash": "278ce07ab3e5891ce5234fc915840ef2f3e9b24c1d1997387e6d71e53fbcace9"
+  "invalidationHash": "985bef4192aaddc2d69c8b4ceb54fd79b66da9183d363c56c732a3a543f989b5"
 }

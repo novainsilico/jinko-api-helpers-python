@@ -42,5 +42,6 @@ dependencies = [
   "freia",
   "langfuse",
   "vpop-calibration @ git+https://github.com/novainsilico/vpop-calibration",
-  "google-genai"
+  "google-genai",
+  "python-dotenv",
 ]

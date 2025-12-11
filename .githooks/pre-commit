@@ -1,4 +1,4 @@
-#!/nix/store/izpf49b74i15pcr9708s3xdwyqs4jxwl-bash-5.2p32/bin/bash
+#!/usr/bin/env bash
 # Check if pyproject.toml has changed
 if git diff --name-only --cached | grep -q "pyproject.toml"; then
   # Get the version from pyproject.toml
