@@ -46,6 +46,7 @@ class TestJinkoHelpers(unittest.TestCase):
     @patch("requests.request")
     def test_make_request_query_parameters(self, mock_request):
         mock_response = MagicMock()
+        mock_response.status_code = 200
         mock_request.return_value = mock_response
 
         jinko_helpers.make_request(
@@ -140,6 +141,19 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertTrue("X-jinko-project-item-description" in kwargs["headers"])
         self.assertTrue("X-jinko-project-item-folder-ids" in kwargs["headers"])
         self.assertTrue("X-jinko-project-item-version-name" in kwargs["headers"])
+
+    @patch("requests.request")
+    def test_make_request_retries_then_succeeds(self, mock_request):
+        first = MagicMock(status_code=500, headers={}, json=lambda: {}, text="error")
+        second = MagicMock(status_code=200, headers={}, json=lambda: {}, text="ok")
+        mock_request.side_effect = [first, second]
+
+        response = jinko_helpers.make_request(
+            "/test-path", max_retries=1, backoff_base=0
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(mock_request.call_count, 2)
 
 
 class TestGetProjectItem(unittest.TestCase):

@@ -21,6 +21,7 @@ import warnings
 import tempfile
 import re
 import logging
+import time
 
 USER_AGENT = "jinko-api-helpers-python/%s" % __version__
 AUTHORIZATION_PREFIX = "Bearer"
@@ -132,6 +133,8 @@ def makeRequest(
     csv_data=None,
     options: MakeRequestOptions | None = None,
     data=None,
+    max_retries: int = 0,
+    backoff_base: float = 0.5,
 ) -> _requests.Response:
     """Makes an HTTP request to the Jinko API.
 
@@ -143,6 +146,8 @@ def makeRequest(
         csv_data (str, optional): input payload as a CSV formatted string. Defaults to None
         options (MakeRequestOptions, optional): additional options. Defaults to None
         data: (Any, optional): raw input payload. Defaults to None
+        max_retries (int, optional): number of times to retry transient failures. Defaults to 0 (no retry).
+        backoff_base (float, optional): base backoff in seconds, doubled at each retry. Defaults to 0.5.
     Returns:
         Response: HTTP response object
 
@@ -184,6 +189,12 @@ def makeRequest(
     """
     # Get the default headers from _getHeaders()
     headers = _getHeaders()
+    logger = logging.getLogger("jinko_helpers.api_calls")
+
+    if max_retries < 0:
+        raise ValueError("max_retries must be greater or equal to 0")
+    if backoff_base < 0:
+        raise ValueError("backoff_base must be greater or equal to 0")
 
     input_mime_type = "application/json"
     output_mime_type = None
@@ -216,27 +227,69 @@ def makeRequest(
     if output_mime_type is not None:
         headers["Accept"] = output_mime_type
 
-    # Make the request
-    response = _requests.request(
-        method,
-        _baseUrl + path,
-        headers=headers,
-        params=params,
-        **({data_param: data} if data_param else {}),  # type: ignore
-    )
-    logger = logging.getLogger("jinko_helpers.api_calls")
-    if response.status_code not in [200, 201, 204]:
+    attempt = 0
+    while True:
+        try:
+            response = _requests.request(
+                method,
+                _baseUrl + path,
+                headers=headers,
+                params=params,
+                **({data_param: data} if data_param else {}),  # type: ignore
+            )
+        except _requests.exceptions.RequestException as exc:
+            if attempt >= max_retries:
+                raise
+            sleep_time = backoff_base * (2**attempt)
+            logger.warning(
+                "Request to %s %s failed (%s). Retry %s/%s in %.1fs",
+                method,
+                path,
+                exc,
+                attempt + 1,
+                max_retries,
+                sleep_time,
+            )
+            if sleep_time:
+                time.sleep(sleep_time)
+            attempt += 1
+            continue
+
+        if response.status_code in [200, 201, 204]:
+            if response.status_code == 204:
+                logger.info("Query successfully done, got a 204 response\n")
+            return response
+
         if (
             "content-type" in response.headers
             and response.headers["content-type"] == "application/json"
         ):
-            logger.warning(response.json() + "\n")
+            try:
+                logger.warning("%s\n", response.json())
+            except ValueError:
+                logger.warning("%s: %s\n", response.status_code, response.text)
         else:
             logger.warning("%s: %s\n" % (response.status_code, response.text))
+
+        retryable_status = response.status_code >= 500 or response.status_code == 429
+
+        if retryable_status and attempt < max_retries:
+            sleep_time = backoff_base * (2**attempt)
+            logger.warning(
+                "Transient status %s from %s %s. Retry %s/%s in %.1fs",
+                response.status_code,
+                method,
+                path,
+                attempt + 1,
+                max_retries,
+                sleep_time,
+            )
+            if sleep_time:
+                time.sleep(sleep_time)
+            attempt += 1
+            continue
+
         response.raise_for_status()
-    if response.status_code == 204:
-        logger.info("Query successfully done, got a 204 response\n")
-    return response
 
 
 def nextPage(lastResponse: _requests.Response) -> _requests.Response | None:
