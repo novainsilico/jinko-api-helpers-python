@@ -27,7 +27,7 @@ dependencies = [
   "numpy",
   "scipy",
   "ndtest @ git+https://github.com/syrte/ndtest.git",
-  "plotnine==0.15.0a1",
+  "plotnine",
   "libroadrunner",
   "modal-python",
   "openai",
@@ -44,4 +44,5 @@ dependencies = [
   "vpop-calibration @ git+https://github.com/novainsilico/vpop-calibration",
   "google-genai",
   "python-dotenv",
+  "pip",
 ]
