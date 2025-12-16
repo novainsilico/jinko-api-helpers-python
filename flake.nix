@@ -129,6 +129,7 @@
               buildInputs = [
                 pkgs.bashInteractive
                 self.packages.${system}.jinkoEnv.pythonWithEnv 
+                pkgs.openssl.bin
               ];
             };
           };
