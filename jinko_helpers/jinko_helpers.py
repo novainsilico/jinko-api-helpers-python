@@ -262,10 +262,22 @@ def makeRequest(
 
         if (
             "content-type" in response.headers
-            and response.headers["content-type"] == "application/json"
+            and "application/json" in response.headers["content-type"]
         ):
             try:
-                logger.warning("%s\n", response.json())
+                response_json = response.json()
+                if (
+                    response.status_code == 400
+                    and isinstance(response_json, dict)
+                    and isinstance(response_json.get("message"), str)
+                    and "missing 'x-jinko-project-id' header"
+                    in response_json["message"].lower()
+                ):
+                    raise Exception(
+                        "Missing X-jinko-project-id header. Did you forget to call "
+                        "jinko.initialize() before making requests?"
+                    )
+                logger.warning("%s\n", response_json)
             except ValueError:
                 logger.warning("%s: %s\n", response.status_code, response.text)
         else:

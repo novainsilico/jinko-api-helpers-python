@@ -155,6 +155,23 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(mock_request.call_count, 2)
 
+    @patch("requests.request")
+    def test_make_request_missing_project_id_header(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 400
+        mock_response.headers = {"content-type": "application/json"}
+        mock_response.json.return_value = {
+            "message": "Missing 'x-jinko-project-id' header",
+            "error": "Bad Request",
+            "statusCode": 400,
+        }
+        mock_request.return_value = mock_response
+
+        with self.assertRaises(Exception) as context:
+            jinko_helpers.make_request("/test-path", method="GET")
+
+        self.assertIn("jinko.initialize()", str(context.exception))
+
 
 class TestGetProjectItem(unittest.TestCase):
     @patch("requests.request")
