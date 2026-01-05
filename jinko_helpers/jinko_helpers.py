@@ -7,9 +7,9 @@
 - make HTTP requests (jinko.makeRequest)
 """
 
-import sys
 
 from .__version__ import __version__
+from .deprecation import handle_deprecation
 import base64 as _base64
 import requests as _requests
 import getpass as _getpass
@@ -256,6 +256,10 @@ def makeRequest(
             continue
 
         if response.status_code in [200, 201, 204]:
+            handle_deprecation(
+                method=method,
+                path=path,
+            )
             if response.status_code == 204:
                 logger.info("Query successfully done, got a 204 response\n")
             return response
@@ -301,6 +305,10 @@ def makeRequest(
             attempt += 1
             continue
 
+        handle_deprecation(
+            method=method,
+            path=path,
+        )
         response.raise_for_status()
 
 
