@@ -634,7 +634,7 @@ def getProjectItemUrlByCoreItemId(coreItemId: str):
     response = makeRequest("/app/v1/core-item/%s" % (coreItemId)).json()
     sid = response.get("sid")
     url = f"{_jinkoUrl}/{sid}"
-    return f"Resource link: {url}"
+    return url
 
 
 def is_interactive():
