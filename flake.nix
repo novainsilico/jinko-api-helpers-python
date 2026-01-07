@@ -46,6 +46,7 @@
                   fetchurl = nixpkgs.fetchurl;
                   runCommand = nixpkgs.runCommand;
                   rename = nixpkgs.rename;
+                  tbb = nixpkgs.tbb; # for numba/tbbpool
                 };
 
                 public.pythonWithEnv = config.deps.python.withPackages (p: [ p.tkinter ] ++ config.mkDerivation.propagatedBuildInputs);
@@ -68,6 +69,9 @@
                   sed -i -e "s@/bin/bash@/bin/sh@" $out/lib/python*/site-packages/kaleido/executable/kaleido
                   ${config.deps.patchelf}/bin/patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/lib/python*/site-packages/kaleido/executable/bin/kaleido
                 '';
+                # Numba's tbbpool backend links to libtbb.so.* (often pulled in via SHAP's optional numba use);
+                # include TBB to satisfy auto-patchelf.
+                pip.overrides.numba.mkDerivation.propagatedBuildInputs = [ config.deps.tbb ];
                 # Not sure how to properly build a folder, so we turn
                 # it into a whl file which is the known case
                 pip.overrides.jinko-sdk.mkDerivation.src = let

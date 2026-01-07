@@ -45,4 +45,5 @@ dependencies = [
   "google-genai",
   "python-dotenv",
   "pip",
+  "shap",
 ]
