@@ -301,16 +301,28 @@ class CrabbitDownloader:
             },
         )
         archive = zipfile.ZipFile(io.BytesIO(response.content))
+        csv_data = {}
         for item in archive.namelist():
             if not item.endswith(".csv"):
                 continue
-            csv_data = pd.read_csv(
+            one_csv = pd.read_csv(
                 io.StringIO(archive.read(item).decode("utf-8")), sep=","
             )
-            csv_data.to_csv(
-                os.path.join(self.output_path, item),
+            one_csv.rename(columns={"value": "Observed", "observedValue": "Simulated", "observedScore": "Score"}, inplace="True")
+            csv_data[item] = one_csv
+        try:
+            merged_csv_data = pd.concat(csv_data.values(), ignore_index=True)
+            # when data tables can be merged, save them in one single file
+            merged_csv_data.to_csv(
+                os.path.join(self.output_path, "ReferenceTimeSeries_augmented.csv"),
                 index=False,
             )
+        except:
+            # if cannot be merged, save separately
+            for csv_name, csv_df in csv_data.items():
+                csv_df.to_csv(
+                    os.path.join(self.output_path, csv_name), index=False
+                )
 
     def download_calib_patient_timeseries(self, patient_id):
         """Download one calibration patient's timeseries."""
