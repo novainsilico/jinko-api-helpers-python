@@ -1466,11 +1466,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "e5bd6d7f1da6c0d089f2dd9d92c0dee7871c8e8e",
-        "sha256": "0b46di9i9dglg37sgmnihmlm6xqq7x9x3bfipb7lmfv0hns7w36m",
+        "rev": "7c411d1cdc2fbc6373240f542c873c733af3e256",
+        "sha256": "0icwc520h25ji2bnx6x8yvpwn190i5iswfkhaajybglqnvsc4p7k",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.4.0"
+        "version": "2.5.0"
       },
       "wadler-lindig": {
         "is_direct": false,
@@ -1740,9 +1740,12 @@
           "markupsafe"
         ],
         "jinko-sdk": [
+          "cma",
+          "matplotlib",
           "pandas",
           "requests",
           "scipy",
+          "seaborn",
           "tqdm"
         ],
         "jiter": [],
