@@ -83,7 +83,6 @@ class CrabbitVpopRunner:
         return True
 
     def _refresh_vpops(self, iteration_index=-1):
-        self.trial_id = {}
         self.design_ids = {}
         self.vpop_ids = {}
         self.patient_ids = {}
@@ -246,7 +245,6 @@ class CrabbitVpopRunner:
         trial_id = self._post_one_vpop_trial(vpop_name, vpop_id)
         if trial_id:
             print("Trial started:", trial_id["URL"])
-            self.trial_id = {vpop_name: trial_id}
             try:
                 jinko.make_request(
                     path=f"/core/v2/trial_manager/trial/{trial_id['id']}/snapshots/{trial_id['snapshotId']}/run",
@@ -259,13 +257,12 @@ class CrabbitVpopRunner:
                 print(bold_text("Error:"), "connection lost")
         return trial_id
 
-    def download_trial_results(self):
-        if not self.qoi_path or not self.trial_id:
+    def download_trial_results(self, vpop_folder, trial_id):
+        if not self.qoi_path or not trial_id:
             return
-        vpop_name, trial_id = list(self.trial_id.items()).pop()
         item = {"coreId": trial_id, "type": "Trial"}
         downloader = download.CrabbitDownloader(
-            item, self.local_folders[vpop_name], self.qoi_path
+            item, vpop_folder, self.qoi_path
         )
         downloader.run()
 
@@ -297,9 +294,9 @@ class CrabbitVpopRunner:
         )
 
         vpop_name, vpop_id = list(self.vpop_ids.items()).pop()
-        self._run_one_vpop(vpop_name, vpop_id)
+        trial_id = self._run_one_vpop(vpop_name, vpop_id)
 
-        self.download_trial_results()
+        self.download_trial_results(self.local_folders[vpop_name], trial_id)
         return saves
 
     def run_one_iteration(self, iteration_index, calib_func, calib_param_values):
@@ -343,8 +340,8 @@ class CrabbitVpopRunner:
             indent=4,
         )
 
-        self._run_one_vpop(special_name, vpop_id)
-        self.download_trial_results()
+        trial_id = self._run_one_vpop(special_name, vpop_id)
+        self.download_trial_results(self.local_folders[special_name], trial_id)
         self._split_merged_results(special_name)
 
         return saves
