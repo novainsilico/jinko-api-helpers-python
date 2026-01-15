@@ -1,6 +1,6 @@
-"""Module containing the command-line apps of crabbit."""
+"""Module containing the "download" app of crabbit."""
 
-__all__ = ["CrabbitDownloader", "CrabbitMerger"]
+__all__ = ["CrabbitDownloader"]
 
 import os
 import json
@@ -12,12 +12,7 @@ import time
 import pandas as pd
 
 import jinko_helpers as jinko
-from crabbit.utils import (
-    bold_text,
-    merge_vpop_designs,
-    merge_vpops,
-    merge_csv,
-)
+from crabbit.utils import bold_text
 
 
 class CrabbitDownloader:
@@ -308,7 +303,14 @@ class CrabbitDownloader:
             one_csv = pd.read_csv(
                 io.StringIO(archive.read(item).decode("utf-8")), sep=","
             )
-            one_csv.rename(columns={"value": "Observed", "observedValue": "Simulated", "observedScore": "Score"}, inplace="True")
+            one_csv.rename(
+                columns={
+                    "value": "Observed",
+                    "observedValue": "Simulated",
+                    "observedScore": "Score",
+                },
+                inplace="True",
+            )
             csv_data[item] = one_csv
         try:
             merged_csv_data = pd.concat(csv_data.values(), ignore_index=True)
@@ -320,9 +322,7 @@ class CrabbitDownloader:
         except:
             # if cannot be merged, save separately
             for csv_name, csv_df in csv_data.items():
-                csv_df.to_csv(
-                    os.path.join(self.output_path, csv_name), index=False
-                )
+                csv_df.to_csv(os.path.join(self.output_path, csv_name), index=False)
 
     def download_calib_patient_timeseries(self, patient_id):
         """Download one calibration patient's timeseries."""
@@ -529,118 +529,3 @@ class CrabbitDownloader:
         repivotted.to_csv(csv_path)
         print(f"\nTime elapsed: {round(time.time() - t0, 2)} (second)")
         print(f"Size of the scalar table: {repivotted.shape}")
-
-
-class CrabbitMerger:
-    """CLI app for running the crabbit "merge" mode."""
-
-    CSV = ".csv"
-    JSON = ".json"
-    SUPPORTED_EXTS = (CSV, JSON)
-
-    def __init__(self, input_paths, output_path):
-        self.input_paths = input_paths
-        self.output_path = output_path
-        self.to_merge = []
-        self.ext = None
-
-    def run(self):
-        """Main function of the merge app."""
-        if not self.check_options():
-            return
-        if self.ext == self.CSV:
-            self.merge_csv_()
-            return
-        if "VpopDesign" in os.path.split(self.to_merge[0])[1]:
-            json_output = self.merge_vpop_designs_()
-        else:
-            json_output = self.merge_vpops_()
-        if json_output is not None:
-            json.dump(
-                json_output, open(self.output_path, "w+", encoding="utf-8"), indent=4
-            )
-            print(
-                bold_text("Done!"),
-                "Output successfully saved to:",
-                self.output_path,
-                end="\n\n",
-            )
-
-    def check_options(self):
-        """Check the validity of inputs/output paths"""
-        exts = set()
-        for name in self.input_paths:
-            _, ext = os.path.splitext(name)
-            exts.add(ext)
-            if os.path.exists(name) and os.path.isfile(name):
-                self.to_merge.append(name)
-
-        if not self.to_merge:
-            print(bold_text("Error:"), "No file is found\n")
-            return False
-        elif len(self.to_merge) == 1:
-            print(
-                bold_text("Error:"),
-                "Only one file is found. At least two are required\n",
-            )
-            return False
-
-        self.to_merge.sort()
-        print(f"Found {len(self.to_merge)} files matching the pattern:")
-        for name in self.to_merge:
-            print("\t", name)
-        print()
-
-        if len(exts) != 1:
-            print(
-                bold_text("Error:"),
-                "Only files of the same extension (JSON or CSV) are supported\n",
-            )
-            return False
-        self.ext = list(exts).pop()
-        if self.ext not in self.SUPPORTED_EXTS:
-            print(
-                bold_text("Error:"),
-                "Only JSON (Patients/VpopDesign) and CSV files are supported\n",
-            )
-            return False
-        if self.ext != os.path.splitext(self.output_path)[1]:
-            print(
-                bold_text("Error:"),
-                f"Output file must use the same extension {self.ext}\n",
-            )
-            return False
-        return True
-
-    def merge_vpops_(self):
-        """Merge Vpop from local files or jinko to a JSON"""
-        merged_vpop = merge_vpops(self.to_merge)
-        if merged_vpop is None:
-            return
-        print(f"Writing the output... (size = {len(merged_vpop['patients'])})")
-        return merged_vpop
-
-    def merge_vpop_designs_(self):
-        """Merge VpopDesign from local files or jinko to a JSON"""
-        merged_vpop_design = merge_vpop_designs(self.to_merge)
-        if merged_vpop_design is None:
-            return
-        print(f"Writing the output...")
-        return merged_vpop_design
-
-    def merge_csv_(self):
-        """CSV merging is a crabbit specific operation concatening scalar results for a merged vpop."""
-        csv_rows = merge_csv()
-        if csv_rows is None:
-            return
-        print("Writing the output...")
-        with open(self.output_path, "w", encoding="utf-8") as output_file:
-            for row in csv_rows:
-                output_file.write(",".join(row))
-                output_file.write("\r\n")
-        print(
-            bold_text("Done!"),
-            "Output successfully saved to:",
-            self.output_path,
-            end="\n\n",
-        )

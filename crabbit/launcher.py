@@ -6,8 +6,9 @@ import os
 import requests
 
 import jinko_helpers as jinko
-import crabbit.cli as cli
-from crabbit.utils import bold_text, clear_directory
+import crabbit.download as download
+import crabbit.merge as merge
+from crabbit.utils import check_project_item_url, clear_directory
 
 
 class CrabbitAppLauncher:
@@ -28,10 +29,10 @@ class CrabbitAppLauncher:
             return
 
         if self.mode == "download":
-            project_item = self.check_project_item_url()
+            project_item = check_project_item_url(self.input[0])
             if project_item is None:
                 return
-            crab = cli.CrabbitDownloader(project_item, self.output, self.csv)
+            crab = download.CrabbitDownloader(project_item, self.output, self.csv)
             print(
                 f'Downloading jinko project item "{self.input[0]}" to {self.output}\n',
             )
@@ -45,26 +46,7 @@ class CrabbitAppLauncher:
             if not self.input:
                 print("Error:\nThe input path is not valid!", "\n")
                 return False
-            crab = cli.CrabbitMerger(self.input, self.output)
+            crab = merge.CrabbitMerger(self.input, self.output)
             crab.run()
         else:
             print(f'The mode "{self.mode}" is still under development!')
-
-    def check_project_item_url(self):
-        """Get the project item from URL or print a nice error message."""
-        message = (
-            f'{bold_text("Error:")} {self.input[0]} is not a valid project item URL!'
-        )
-        sid, revision = jinko.get_sid_revision_from_url(self.input[0])
-        if sid is None:
-            print(message)
-            return None
-        try:
-            project_item = jinko.get_project_item(sid=sid, revision=revision)
-        except requests.exceptions.HTTPError:
-            print(message)
-            return None
-        if "type" not in project_item:
-            print(message)
-            return None
-        return project_item

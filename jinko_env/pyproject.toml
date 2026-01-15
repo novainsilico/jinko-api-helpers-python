@@ -46,4 +46,5 @@ dependencies = [
   "python-dotenv",
   "pip",
   "shap",
+  "cma",
 ]

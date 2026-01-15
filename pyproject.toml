@@ -24,9 +24,11 @@ torch = { version = "^2.4.1", optional = true }
 scikit-learn = { version = "^1.5.2", optional = true }
 seaborn = { version = "^0.13.2", optional = true }
 matplotlib = { version = "^3.9.2", optional = true }
+lifelines = { version = "^0.30.0", optional = true }
+cma = { version = "^4.4.1", optional = true }
 
 [tool.poetry.extras]
-jinko_nn = ["freia", "torch", "scikit-learn", "seaborn", "matplotlib"]
+jinko_nn = ["freia", "torch", "scikit-learn", "seaborn", "matplotlib", "lifelines", "cma"]
 
 [tool.poetry.group.dev.dependencies]
 datamodel-code-generator = { extras = ["http"], version = "^0.26.3" }

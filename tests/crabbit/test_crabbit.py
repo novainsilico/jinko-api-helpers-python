@@ -1,12 +1,12 @@
 import unittest
 import json
 import csv
-import crabbit.utils
+import crabbit.merge
 
 
 class TestCrabbit(unittest.TestCase):
     def test_merge_vpop(self):
-        merged_vpop = crabbit.utils.merge_vpops(
+        merged_vpop = crabbit.merge.merge_vpops(
             [
                 "tests/crabbit/data/small-vpop-3.json",
                 "tests/crabbit/data/small-vpop-5.json",
@@ -20,7 +20,7 @@ class TestCrabbit(unittest.TestCase):
         )
 
     def test_merge_vpop_design_success(self):
-        merged_vpop_design = crabbit.utils.merge_vpop_designs(
+        merged_vpop_design = crabbit.merge.merge_vpop_designs(
             [
                 "tests/crabbit/data/VpopDesign-A.json",
                 "tests/crabbit/data/VpopDesign-B.json",
@@ -35,7 +35,7 @@ class TestCrabbit(unittest.TestCase):
         )
 
     def test_merge_vpop_design_conflict(self):
-        merged_vpop_design = crabbit.utils.merge_vpop_designs(
+        merged_vpop_design = crabbit.merge.merge_vpop_designs(
             [
                 "tests/crabbit/data/VpopDesign-A.json",
                 "tests/crabbit/data/VpopDesign-B.json",
@@ -45,7 +45,7 @@ class TestCrabbit(unittest.TestCase):
         self.assertEqual(merged_vpop_design, None)
 
     def test_merge_csv_success(self):
-        merged_csv = crabbit.utils.merge_csv(
+        merged_csv = crabbit.merge.merge_csv(
             [
                 "tests/crabbit/data/csv-A.csv",
                 "tests/crabbit/data/csv-B.csv",
@@ -61,7 +61,7 @@ class TestCrabbit(unittest.TestCase):
         self.assertEqual(all_equal, True)
 
     def test_merge_csv_conflict(self):
-        merged_csv = crabbit.utils.merge_csv(
+        merged_csv = crabbit.merge.merge_csv(
             [
                 "tests/crabbit/data/csv-A.csv",
                 "tests/crabbit/data/csv-D.csv",
@@ -70,7 +70,7 @@ class TestCrabbit(unittest.TestCase):
         self.assertEqual(merged_csv, None)
 
     def test_merge_csv_mismatch(self):
-        merged_csv = crabbit.utils.merge_csv(
+        merged_csv = crabbit.merge.merge_csv(
             [
                 "tests/crabbit/data/csv-A.csv",
                 "tests/crabbit/data/csv-D.csv",
