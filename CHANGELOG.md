@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.5.7 | 2026-01-15
+
+### Added
+- (crabbit/vpop) new runner and optimizer utilities
+
 ## v0.5.3 | 2025-09-27
 
 ### Changed

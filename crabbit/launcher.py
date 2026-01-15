@@ -3,7 +3,6 @@
 __all__ = ["CrabbitAppLauncher"]
 
 import os
-import requests
 
 import jinko_helpers as jinko
 import crabbit.download as download

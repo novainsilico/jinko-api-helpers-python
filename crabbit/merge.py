@@ -4,7 +4,6 @@ __all__ = ["CrabbitMerger"]
 
 import os
 import json
-import re
 import csv
 import json
 from typing import List, Generator
