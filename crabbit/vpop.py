@@ -83,6 +83,7 @@ class CrabbitVpopRunner:
         return True
 
     def _refresh_vpops(self, iteration_index=-1):
+        self.trial_id = {}
         self.design_ids = {}
         self.vpop_ids = {}
         self.patient_ids = {}
@@ -245,6 +246,7 @@ class CrabbitVpopRunner:
         trial_id = self._post_one_vpop_trial(vpop_name, vpop_id)
         if trial_id:
             print("Trial started:", trial_id["URL"])
+            self.trial_id = {vpop_name: trial_id}
             try:
                 jinko.make_request(
                     path=f"/core/v2/trial_manager/trial/{trial_id['id']}/snapshots/{trial_id['snapshotId']}/run",
@@ -253,13 +255,14 @@ class CrabbitVpopRunner:
                 jinko.monitor_trial_until_completion(
                     trial_id["id"], trial_id["snapshotId"]
                 )
-            except requests.exceptions.ConnectionError:
+            except (requests.exceptions.ConnectionError, requests.exceptions.HTTPErro):
                 print(bold_text("Error:"), "connection lost")
         return trial_id
 
-    def _download_trial_results(self, vpop_name, trial_id):
-        if not self.qoi_path or not trial_id:
+    def download_trial_results(self):
+        if not self.qoi_path or not self.trial_id:
             return
+        vpop_name, trial_id = list(self.trial_id.items()).pop()
         item = {"coreId": trial_id, "type": "Trial"}
         downloader = download.CrabbitDownloader(
             item, self.local_folders[vpop_name], self.qoi_path
@@ -286,16 +289,17 @@ class CrabbitVpopRunner:
         self._post_designs()
         self._generate_vpops()
 
-        vpop_name, vpop_id = list(self.vpop_ids.items()).pop()
-        trial_id = self._run_one_vpop(vpop_name, vpop_id)
-
-        self._download_trial_results(vpop_name, trial_id)
         saves = list(map(str, self.local_folders.values()))
         json.dump(
             saves,
             open(os.path.join(self.local_parent_folder, ".SAVE.json"), "w"),
             indent=4,
         )
+
+        vpop_name, vpop_id = list(self.vpop_ids.items()).pop()
+        self._run_one_vpop(vpop_name, vpop_id)
+
+        self.download_trial_results()
         return saves
 
     def run_one_iteration(self, iteration_index, calib_func, calib_param_values):
@@ -327,12 +331,8 @@ class CrabbitVpopRunner:
 
         self._post_designs()
         self._generate_vpops()
-
         vpop_id = self._post_merged_vpop()
         special_name = f"{self.name_prefix}_Iteration_{iteration_index}"
-        trial_id = self._run_one_vpop(special_name, vpop_id)
-        self._download_trial_results(special_name, trial_id)
-        self._split_merged_results(special_name)
 
         saves = list(
             map(str, [self.local_folders[vpop_name] for vpop_name in self.vpop_names])
@@ -342,6 +342,11 @@ class CrabbitVpopRunner:
             open(os.path.join(self.local_parent_folder, ".SAVE.json"), "w"),
             indent=4,
         )
+
+        self._run_one_vpop(special_name, vpop_id)
+        self.download_trial_results()
+        self._split_merged_results(special_name)
+
         return saves
 
 
@@ -351,6 +356,7 @@ class CrabbitVpopOptimizer:
         config_path,
         local_parent_folder,
         init_mean,
+        scaling_stds,
         init_step_size,
         seed,
         popsize,
@@ -365,7 +371,8 @@ class CrabbitVpopOptimizer:
         self.es = cma.CMAEvolutionStrategy(
             init_mean,
             init_step_size,
-            {"seed": seed, "popsize": popsize, "maxiter": maxiter},
+            {"CMA_stds": scaling_stds, "seed": seed,
+             "popsize": popsize, "maxiter": maxiter},
         )
         self.simple_log = []
         self.log_path = os.path.abspath(os.path.expanduser(log_path))
