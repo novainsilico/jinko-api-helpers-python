@@ -59,10 +59,10 @@
       },
       "async-lru": {
         "is_direct": false,
-        "sha256": "ab95404d8d2605310d345932697371a5f40def0487c03d6d0ad9138de52c9943",
+        "sha256": "fa12dcf99a42ac1280bc16c634bbaf06883809790f6304d85cdab3f666f33a7e",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/03/49/d10027df9fce941cb8184e78a02857af36360d33e1721df81c5ed2179a1a/async_lru-2.0.5-py3-none-any.whl",
-        "version": "2.0.5"
+        "url": "https://files.pythonhosted.org/packages/2e/e9/eb6a5db5ac505d5d45715388e92bced7a5bb556facc4d0865d192823f2d2/async_lru-2.1.0-py3-none-any.whl",
+        "version": "2.1.0"
       },
       "attrs": {
         "is_direct": false,
@@ -115,10 +115,10 @@
       },
       "black": {
         "is_direct": false,
-        "sha256": "0e509c858adf63aa61d908061b52e580c40eae0dfa72415fa47ac01b12e29baf",
+        "sha256": "1de0f7d01cc894066a1153b738145b194414cc6eeaad8ef4397ac9abacf40f6b",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/74/98/38aaa018b2ab06a863974c12b14a6266badc192b20603a81b738c47e902e/black-25.12.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
-        "version": "25.12.0"
+        "url": "https://files.pythonhosted.org/packages/da/7c/b05f22964316a52ab6b4265bcd52c0ad2c30d7ca6bd3d0637e438fc32d6e/black-26.1.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "26.1.0"
       },
       "bleach": {
         "is_direct": false,
@@ -311,10 +311,10 @@
       },
       "google-genai": {
         "is_direct": false,
-        "sha256": "2df3fceb92a519d51e266babde26f7c298fb12f84f469605c4ce80c2ec43f796",
+        "sha256": "59fc01a225d074fe9d1e626c3433da292f33249dadce4deb34edea698305a6df",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/56/61/098a414cc41600036fe3eb24415221f5412f446e1be1ce9595bb32f2ae92/google_genai-1.58.0-py3-none-any.whl",
-        "version": "1.58.0"
+        "url": "https://files.pythonhosted.org/packages/aa/53/6d00692fe50d73409b3406ae90c71bc4499c8ae7fac377ba16e283da917c/google_genai-1.59.0-py3-none-any.whl",
+        "version": "1.59.0"
       },
       "googleapis-common-protos": {
         "is_direct": false,
@@ -325,10 +325,10 @@
       },
       "gpytorch": {
         "is_direct": false,
-        "sha256": "738489af36128bce517907416683b3e511cae15bd8b3f748fc482d64251142f9",
+        "sha256": "30e882a78e8c81093fab33fde9bc0a550c8dbe4a6365ade3286c961685bb8504",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/eb/c2/51f3552867e2bd265a6cf3623c668a869bdec538a5ca59a3dbc28ceddae3/gpytorch-1.15-py3-none-any.whl",
-        "version": "1.15"
+        "url": "https://files.pythonhosted.org/packages/7c/17/86dec72468a56e8f8ab417de504db523bf852646ea8d086749055f1ea60a/gpytorch-1.15.1-py3-none-any.whl",
+        "version": "1.15.1"
       },
       "h11": {
         "is_direct": false,
@@ -1004,10 +1004,10 @@
       },
       "pyasn1": {
         "is_direct": false,
-        "sha256": "0d632f46f2ba09143da3a8afe9e33fb6f92fa2320ab7e886e2d0f7672af84629",
+        "sha256": "1eb26d860996a18e9b6ed05e7aae0e9fc21619fcee6af91cca9bad4fbea224bf",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/c8/f1/d6a797abb14f6283c0ddff96bbdd46937f64122b8c925cab503dd37f8214/pyasn1-0.6.1-py3-none-any.whl",
-        "version": "0.6.1"
+        "url": "https://files.pythonhosted.org/packages/44/b5/a96872e5184f354da9c84ae119971a0a4c221fe9b27a4d94bd43f2596727/pyasn1-0.6.2-py3-none-any.whl",
+        "version": "0.6.2"
       },
       "pyasn1-modules": {
         "is_direct": false,
@@ -1123,10 +1123,10 @@
       },
       "pytokens": {
         "is_direct": false,
-        "sha256": "95b2b5eaf832e469d141a378872480ede3f251a5a5041b8ec6e581d3ac71bbf3",
+        "sha256": "a2c8952c537cb73a1a74369501a83b7f9d208c3cf92c41dd88a17814e68d48ce",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/84/25/d9db8be44e205a124f6c98bc0324b2bb149b7431c53877fc6d1038dddaf5/pytokens-0.3.0-py3-none-any.whl",
-        "version": "0.3.0"
+        "url": "https://files.pythonhosted.org/packages/ab/96/04102856b9527701ae57d74a6393d1aca5bad18a1b1ca48ccffb3c93b392/pytokens-0.4.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "0.4.0"
       },
       "pytz": {
         "is_direct": false,
@@ -1298,10 +1298,10 @@
       },
       "soupsieve": {
         "is_direct": false,
-        "sha256": "a11fe2a6f3d76ab3cf2de04eb339c1be5b506a8a47f2ceb6d139803177f85434",
+        "sha256": "0f4c2f6b5a5fb97a641cf69c0bd163670a0e45e6d6c01a2107f93a6a6f93c51a",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/48/f3/b67d6ea49ca9154453b6d70b34ea22f3996b9fa55da105a79d8732227adc/soupsieve-2.8.1-py3-none-any.whl",
-        "version": "2.8.1"
+        "url": "https://files.pythonhosted.org/packages/a6/9a/b4450ccce353e2430621b3bb571899ffe1033d5cd72c9e065110f95b1a63/soupsieve-2.8.2-py3-none-any.whl",
+        "version": "2.8.2"
       },
       "stack-data": {
         "is_direct": false,
@@ -1417,10 +1417,10 @@
       },
       "transformers": {
         "is_direct": false,
-        "sha256": "5a1e0deb989cd0b8f141b6d8c9b7c956fc029cd288d68844f57dc0acbaf2fe39",
+        "sha256": "4c9e9de11333ddfe5114bc872c9f370509198acf0b87a832a0ab9458e2bd0550",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/f8/de/4f95d22d9764659d2bd35065f383f3fe099699a9e6e89fa4728dbcd7244a/transformers-4.57.5-py3-none-any.whl",
-        "version": "4.57.5"
+        "url": "https://files.pythonhosted.org/packages/03/b8/e484ef633af3887baeeb4b6ad12743363af7cce68ae51e938e00aaa0529d/transformers-4.57.6-py3-none-any.whl",
+        "version": "4.57.6"
       },
       "typing-extensions": {
         "is_direct": false,
@@ -1466,11 +1466,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "7c411d1cdc2fbc6373240f542c873c733af3e256",
-        "sha256": "0icwc520h25ji2bnx6x8yvpwn190i5iswfkhaajybglqnvsc4p7k",
+        "rev": "48b9f341078eeab1c595ccb00052522b27754ae0",
+        "sha256": "13qdf9m2krniw6z5li8y1pjj0xl5vg5q82binmzyawwnr3asrcmm",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.5.0"
+        "version": "2.5.1"
       },
       "wadler-lindig": {
         "is_direct": false,
