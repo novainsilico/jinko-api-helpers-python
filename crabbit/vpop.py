@@ -30,7 +30,7 @@ class CrabbitVpopRunner:
         self.is_prepared = self._prepare()
 
     def _prepare(self):
-        if not clear_directory(self.local_parent_folder):
+        if not clear_directory(self.local_parent_folder, force=False):
             return False
         with open(self.config_path, "r", encoding="utf-8") as config:
             try:
