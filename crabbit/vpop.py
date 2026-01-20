@@ -27,8 +27,11 @@ class CrabbitVpopRunner:
         self.local_parent_folder = os.path.abspath(
             os.path.expanduser(local_parent_folder)
         )
+        self.is_prepared = self._prepare()
 
-    def prepare(self):
+    def _prepare(self):
+        if not clear_directory(self.local_parent_folder):
+            return False
         with open(self.config_path, "r", encoding="utf-8") as config:
             try:
                 config_dic = yaml.safe_load(config)
@@ -90,7 +93,6 @@ class CrabbitVpopRunner:
         if iteration_index >= 0:
             special_name = f"{self.name_prefix}_Iteration_{iteration_index}"
             local_folder = os.path.join(self.local_parent_folder, special_name)
-            clear_directory(local_folder, force=True)
             self.local_folders[special_name] = local_folder
         for vpop_name in self.vpop_names:
             if iteration_index < 0:
@@ -101,7 +103,6 @@ class CrabbitVpopRunner:
                     f"{self.name_prefix}_Iteration_{iteration_index}",
                     vpop_name,
                 )
-            clear_directory(local_folder, force=True)
             self.local_folders[vpop_name] = local_folder
 
     def _post_designs(self):
@@ -261,9 +262,7 @@ class CrabbitVpopRunner:
         if not self.qoi_path or not trial_id:
             return
         item = {"coreId": trial_id, "type": "Trial"}
-        downloader = download.CrabbitDownloader(
-            item, vpop_folder, self.qoi_path
-        )
+        downloader = download.CrabbitDownloader(item, vpop_folder, self.qoi_path)
         downloader.run()
 
     def _split_merged_results(self, merged_vpop_name):
@@ -279,7 +278,7 @@ class CrabbitVpopRunner:
 
     def run(self):
         """Run one single vpop"""
-        if not self.prepare():
+        if not self.is_prepared:
             return
         self.vpop_names = [self.name_prefix]
         self._refresh_vpops()
@@ -360,7 +359,6 @@ class CrabbitVpopOptimizer:
         maxiter,
         calib_func,
         scoring_func,
-        log_path,
     ):
         self.runner = CrabbitVpopRunner(config_path, local_parent_folder)
         self.calib_func = calib_func
@@ -368,14 +366,18 @@ class CrabbitVpopOptimizer:
         self.es = cma.CMAEvolutionStrategy(
             init_mean,
             init_step_size,
-            {"CMA_stds": scaling_stds, "seed": seed,
-             "popsize": popsize, "maxiter": maxiter},
+            {
+                "CMA_stds": scaling_stds,
+                "seed": seed,
+                "popsize": popsize,
+                "maxiter": maxiter,
+            },
         )
         self.simple_log = []
-        self.log_path = os.path.abspath(os.path.expanduser(log_path))
+        self.log_path = os.path.join(self.runner.local_parent_folder, "log.json")
 
     def run(self):
-        if not self.runner.prepare():
+        if not self.runner.is_prepared:
             return
         iteration = 0
         best_score = float("Inf")
@@ -383,7 +385,9 @@ class CrabbitVpopOptimizer:
         all_iteration_scores = []
         while not self.es.stop():
             candidates = self.es.ask()
-            vpops = self.runner.run_one_iteration(iteration, self.calib_func, candidates)
+            vpops = self.runner.run_one_iteration(
+                iteration, self.calib_func, candidates
+            )
             scores = self.scoring_func(vpops)
             self.es.tell(candidates, scores)
 
@@ -403,12 +407,11 @@ class CrabbitVpopOptimizer:
             all_iteration_scores.append([iteration, best_score])
 
             iteration += 1
-        json.dump(self.simple_log, open(self.log_path, "w"), indent=4)
+            json.dump(self.simple_log, open(self.log_path, "w"), indent=4)
 
         best_folder = os.path.join(
             self.runner.local_parent_folder, f"{self.runner.name_prefix}_BEST"
         )
-        clear_directory(best_folder, force=True)
         shutil.copytree(best_vpop, best_folder, dirs_exist_ok=True)
         json.dump(
             self.simple_log, open(os.path.join(best_folder, "log.json"), "w"), indent=4

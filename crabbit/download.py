@@ -12,16 +12,17 @@ import time
 import pandas as pd
 
 import jinko_helpers as jinko
-from crabbit.utils import bold_text
+from crabbit.utils import bold_text, clear_directory
 
 
 class CrabbitDownloader:
     """CLI app for running the crabbit "download" mode."""
 
-    def __init__(self, project_item, output_path, download_csv):
+    def __init__(self, project_item, output_path, download_csv, force_clean):
         self.project_item = project_item
         self.output_path = output_path
         self.download_csv = download_csv
+        self.force_clean = force_clean
         self.core_id_dict = self.project_item.get("coreId", {})
 
         self.pretty_patient_name = (
@@ -32,9 +33,12 @@ class CrabbitDownloader:
         """Main function of the download app."""
         if not self.check_valid_item_type():
             return
+
         download_type = self.project_item["type"]
 
         if download_type == "Calibration":
+            if not clear_directory(self.output_path, self.force_clean):
+                return
             if not self.check_calib_status() or not self.download_scorings(calib=True):
                 return
             best_patient = self.find_best_calib_patient()
@@ -52,6 +56,8 @@ class CrabbitDownloader:
             if not self.check_trial_status():
                 return
             if not self.download_csv:
+                if not clear_directory(self.output_path, self.force_clean):
+                    return
                 self.download_scorings(calib=False)
                 if not self.check_trial_without_vpop():
                     return

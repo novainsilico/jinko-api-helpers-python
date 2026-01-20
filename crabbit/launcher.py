@@ -7,7 +7,7 @@ import os
 import jinko_helpers as jinko
 import crabbit.download as download
 import crabbit.merge as merge
-from crabbit.utils import check_project_item_url, clear_directory
+from crabbit.utils import check_project_item_url
 
 
 class CrabbitAppLauncher:
@@ -31,16 +31,13 @@ class CrabbitAppLauncher:
             project_item = check_project_item_url(self.input[0])
             if project_item is None:
                 return
-            crab = download.CrabbitDownloader(project_item, self.output, self.csv)
+            crab = download.CrabbitDownloader(
+                project_item, self.output, self.csv, self.force
+            )
             print(
                 f'Downloading jinko project item "{self.input[0]}" to {self.output}\n',
             )
-            # only clean directory if the download type is Trial or Calibration
-            if project_item["type"] in ["Calibration", "Trial"]:
-                if clear_directory(self.output, self.force):
-                    crab.run()
-            else:
-                crab.run()
+            crab.run()
         elif self.mode == "merge":
             if not self.input:
                 print("Error:\nThe input path is not valid!", "\n")
