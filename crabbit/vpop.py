@@ -264,7 +264,7 @@ class CrabbitVpopRunner:
         if not self.qoi_path or not trial_id:
             return
         item = {"coreId": trial_id, "type": "Trial"}
-        downloader = download.CrabbitDownloader(item, vpop_folder, self.qoi_path)
+        downloader = download.CrabbitDownloader(item, vpop_folder, self.qoi_path, False)
         downloader.run()
 
     def _split_merged_results(self, merged_vpop_name):
