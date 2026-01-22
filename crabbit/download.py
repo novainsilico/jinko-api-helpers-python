@@ -517,7 +517,7 @@ class CrabbitDownloader:
                     f.write(line)
                     f.write("\n")
         # pivot the raw CSV file twice to convert it into the wide format
-        table = pd.read_csv(csv_path)
+        table = pd.read_csv(csv_path, dtype=object)
         # remove crossArms keyword
         table["armId"] = table.armId.replace("crossArms", "")
         # first pivot to distribute the scalarId
