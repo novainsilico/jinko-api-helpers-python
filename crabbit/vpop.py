@@ -30,8 +30,6 @@ class CrabbitVpopRunner:
         self.is_prepared = self._prepare()
 
     def _prepare(self):
-        if not clear_directory(self.local_parent_folder, force=False):
-            return False
         with open(self.config_path, "r", encoding="utf-8") as config:
             try:
                 config_dic = yaml.safe_load(config)
@@ -94,7 +92,7 @@ class CrabbitVpopRunner:
             special_name = f"{self.name_prefix}_Iteration_{iteration_index}"
             local_folder = os.path.join(self.local_parent_folder, special_name)
             self.local_folders[special_name] = local_folder
-            os.makedirs(local_folder, exist_ok=True)
+            clear_directory(local_folder, force=True)
         for vpop_name in self.vpop_names:
             if iteration_index < 0:
                 local_folder = os.path.join(self.local_parent_folder, vpop_name)
@@ -105,7 +103,7 @@ class CrabbitVpopRunner:
                     vpop_name,
                 )
             self.local_folders[vpop_name] = local_folder
-            os.makedirs(local_folder, exist_ok=True)
+            clear_directory(local_folder, force=True)
 
     def _post_designs(self):
         for vpop_name, vpop_design in self.designs.items():
