@@ -244,19 +244,24 @@ class CrabbitVpopRunner:
 
     def _run_one_vpop(self, vpop_name, vpop_id):
         trial_id = self._post_one_vpop_trial(vpop_name, vpop_id)
-        if trial_id:
-            print("Trial started:", trial_id["URL"])
+        if not trial_id:
+            return {}
+        jinko.make_request(
+            path=f"/core/v2/trial_manager/trial/{trial_id['id']}/snapshots/{trial_id['snapshotId']}/run",
+            method="POST",
+        )
+        retries = 0
+        print("Trial started:", trial_id["URL"])
+        while retries < 5:
             try:
-                jinko.make_request(
-                    path=f"/core/v2/trial_manager/trial/{trial_id['id']}/snapshots/{trial_id['snapshotId']}/run",
-                    method="POST",
-                )
                 jinko.monitor_trial_until_completion(
                     trial_id["id"], trial_id["snapshotId"]
                 )
+                return trial_id
             except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
-                print(bold_text("Error:"), "connection lost")
-        return trial_id
+                retries += 1
+        print(bold_text("Error:"), "connection lost")
+        return {}
 
     def download_trial_results(self, vpop_folder, trial_id):
         if not self.qoi_path or not trial_id:
