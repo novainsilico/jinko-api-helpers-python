@@ -254,7 +254,7 @@ class CrabbitVpopRunner:
                 jinko.monitor_trial_until_completion(
                     trial_id["id"], trial_id["snapshotId"]
                 )
-            except (requests.exceptions.ConnectionError, requests.exceptions.HTTPErro):
+            except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
                 print(bold_text("Error:"), "connection lost")
         return trial_id
 
