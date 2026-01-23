@@ -262,8 +262,14 @@ class CrabbitVpopRunner:
         if not self.qoi_path or not trial_id:
             return
         item = {"coreId": trial_id, "type": "Trial"}
+        retries = 0
         downloader = download.CrabbitDownloader(item, vpop_folder, self.qoi_path, False)
-        downloader.run()
+        while retries < 5:
+            try:
+                downloader.run()
+                return
+            except (requests.exceptions.ConnectionError, requests.exceptions.ChunkedEncodingError):
+                retries += 1
 
     def _split_merged_results(self, merged_vpop_name):
         results = pd.read_csv(
