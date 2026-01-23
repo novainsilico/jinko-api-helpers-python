@@ -495,14 +495,16 @@ class CrabbitDownloader:
             arms = jinko.make_request(
                 path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
                 method="GET",
+                max_retries=5,
             ).json()["arms"] + ["crossArms"]
             binary_results = jinko.make_request(
                 path=f"/core/v2/result_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/scalars/download",
                 method="POST",
                 json={"scalars": {scalar: arms for scalar in scalars}},
+                max_retries=5,
             )
             zipped_results = zipfile.ZipFile(io.BytesIO(binary_results.content))
-        except (requests.exceptions.HTTPError, KeyError, zipfile.BadZipFile):
+        except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError, KeyError, zipfile.BadZipFile):
             print("Error: failed to download the scalar results.")
             return
         csv_file_name = zipped_results.namelist()[0]

@@ -123,12 +123,13 @@ class CrabbitVpopRunner:
                         "folder_id": self.parent_folder,
                         "name": f"{vpop_name} - vpop design",
                     },
+                    max_retries=5,
                 )
                 design_id = jinko.get_project_item_info_from_response(response)[
                     "coreItemId"
                 ]
                 self.design_ids[vpop_name] = design_id
-            except requests.exceptions.HTTPError:
+            except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
                 self.design_ids[vpop_name] = {}
 
     def _generate_vpops(self):
@@ -151,6 +152,7 @@ class CrabbitVpopRunner:
                         "folder_id": self.parent_folder,
                         "name": f"{vpop_name} - vpop",
                     },
+                    max_retries=5,
                 )
                 vpop_id = jinko.get_project_item_info_from_response(response)[
                     "coreItemId"
@@ -158,7 +160,8 @@ class CrabbitVpopRunner:
                 vpop_url = jinko.get_project_item_url_by_core_item_id(vpop_id["id"])
                 vpop_id["URL"] = vpop_url
                 patients = jinko.make_request(
-                    method="GET", path=f"/core/v2/vpop_manager/vpop/{vpop_id['id']}"
+                    method="GET", path=f"/core/v2/vpop_manager/vpop/{vpop_id['id']}",
+                    max_retries=5,
                 ).json()["patients"]
                 json.dump(
                     {"patients": patients},
@@ -169,7 +172,7 @@ class CrabbitVpopRunner:
                 )
                 self.vpop_ids[vpop_name] = vpop_id
                 self.patient_ids[vpop_name] = [p["patientIndex"] for p in patients]
-            except requests.exceptions.HTTPError:
+            except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
                 self.vpop_ids[vpop_name] = {}
 
     def _post_merged_vpop(self):
@@ -184,6 +187,7 @@ class CrabbitVpopRunner:
                 "folder_id": self.parent_folder,
                 "name": f"{self.name_prefix} - merged vpop",
             },
+            max_retries=5,
         )
         vpop_id = jinko.get_project_item_info_from_response(response)["coreItemId"]
         return vpop_id
@@ -267,14 +271,8 @@ class CrabbitVpopRunner:
         if not self.qoi_path or not trial_id:
             return
         item = {"coreId": trial_id, "type": "Trial"}
-        retries = 0
         downloader = download.CrabbitDownloader(item, vpop_folder, self.qoi_path, False)
-        while retries < 5:
-            try:
-                downloader.run()
-                return
-            except (requests.exceptions.ConnectionError, requests.exceptions.ChunkedEncodingError):
-                retries += 1
+        downloader.run()
 
     def _split_merged_results(self, merged_vpop_name):
         results = pd.read_csv(
