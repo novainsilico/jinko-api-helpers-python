@@ -32,7 +32,7 @@ dependencies = [
   "modal-python",
   "openai",
   "bayesian-optimization==2.0.4",
-  "torch @ https://download.pytorch.org/whl/cpu/torch-2.9.0%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl",
+  "torch @ https://download.pytorch.org/whl/cpu/torch-2.10.0%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl",
   "gpytorch",
   "timedelta-isoformat",
   "python-calamine",
