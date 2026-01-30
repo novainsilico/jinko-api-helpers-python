@@ -467,7 +467,7 @@
         "is_direct": true,
         "path": ".",
         "type": "local",
-        "version": "0.5.7"
+        "version": "0.5.8"
       },
       "jiter": {
         "is_direct": false,
@@ -1487,11 +1487,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "48b9f341078eeab1c595ccb00052522b27754ae0",
-        "sha256": "13qdf9m2krniw6z5li8y1pjj0xl5vg5q82binmzyawwnr3asrcmm",
+        "rev": "40b5605101607b75f98f4afda2a8ef41afd24608",
+        "sha256": "0xnxy3ysxv08lxc969afrlxv17xxv1s0lfl8zwyf8crzh825ikxm",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "2.5.1"
+        "version": "2.5.2"
       },
       "wadler-lindig": {
         "is_direct": false,

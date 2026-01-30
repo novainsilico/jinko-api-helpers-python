@@ -7,6 +7,16 @@ from tqdm import tqdm
 import io
 import zipfile
 import logging
+from typing import Any
+
+from jinko_helpers.types.api_types_dict import (
+    ArmId,
+    CoreItemId,
+    Filter,
+    GroupBy,
+    Id,
+    SnapshotId,
+)
 
 
 def is_trial_completed(trial_core_id) -> bool | None:
@@ -50,7 +60,11 @@ def is_trial_running(trial_core_item_id, trial_snapshot_id):
 
 
 def monitor_trial_until_completion(
-    trial_core_item_id, trial_snapshot_id, time_to_completion=None, retry_interval=5, silent=False
+    trial_core_item_id,
+    trial_snapshot_id,
+    time_to_completion=None,
+    retry_interval=5,
+    silent=False,
 ):
     """
     Polls the Jinko API for the status of a trial and prints a progress view with completed task counts.
@@ -69,7 +83,9 @@ def monitor_trial_until_completion(
         RuntimeError: If no 'perArmSummary' data is found in the response or if the trial does not complete in the specified time.
     """
     if not silent:
-        pbar = tqdm(total=0, desc="Trial Progress", unit="tasks")  # Initialize with 0 total
+        pbar = tqdm(
+            total=0, desc="Trial Progress", unit="tasks"
+        )  # Initialize with 0 total
 
     if time_to_completion is not None:
         max_retries = ceil(time_to_completion / retry_interval)
@@ -188,18 +204,7 @@ def get_trial_scalars_summary(
     return summary
 
 
-def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar_ids):
-    """
-    Gets the trial scalars values in the form of a pandas dataframe
-
-    Args:
-        trial_core_item_id (str): The CoreItemId of the trial.
-        trial_snapshot_id (str): The snapshot ID of the trial.
-        scalar_ids (list): the list of scalar IDs to get
-
-    Returns:
-        pd.DataFrame: the scalar values
-    """
+def _build_scalar_with_arms(trial_core_item_id, trial_snapshot_id, scalar_ids):
     trial_summary = get_trial_scalars_summary(
         trial_core_item_id, trial_snapshot_id, print_summary=False
     )
@@ -216,28 +221,213 @@ def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar
             f"The following scalars are not part of the trial results: {diff}"
         )
     else:
-        try:
-            response = jinko.make_request(
-                f"/core/v2/result_manager/trial/{trial_core_item_id}/snapshots/{trial_snapshot_id}/scalars/download",
-                method="POST",
-                json={
-                    "scalars": {id: arm_names_with_cross_arms for id in scalar_ids},
-                },
+        scalar_ids_with_arms = {id: arm_names_with_cross_arms for id in scalar_ids}
+        return scalar_ids_with_arms
+
+
+def get_trial_scalars_as_dataframe(trial_core_item_id, trial_snapshot_id, scalar_ids):
+    """
+    Gets the trial scalars values in the form of a pandas dataframe
+
+    Args:
+        trial_core_item_id (str): The CoreItemId of the trial.
+        trial_snapshot_id (str): The snapshot ID of the trial.
+        scalar_ids (list): the list of scalar IDs to get
+
+    Returns:
+        pd.DataFrame: the scalar values
+    """
+    scalar_ids_with_arms = _build_scalar_with_arms(
+        trial_core_item_id, trial_snapshot_id, scalar_ids
+    )
+    try:
+        response = jinko.make_request(
+            f"/core/v2/result_manager/trial/{trial_core_item_id}/snapshots/{trial_snapshot_id}/scalars/download",
+            method="POST",
+            json={
+                "scalars": scalar_ids_with_arms,
+            },
+        )
+        if response.status_code == 200:
+            archive = zipfile.ZipFile(io.BytesIO(response.content))
+            filename = archive.namelist()[0]
+            archive_content = archive.read(filename).decode("utf-8")
+            scalars_dataframe = pd.read_csv(io.StringIO(archive_content))
+            return scalars_dataframe
+        else:
+            logging.getLogger("jinko_helper.trial").error(
+                f"Failed to retrieve scalar results, error code: {response.status_code}\n reason: {response.reason}"
             )
-            if response.status_code == 200:
-                archive = zipfile.ZipFile(io.BytesIO(response.content))
-                filename = archive.namelist()[0]
-                archive_content = archive.read(filename).decode("utf-8")
-                scalars_dataframe = pd.read_csv(io.StringIO(archive_content))
-                return scalars_dataframe
-            else:
-                logging.getLogger("jinko_helper.trial").error(
-                    f"Failed to retrieve scalar results, error code: {response.status_code}\n reason: {response.reason}"
-                )
-                response.raise_for_status()
-        except Exception as e:
-            logging.getLogger("jinko_helper.trial").error(f"Error during scalar results retrieval or processing: {e}")
-            raise
+            response.raise_for_status()
+    except Exception as e:
+        logging.getLogger("jinko_helper.trial").error(
+            f"Error during scalar results retrieval or processing: {e}"
+        )
+        raise
+
+
+def get_filtered_patients(
+    trial_core_item_id: CoreItemId,
+    trial_snapshot_id: SnapshotId,
+    filter_scalars: list[Filter],
+) -> list[Any]:
+    """
+    Retrieve patient IDs matching scalar filters for a trial snapshot.
+
+    Args:
+        trial_core_item_id (str): Core item ID for the trial.
+        trial_snapshot_id (str): Snapshot ID for the trial.
+        filter_scalars (list): Scalar filter tokens for the descriptor filter. cf https://doc.jinko.ai/api/#/schemas/Filter
+
+    Returns:
+        list: Patient IDs that match the filter.
+    """
+    payload = {
+        "arms": {},
+        "filter": filter_scalars,
+        "trialId": {
+            "coreItemId": trial_core_item_id,
+            "snapshotId": trial_snapshot_id,
+        },
+    }
+    scalar_results = jinko.make_request(
+        path=(
+            f"/core/v2/result_manager/trial/{trial_core_item_id}"
+            f"/snapshots/{trial_snapshot_id}/scalar_result/patient_table"
+        ),
+        method="POST",
+        json=payload,
+    ).json()
+    return scalar_results["patients"]
+
+
+def get_timeseries_as_dataframe(
+    trial_core_item_id: CoreItemId,
+    trial_snapshot_id: SnapshotId,
+    full_timeseries_ids: dict[str, list[str]],
+    filtered_patients: list[str] | None = None,
+) -> pd.DataFrame:
+    """
+    Download timeseries data and filter rows by patient IDs.
+
+    Args:
+        trial_core_item_id (str): Core item ID for the trial.
+        trial_snapshot_id (str): Snapshot ID for the trial.
+        full_timeseries_ids (dict): Timeseries IDs to download and their associated arms.
+        filtered_patients (list): Patient IDs to keep.
+
+    Returns:
+        pd.DataFrame: Filtered timeseries data.
+    """
+    payload = {
+        "timeseries": full_timeseries_ids,
+    }
+    response = jinko.make_request(
+        path=(
+            f"/core/v2/result_manager/trial/{trial_core_item_id}"
+            f"/snapshots/{trial_snapshot_id}/timeseries/download"
+        ),
+        method="POST",
+        json=payload,
+    )
+    archive = zipfile.ZipFile(io.BytesIO(response.content))
+    csv_name = archive.namelist()[0]
+    df = pd.read_csv(archive.open(csv_name))
+    if filtered_patients:
+        return df[df["Patient Id"].isin(filtered_patients)]
+    else:
+        return df
+
+
+def _fetch_scalar_results(
+    trial_core_item_id: CoreItemId,
+    trial_snapshot_id: SnapshotId,
+    scalar_ids: dict[Id, list[ArmId]],
+    filter_scalars: list[Filter] | None = None,
+    group_tokens: list[GroupBy] | None = None,
+) -> dict[str, Any]:
+    """Fetch scalar results from the per-population endpoint."""
+    filter_scalars = filter_scalars or []
+    payload = {
+        "select": {
+            "contents": [
+                {"mandatorySelector": s, "optionalSelector": scalar_ids[s]}
+                for s in scalar_ids
+            ],
+            "tag": "ByOutput",
+        },
+        "filter": filter_scalars,
+        "trialId": {
+            "coreItemId": trial_core_item_id,
+            "snapshotId": trial_snapshot_id,
+        },
+    }
+    if group_tokens:
+        payload["group"] = group_tokens
+    return jinko.make_request(
+        path=(
+            f"/core/v2/result_manager/trial/{trial_core_item_id}"
+            f"/snapshots/{trial_snapshot_id}/scalar_result/per_population"
+        ),
+        method="POST",
+        json=payload,
+    ).json()
+
+
+def get_trial_scalars_with_filter_and_groups_as_dataframe(
+    trial_core_item_id: CoreItemId,
+    trial_snapshot_id: SnapshotId,
+    scalar_ids: list[Id],
+    filter_scalars: list[Filter] | None = None,
+    scalar_groups: list[GroupBy] | None = None,
+) -> pd.DataFrame:
+    """
+    Retrieve scalar results with filters and optional grouping across all arms.
+
+    Args:
+        trial_core_item_id (str): Core item ID for the trial.
+        trial_snapshot_id (str): Snapshot ID for the trial.
+        scalar_ids (list): List of scalar IDs to fetch (all arms + crossArms).
+        filter_scalars (list): Filter tokens for the scalar request (optional). cf https://doc.jinko.ai/api/#/schemas/Filter
+        scalar_groups (list): Group tokens applied to all scalars (optional). cf https://doc.jinko.ai/api/#/schemas/GroupBy
+
+    Returns:
+        pd.DataFrame: Scalar results as a dataframe with a group column.
+    """
+    scalar_with_arms = _build_scalar_with_arms(
+        trial_core_item_id, trial_snapshot_id, scalar_ids
+    )
+
+    scalar_results_dict = _fetch_scalar_results(
+        trial_core_item_id,
+        trial_snapshot_id,
+        scalar_with_arms,
+        filter_scalars,
+        scalar_groups,
+    )
+
+    # Flatten per-population scalar results into row dictionaries
+    rows = []
+    for group_tokens, entries in scalar_results_dict.get("scalars", []):
+        group_value = group_tokens or None
+        if isinstance(entries, dict):
+            entries = [entries]
+        for entry in entries:
+            for arm_id, arm_scalars in entry.items():
+                for scalar_id, payload in arm_scalars.items():
+                    unit = payload.get("unit")
+                    for value in payload.get("values", []):
+                        rows.append(
+                            {
+                                "armId": arm_id,
+                                "scalarId": scalar_id,
+                                "value": value,
+                                "unit": unit,
+                                "group": group_value,
+                            }
+                        )
+
+    return pd.DataFrame(rows)
 
 
 def get_latest_trial_with_status(

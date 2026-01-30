@@ -104,6 +104,9 @@ from .trial import (
     get_trial_scalars_summary,
     get_trial_scalars_as_dataframe,
     get_latest_trial_with_status,
+    get_filtered_patients,
+    get_timeseries_as_dataframe,
+    get_trial_scalars_with_filter_and_groups_as_dataframe,
 )
 
 from .vpop import (
@@ -154,6 +157,9 @@ __all__ = [
     "get_calib_status",
     "get_latest_calib_with_status",
     "get_latest_trial_with_status",
+    "get_filtered_patients",
+    "get_timeseries_as_dataframe",
+    "get_trial_scalars_with_filter_and_groups_as_dataframe",
     "get_models_in_folder",
     "download_model",
     "download_model_interface",
