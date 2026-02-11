@@ -377,7 +377,7 @@ def _fetch_scalar_results(
 def get_trial_scalars_with_filter_and_groups_as_dataframe(
     trial_core_item_id: CoreItemId,
     trial_snapshot_id: SnapshotId,
-    scalar_ids: list[Id],
+    scalar_ids: list[Id] | dict[Id, list[ArmId]],
     filter_scalars: list[Filter] | None = None,
     scalar_groups: list[GroupBy] | None = None,
 ) -> pd.DataFrame:
@@ -387,21 +387,24 @@ def get_trial_scalars_with_filter_and_groups_as_dataframe(
     Args:
         trial_core_item_id (str): Core item ID for the trial.
         trial_snapshot_id (str): Snapshot ID for the trial.
-        scalar_ids (list): List of scalar IDs to fetch (all arms + crossArms).
+        scalar_ids (list or dict): Either a list of scalar IDs (applies to all arms + crossArms)
+            or a dict mapping scalar ID -> list of arm IDs to target.
         filter_scalars (list): Filter tokens for the scalar request (optional). cf https://doc.jinko.ai/api/#/schemas/Filter
         scalar_groups (list): Group tokens applied to all scalars (optional). cf https://doc.jinko.ai/api/#/schemas/GroupBy
 
     Returns:
-        pd.DataFrame: Scalar results as a dataframe with a group column.
+        pd.DataFrame: Scalar results as a dataframe with columns: armId, scalarId, value, unit, group.
     """
-    scalar_with_arms = _build_scalar_with_arms(
-        trial_core_item_id, trial_snapshot_id, scalar_ids
-    )
+    if isinstance(scalar_ids, list):
+        # in that case the user has provided a list of scalar IDs without arms, we have to rebuild those and select all arms
+        scalar_ids = _build_scalar_with_arms(
+            trial_core_item_id, trial_snapshot_id, scalar_ids
+        )
 
     scalar_results_dict = _fetch_scalar_results(
         trial_core_item_id,
         trial_snapshot_id,
-        scalar_with_arms,
+        scalar_ids,
         filter_scalars,
         scalar_groups,
     )
