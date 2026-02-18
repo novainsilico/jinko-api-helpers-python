@@ -47,4 +47,5 @@ dependencies = [
   "pip",
   "shap",
   "cma",
+  "fpdf2"
 ]
