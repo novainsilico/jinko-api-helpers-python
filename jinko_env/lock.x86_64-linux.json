@@ -87,10 +87,10 @@
       },
       "async-lru": {
         "is_direct": false,
-        "sha256": "fa12dcf99a42ac1280bc16c634bbaf06883809790f6304d85cdab3f666f33a7e",
+        "sha256": "e2c1cf731eba202b59c5feedaef14ffd9d02ad0037fcda64938699f2c380eafe",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/2e/e9/eb6a5db5ac505d5d45715388e92bced7a5bb556facc4d0865d192823f2d2/async_lru-2.1.0-py3-none-any.whl",
-        "version": "2.1.0"
+        "url": "https://files.pythonhosted.org/packages/13/5c/af990f019b8dd11c5492a6371fe74a5b0276357370030b67254a87329944/async_lru-2.2.0-py3-none-any.whl",
+        "version": "2.2.0"
       },
       "attrs": {
         "is_direct": false,
@@ -653,10 +653,10 @@
       },
       "langfuse": {
         "is_direct": false,
-        "sha256": "effb053601bfcdfd46639bfc99066b04d1312623448d445bfde31d9f448a490c",
+        "sha256": "5054b1c705ec69bce2d7077ce7419727ac629159428da013790979ca9cae77d5",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/b7/1c/68ba27f42c52b3869d32521796fad2e5c7db63473e1569b30c13f233892b/langfuse-3.14.4-py3-none-any.whl",
-        "version": "3.14.4"
+        "url": "https://files.pythonhosted.org/packages/a3/a1/10f04224542d6a57073c4f339b6763836a0899c98966f1d4ffcf56d2cf61/langfuse-3.14.5-py3-none-any.whl",
+        "version": "3.14.5"
       },
       "lark": {
         "is_direct": false,
@@ -772,10 +772,10 @@
       },
       "narwhals": {
         "is_direct": false,
-        "sha256": "846f1fd7093ac69d63526e50732033e86c30ea0026a44d9b23991010c7d1485d",
+        "sha256": "2ac5307b7c2b275a7d66eeda906b8605e3d7a760951e188dcfff86e8ebe083dd",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/03/cc/7cb74758e6df95e0c4e1253f203b6dd7f348bf2f29cf89e9210a2416d535/narwhals-2.16.0-py3-none-any.whl",
-        "version": "2.16.0"
+        "url": "https://files.pythonhosted.org/packages/4b/27/20770bd6bf8fbe1e16f848ba21da9df061f38d2e6483952c29d2bb5d1d8b/narwhals-2.17.0-py3-none-any.whl",
+        "version": "2.17.0"
       },
       "nbclient": {
         "is_direct": false,
@@ -1319,10 +1319,10 @@
       },
       "scipy": {
         "is_direct": false,
-        "sha256": "6680f2dfd4f6182e7d6db161344537da644d1cf85cf293f015c60a17ecf08752",
+        "sha256": "581b2264fc0aa555f3f435a5944da7504ea3a065d7029ad60e7c3d1ae09c5464",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/63/1e/12fbf2a3bb240161651c94bb5cdd0eae5d4e8cc6eaeceb74ab07b12a753d/scipy-1.17.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
-        "version": "1.17.0"
+        "url": "https://files.pythonhosted.org/packages/f5/5f/f17563f28ff03c7b6799c50d01d5d856a1d55f2676f537ca8d28c7f627cd/scipy-1.17.1-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "1.17.1"
       },
       "seaborn": {
         "is_direct": false,
@@ -1515,10 +1515,10 @@
       },
       "typer": {
         "is_direct": false,
-        "sha256": "5fc435a9c8356f6160ed6e85a6301fdd6e3d8b2851da502050d1f92c5e9eddc8",
+        "sha256": "112c1f0ce578bfb4cab9ffdabc68f031416ebcc216536611ba21f04e9aa84c9e",
         "type": "url",
-        "url": "https://files.pythonhosted.org/packages/85/d0/4da85c2a45054bb661993c93524138ace4956cb075a7ae0c9d1deadc331b/typer-0.24.0-py3-none-any.whl",
-        "version": "0.24.0"
+        "url": "https://files.pythonhosted.org/packages/4a/91/48db081e7a63bb37284f9fbcefda7c44c277b18b0e13fbc36ea2335b71e6/typer-0.24.1-py3-none-any.whl",
+        "version": "0.24.1"
       },
       "typer-slim": {
         "is_direct": false,
@@ -1571,11 +1571,11 @@
       },
       "vpop-calibration": {
         "is_direct": true,
-        "rev": "b6622ed60523b8b13fa4915f06a76a21965d5abe",
-        "sha256": "163w42zx1gqk7zzcisgj1zg481h9cs4mgwxifss5j17jnakcpq39",
+        "rev": "e093e8170a26bfc809691c67412ca5635ec18216",
+        "sha256": "0sljcicm8y21m0sbhiflnhg222jxgj284mpxqdbndmhixknsqnrg",
         "type": "git",
         "url": "https://github.com/novainsilico/vpop-calibration",
-        "version": "3.0.0"
+        "version": "3.0.1"
       },
       "wadler-lindig": {
         "is_direct": false,
