@@ -19,6 +19,5 @@ def check_dependencies(dependencies):
         raise ImportError(
             f"The following dependencies are required but not installed: {', '.join(missing)}. "
             "Install them with the appropriate Poetry extras, e.g., "
-            "'pip install \"jinko-sdk[jinko_nn]\"' "
-            "(or include all needed extras)."
+            f"'poetry install --extras jinko-nn-deps' (or include all needed extras)."
         )

@@ -52,12 +52,17 @@ from .model import (
     find_id_by_immutable_id,
 )
 
+from .data_table import data_table_to_sqlite, df_to_sqlite, csv_to_df
+
 # Apply deprecations with the proper decorator
 checkAuthentication = deprecate_alias(
     "checkAuthentication", "check_authentication", _check_authentication
 )
 getCoreItemId = deprecate_alias("getCoreItemId", "get_core_item_id", _get_core_item_id)
 makeRequest = deprecate_alias("makeRequest", "make_request", _make_request)
+dataTableToSQLite = deprecate_alias(
+    "dataTableToSQLite", "data_table_to_sqlite", data_table_to_sqlite
+)
 getProjectItemInfoFromResponse = deprecate_alias(
     "getProjectItemInfoFromResponse",
     "get_project_item_info_from_response",
@@ -92,87 +97,21 @@ next_page = _next_page
 fetch_all_json = _fetch_all_json
 get_project_item_url_by_core_item_id = _get_project_item_url_by_core_item_id
 
+from .trial import (
+    is_trial_completed,
+    monitor_trial_until_completion,
+    is_trial_running,
+    get_trial_scalars_summary,
+    get_trial_scalars_as_dataframe,
+    get_latest_trial_with_status,
+    get_filtered_patients,
+    get_timeseries_as_dataframe,
+    get_trial_scalars_with_filter_and_groups_as_dataframe,
+)
+
 from .vpop import (
     get_vpop_content,
     get_vpop_design_content,
-)
-
-
-def _raise_optional_dependency_error(extra_name: str, exc: ImportError) -> None:
-    raise ImportError(
-        "This function requires optional dependencies. "
-        f"Install them with: pip install \"jinko-sdk[{extra_name}]\""
-    ) from exc
-
-
-def _load_data_table_module():
-    try:
-        from . import data_table as _data_table
-    except ImportError as exc:
-        _raise_optional_dependency_error("jinko_helpers", exc)
-    return _data_table
-
-
-def _load_trial_module():
-    try:
-        from . import trial as _trial
-    except ImportError as exc:
-        _raise_optional_dependency_error("jinko_helpers", exc)
-    return _trial
-
-
-def df_to_sqlite(*args, **kwargs):
-    return _load_data_table_module().df_to_sqlite(*args, **kwargs)
-
-
-def data_table_to_sqlite(*args, **kwargs):
-    return _load_data_table_module().data_table_to_sqlite(*args, **kwargs)
-
-
-def csv_to_df(*args, **kwargs):
-    return _load_data_table_module().csv_to_df(*args, **kwargs)
-
-
-def is_trial_completed(*args, **kwargs):
-    return _load_trial_module().is_trial_completed(*args, **kwargs)
-
-
-def monitor_trial_until_completion(*args, **kwargs):
-    return _load_trial_module().monitor_trial_until_completion(*args, **kwargs)
-
-
-def is_trial_running(*args, **kwargs):
-    return _load_trial_module().is_trial_running(*args, **kwargs)
-
-
-def get_trial_scalars_summary(*args, **kwargs):
-    return _load_trial_module().get_trial_scalars_summary(*args, **kwargs)
-
-
-def get_trial_scalars_as_dataframe(*args, **kwargs):
-    return _load_trial_module().get_trial_scalars_as_dataframe(*args, **kwargs)
-
-
-def get_latest_trial_with_status(*args, **kwargs):
-    return _load_trial_module().get_latest_trial_with_status(*args, **kwargs)
-
-
-def get_filtered_patients(*args, **kwargs):
-    return _load_trial_module().get_filtered_patients(*args, **kwargs)
-
-
-def get_timeseries_as_dataframe(*args, **kwargs):
-    return _load_trial_module().get_timeseries_as_dataframe(*args, **kwargs)
-
-
-def get_trial_scalars_with_filter_and_groups_as_dataframe(*args, **kwargs):
-    return _load_trial_module().get_trial_scalars_with_filter_and_groups_as_dataframe(
-        *args, **kwargs
-    )
-
-
-dataTableToSQLite = deprecate_alias(
-    "dataTableToSQLite", "data_table_to_sqlite", data_table_to_sqlite
 )
 
 # Import version from version.py
