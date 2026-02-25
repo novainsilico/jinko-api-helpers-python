@@ -39,7 +39,7 @@ pytest:
   stage: test
   image: $PYTHON_IMAGE
   before_script:
-    - poetry install
+    - poetry install -E jinko_helpers -E crabbit -E jinko_stats
     - cp $envrc_testing_preprod ./.envrc
   script:
     - poetry run pytest tests --cov

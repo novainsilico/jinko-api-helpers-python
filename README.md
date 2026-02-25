@@ -15,6 +15,25 @@ poetry add jinko-sdk
 
 ```
 
+Install optional modules only when needed:
+
+```sh
+# Full jinko_helpers feature set (trial/dataframe helpers)
+pip install "jinko-sdk[jinko_helpers]"
+
+# jinko_stats
+pip install "jinko-sdk[jinko_stats]"
+
+# crabbit
+pip install "jinko-sdk[crabbit]"
+
+# jinko_nn
+pip install "jinko-sdk[jinko_nn]"
+
+# everything
+pip install "jinko-sdk[full]"
+```
+
 ```python
 import jinko_helpers as jinko
 
