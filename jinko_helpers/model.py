@@ -2,7 +2,35 @@ import os
 import jinko_helpers as jinko
 from typing import List, Any, Literal, Optional, Union, cast
 import json
+from jinko_helpers.types import asDict as jt
 import logging
+
+
+def edit_model(
+    model_core_item_id: str,
+    compartments: Optional[List[jt.Compartment]] = None,
+    parameters: Optional[List[jt.Parameter]] = None,
+    odes: Optional[List[jt.Ode]] = None,
+    events: Optional[List[jt.Event]] = None,
+):
+    # This is more readable than looping over kwargs.get()
+    components = [
+        ("parameters", parameters),
+        ("compartments", compartments),
+        ("events", events),
+        ("odes", odes),
+    ]
+
+    model_update_payload = {
+        "update": {"components": {k: [c for c in v] for k, v in components if v}}
+    }
+
+    response = jinko.make_request(
+        path=f"/core/v2/model_editor/jinko_model/{model_core_item_id}/edit",
+        method="POST",
+        json=model_update_payload,
+    )
+    return response
 
 
 def download_model(
@@ -137,7 +165,9 @@ def download_model_or_model_interface(
         local_model_file = os.path.join(file_path_for_saving, model_file_name)
         with open(local_model_file, "w") as f:
             json.dump(model, f, indent=4)
-        logging.getLogger("jinko_helper.model").info(f"{item_type} file successfully saved at: {local_model_file}")
+        logging.getLogger("jinko_helper.model").info(
+            f"{item_type} file successfully saved at: {local_model_file}"
+        )
 
     return model
 
