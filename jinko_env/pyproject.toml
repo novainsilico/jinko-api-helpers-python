@@ -51,4 +51,6 @@ dependencies = [
   "fpdf2",
   "easyocr",
   "opencv-python-headless", 
+  "duckdb",
+  "xgboost-cpu",
 ]

@@ -246,6 +246,13 @@
         "url": "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl",
         "version": "1.9.0"
       },
+      "duckdb": {
+        "is_direct": false,
+        "sha256": "7df7351328ffb812a4a289732f500d621e7de9942a3a2c9b6d4afcf4c0e72526",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/53/32/256df3dbaa198c58539ad94f9a41e98c2c8ff23f126b8f5f52c7dcd0a738/duckdb-1.4.4-cp313-cp313-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl",
+        "version": "1.4.4"
+      },
       "easyocr": {
         "is_direct": false,
         "sha256": "5be12f9b0e595d443c9c3d10b0542074b50f0ec2d98b141a109cd961fd1c177c",
@@ -495,7 +502,7 @@
         "is_direct": true,
         "path": ".",
         "type": "local",
-        "version": "0.5.8"
+        "version": "0.6.1"
       },
       "jiter": {
         "is_direct": false,
@@ -1668,6 +1675,13 @@
         "url": "https://files.pythonhosted.org/packages/0c/37/6faf15cfa41bf1f3dba80cd3f5ccc6622dfccb660ab26ed79f0178c7497f/wrapt-1.17.3-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
         "version": "1.17.3"
       },
+      "xgboost-cpu": {
+        "is_direct": false,
+        "sha256": "9c10b1653e1a689bf4094a328144cf3633c9be0e5217a76fbdc2fde6abcb2950",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/ba/1d/c05e982a2220e1a208f5ca8792265cefb43e860e8796bff3245cc94fc2ce/xgboost_cpu-3.2.0-py3-none-manylinux_2_28_x86_64.whl",
+        "version": "3.2.0"
+      },
       "zipp": {
         "is_direct": false,
         "sha256": "071652d6115ed432f5ce1d34c336c0adfd6a884660d1e9712a256d3d3bd4b14e",
@@ -1755,6 +1769,7 @@
         ],
         "defusedxml": [],
         "distro": [],
+        "duckdb": [],
         "easyocr": [
           "ninja",
           "numpy",
@@ -2504,6 +2519,10 @@
         "websockets": [],
         "widgetsnbextension": [],
         "wrapt": [],
+        "xgboost-cpu": [
+          "numpy",
+          "scipy"
+        ],
         "zipp": []
       },
       "jupyter": {
@@ -2521,5 +2540,5 @@
       }
     }
   },
-  "invalidationHash": "51ebff37df02b5eaaefa4fbce615692401ae2cae2a98376a64f00bfff3f1a823"
+  "invalidationHash": "79d395dddea5b536da94b77f29721cf83d3a8b7d02c02eb714801448309ed100"
 }
