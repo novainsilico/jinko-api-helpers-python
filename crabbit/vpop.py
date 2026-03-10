@@ -27,8 +27,8 @@ class CrabbitVpopRunner:
         self.local_parent_folder = os.path.abspath(
             os.path.expanduser(local_parent_folder)
         )
-        self.is_prepared = self._prepare()
         self.is_run_vpop_design = True
+        self.is_prepared = self._prepare()
 
     def _prepare(self):
         with open(self.config_path, "r", encoding="utf-8") as config:
@@ -45,19 +45,21 @@ class CrabbitVpopRunner:
             self.parent_folder = config_dic["data"]["parent_folder"]
             self.trial_configs = {}
             for item_type, item_url in config_dic["data"]["trial"].items():
-                item = check_project_item_url(item_url)
+                item = check_project_item_url(item_url, show_error=False)
                 if item is not None:
                     self.trial_configs[item_type] = item["coreId"]
                 elif item_type == "vpop":
                     patients = json.load(open(item_url, "r", encoding="utf-8"))
                     self.trial_configs["vpop_local"] = patients
+                else:
+                    print(bold_text("Error:"), f"failed to read the URL for '{item_type}')")
+                    return False
                 if item_type not in ["vpop", "protocol", "advanced_output_set", "output_set", "computational_model"]:
                     print(bold_text("Error:"), f"invalid yaml (check the trial config item type '{item_type}')")
                     return False
             if "computational_model" not in self.trial_configs:
                 print(bold_text("Error:"), "invalid yaml (missing computational_model)")
                 return False
-            self.vpop_size = int(config_dic["data"]["vpop_size"])
             self.vpop_seed = (
                 int(config_dic["data"]["vpop_seed"])
                 if "vpop_seed" in config_dic["data"]
@@ -76,6 +78,7 @@ class CrabbitVpopRunner:
             if "vpop" in self.trial_configs or "vpop_local" in self.trial_configs:
                 self.is_run_vpop_design = False
                 return True
+            self.vpop_size = int(config_dic["data"]["vpop_size"])
             self.design_parts = list(map(str, config_dic["data"]["vpop_design_parts"]))
             default_name_prefix = (
                 datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
@@ -270,6 +273,7 @@ class CrabbitVpopRunner:
                 )
                 return trial_id
             except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
+                print('Lost connection! Reconnecting...')
                 retries += 1
         print(bold_text("Error:"), "connection lost")
         return {}

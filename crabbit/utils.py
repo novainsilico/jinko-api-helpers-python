@@ -69,12 +69,13 @@ def clear_directory(directory: str, force: bool) -> None:
     return False
 
 
-def check_project_item_url(url):
+def check_project_item_url(url, show_error=True):
     """Get the project item from URL or print a nice error message."""
     message = f'{bold_text("Error:")} {url} is not a valid project item URL!'
     sid, revision = jinko.get_sid_revision_from_url(url)
     if sid is None:
-        print(message)
+        if show_error:
+            print(message)
         return None
     try:
         project_item = jinko.get_project_item(sid=sid, revision=revision)
@@ -82,7 +83,6 @@ def check_project_item_url(url):
         print(message)
         return None
     if "type" not in project_item:
-        print(message)
         return None
     return project_item
 
