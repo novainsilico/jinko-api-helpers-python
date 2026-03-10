@@ -51,7 +51,7 @@ class CrabbitVpopRunner:
                 elif item_type == "vpop":
                     patients = json.load(open(item_url, "r", encoding="utf-8"))
                     self.trial_configs["vpop_local"] = patients
-                if item_type not in ["vpop", "protocol", "advanced_output_set", "simple_output_set", "computational_model"]:
+                if item_type not in ["vpop", "protocol", "advanced_output_set", "output_set", "computational_model"]:
                     print(bold_text("Error:"), f"invalid yaml (check the trial config item type '{item_type}')")
                     return False
             if "computational_model" not in self.trial_configs:
