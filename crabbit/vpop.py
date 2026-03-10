@@ -73,7 +73,7 @@ class CrabbitVpopRunner:
                 if "qoi_list" in config_dic["data"]
                 else ""
             )
-            if "vpop" in self.trial_configs or "vpop_path" in self.trial_configs:
+            if "vpop" in self.trial_configs or "vpop_local" in self.trial_configs:
                 self.is_run_vpop_design = False
                 return True
             self.design_parts = list(map(str, config_dic["data"]["vpop_design_parts"]))
