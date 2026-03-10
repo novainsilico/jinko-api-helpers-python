@@ -45,18 +45,19 @@ class CrabbitVpopRunner:
             self.parent_folder = config_dic["data"]["parent_folder"]
             self.trial_configs = {}
             for item_type, item_url in config_dic["data"]["trial"].items():
-                item = check_project_item_url(item_url, show_error=False)
-                if item is not None:
-                    self.trial_configs[item_type] = item["coreId"]
-                elif item_type == "vpop":
-                    patients = json.load(open(item_url, "r", encoding="utf-8"))
-                    self.trial_configs["vpop_local"] = patients
-                else:
-                    print(bold_text("Error:"), f"failed to read the URL for '{item_type}')")
-                    return False
                 if item_type not in ["vpop", "protocol", "advanced_output_set", "output_set", "computational_model"]:
                     print(bold_text("Error:"), f"invalid yaml (check the trial config item type '{item_type}')")
                     return False
+                if item_type == "vpop" and not item_url.startswith('https'):
+                    patients = json.load(open(item_url, "r", encoding="utf-8"))
+                    self.trial_configs["vpop_local"] = patients
+                else:
+                    item = check_project_item_url(item_url, show_error=False)
+                    if item is not None:
+                        self.trial_configs[item_type] = item["coreId"]
+                    else:
+                        print(bold_text("Error:"), f"failed to read the URL for '{item_type}')")
+                        return False
             if "computational_model" not in self.trial_configs:
                 print(bold_text("Error:"), "invalid yaml (missing computational_model)")
                 return False
@@ -300,6 +301,7 @@ class CrabbitVpopRunner:
         """Run one single vpop"""
         if not self.is_prepared:
             return
+        print("Starting the trial...")
         self.vpop_names = [self.name_prefix]
         self._refresh_vpops()
         if self.is_run_vpop_design:
