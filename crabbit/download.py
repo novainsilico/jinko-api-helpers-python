@@ -9,6 +9,7 @@ import io
 import requests
 import itertools
 import time
+import fnmatch
 import pandas as pd
 
 import jinko_helpers as jinko
@@ -156,15 +157,33 @@ class CrabbitDownloader:
             return False
 
     def check_download_csv(self):
-        scalars = []
+        result_summary = jinko.make_request(
+            path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
+            method="GET",
+        ).json()
+        all_scalars = [s["id"] for s in result_summary["scalars"] + result_summary["scalarsCrossArm"]]
+        scalars = set()
         input_path = os.path.abspath(self.download_csv)
         try:
+            patterns = []
             with open(input_path, "r", encoding="utf-8") as qoi_file:
                 for line in qoi_file.readlines():
                     line = line.rstrip()
                     if not line:
                         continue
-                    scalars.append(line)
+                    patterns.append(line)
+            matched = {pattern: False for pattern in patterns}
+            for scalar in all_scalars:
+                for pattern in patterns:
+                    if fnmatch.fnmatch(scalar, pattern):
+                        scalars.add(scalar)
+                        matched[pattern] = True
+            if not scalars:
+                print(bold_text('Error:'), 'No scalar to extract')
+                return
+            for pattern in patterns:
+                if not matched[pattern]:
+                    print(bold_text('Warning:'), f'Pattern {pattern} has not been matched to any scalar')
         except FileNotFoundError:
             print(
                 bold_text("Error:"),
@@ -175,6 +194,7 @@ class CrabbitDownloader:
                 bold_text("Error:"),
                 "Failed to read the list of scalars of interest.",
             )
+        scalars = list(scalars)
         nb_scalars = len(scalars)
         print(
             f'Found {nb_scalars} scalar{"s" if nb_scalars > 1 else ""} of interest to download.'
