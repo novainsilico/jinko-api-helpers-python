@@ -28,6 +28,7 @@ class CrabbitVpopRunner:
             os.path.expanduser(local_parent_folder)
         )
         self.is_prepared = self._prepare()
+        self.is_run_vpop_design = True
 
     def _prepare(self):
         with open(self.config_path, "r", encoding="utf-8") as config:
@@ -47,6 +48,12 @@ class CrabbitVpopRunner:
                 item = check_project_item_url(item_url)
                 if item is not None:
                     self.trial_configs[item_type] = item["coreId"]
+                elif item_type == "vpop":
+                    patients = json.load(open(item_url, "r", encoding="utf-8"))
+                    self.trial_configs["vpop_local"] = patients
+                if item_type not in ["vpop", "protocol", "advanced_output_set", "simple_output_set", "computational_model"]:
+                    print(bold_text("Error:"), f"invalid yaml (check the trial config item type '{item_type}')")
+                    return False
             if "computational_model" not in self.trial_configs:
                 print(bold_text("Error:"), "invalid yaml (missing computational_model)")
                 return False
@@ -55,12 +62,6 @@ class CrabbitVpopRunner:
                 int(config_dic["data"]["vpop_seed"])
                 if "vpop_seed" in config_dic["data"]
                 else 42
-            )
-            self.design_parts = list(map(str, config_dic["data"]["vpop_design_parts"]))
-            default_name_prefix = (
-                datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
-                + "_"
-                + str(uuid.uuid4())
             )
             self.name_prefix = (
                 str(config_dic["data"]["vpop_name"])
@@ -71,6 +72,15 @@ class CrabbitVpopRunner:
                 os.path.abspath(os.path.expanduser(config_dic["data"]["qoi_list"]))
                 if "qoi_list" in config_dic["data"]
                 else ""
+            )
+            if "vpop" in self.trial_configs or "vpop_path" in self.trial_configs:
+                self.is_run_vpop_design = False
+                return True
+            self.design_parts = list(map(str, config_dic["data"]["vpop_design_parts"]))
+            default_name_prefix = (
+                datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
+                + "_"
+                + str(uuid.uuid4())
             )
         except (KeyError, ValueError, TypeError, AttributeError):
             print(bold_text("Error:"), "invalid yaml")
@@ -175,17 +185,14 @@ class CrabbitVpopRunner:
             except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
                 self.vpop_ids[vpop_name] = {}
 
-    def _post_merged_vpop(self):
-        merged_patients = merge_vpops(
-            [vpop_id["URL"] for vpop_id in self.vpop_ids.values()]
-        )
+    def _post_vpop(self, patients):
         response = jinko.make_request(
             method="POST",
             path="/core/v2/vpop_manager/vpop",
-            json=merged_patients,
+            json=patients,
             options={
                 "folder_id": self.parent_folder,
-                "name": f"{self.name_prefix} - merged vpop",
+                "name": f"{self.name_prefix} - vpop",
             },
             max_retries=5,
         )
@@ -291,8 +298,13 @@ class CrabbitVpopRunner:
             return
         self.vpop_names = [self.name_prefix]
         self._refresh_vpops()
-        self._post_designs()
-        self._generate_vpops()
+        if self.is_run_vpop_design:
+            self._post_designs()
+            self._generate_vpops()
+        elif "vpop_local" in self.trial_configs:
+            self.vpop_ids = {self.name_prefix: self._post_vpop(self.trial_configs["vpop_local"])}
+        else:
+            self.vpop_ids = {self.name_prefix: self.trial_configs["vpop"]}
 
         saves = list(map(str, self.local_folders.values()))
         json.dump(
@@ -336,7 +348,10 @@ class CrabbitVpopRunner:
 
         self._post_designs()
         self._generate_vpops()
-        vpop_id = self._post_merged_vpop()
+        merged_patients = merge_vpops(
+            [vpop_id["URL"] for vpop_id in self.vpop_ids.values()]
+        )
+        vpop_id = self._post_vpop(merged_patients)
         special_name = f"{self.name_prefix}_Iteration_{iteration_index}"
 
         saves = list(
@@ -387,6 +402,9 @@ class CrabbitVpopOptimizer:
 
     def run(self):
         if not self.runner.is_prepared:
+            return
+        if not self.runner.is_run_vpop_design:
+            print(bold_text("Error:"), "VpopOptimizer only works in a VpopDesign-based run")
             return
         iteration = 0
         best_score = float("Inf")

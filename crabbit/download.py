@@ -508,6 +508,8 @@ class CrabbitDownloader:
             print("Error: failed to download the scalar results.")
             return
         csv_file_name = zipped_results.namelist()[0]
+        if not os.path.exists(self.output_path):
+            os.mkdir(self.output_path)
         csv_path = os.path.join(self.output_path, "scalars.csv")
         with open(csv_path, "w") as f:
             with zipped_results.open(csv_file_name) as csv_file:
