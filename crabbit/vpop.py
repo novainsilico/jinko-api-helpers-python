@@ -45,10 +45,19 @@ class CrabbitVpopRunner:
             self.parent_folder = config_dic["data"]["parent_folder"]
             self.trial_configs = {}
             for item_type, item_url in config_dic["data"]["trial"].items():
-                if item_type not in ["vpop", "protocol", "advanced_output_set", "output_set", "computational_model"]:
-                    print(bold_text("Error:"), f"invalid yaml (check the trial config item type '{item_type}')")
+                if item_type not in [
+                    "vpop",
+                    "protocol",
+                    "advanced_output_set",
+                    "output_set",
+                    "computational_model",
+                ]:
+                    print(
+                        bold_text("Error:"),
+                        f"invalid yaml (check the trial config item type '{item_type}')",
+                    )
                     return False
-                if item_type == "vpop" and not item_url.startswith('https'):
+                if item_type == "vpop" and not item_url.startswith("https"):
                     patients = json.load(open(item_url, "r", encoding="utf-8"))
                     self.trial_configs["vpop_local"] = patients
                 else:
@@ -56,7 +65,10 @@ class CrabbitVpopRunner:
                     if item is not None:
                         self.trial_configs[item_type] = item["coreId"]
                     else:
-                        print(bold_text("Error:"), f"failed to read the URL for '{item_type}')")
+                        print(
+                            bold_text("Error:"),
+                            f"failed to read the URL for '{item_type}')",
+                        )
                         return False
             if "computational_model" not in self.trial_configs:
                 print(bold_text("Error:"), "invalid yaml (missing computational_model)")
@@ -174,7 +186,8 @@ class CrabbitVpopRunner:
                 vpop_url = jinko.get_project_item_url_by_core_item_id(vpop_id["id"])
                 vpop_id["URL"] = vpop_url
                 patients = jinko.make_request(
-                    method="GET", path=f"/core/v2/vpop_manager/vpop/{vpop_id['id']}",
+                    method="GET",
+                    path=f"/core/v2/vpop_manager/vpop/{vpop_id['id']}",
                     max_retries=5,
                 ).json()["patients"]
                 json.dump(
@@ -274,7 +287,7 @@ class CrabbitVpopRunner:
                 )
                 return trial_id
             except (requests.exceptions.ConnectionError, requests.exceptions.HTTPError):
-                print('Lost connection! Reconnecting...')
+                print("Lost connection! Reconnecting...")
                 retries += 1
         print(bold_text("Error:"), "connection lost")
         return {}
@@ -308,7 +321,9 @@ class CrabbitVpopRunner:
             self._post_designs()
             self._generate_vpops()
         elif "vpop_local" in self.trial_configs:
-            self.vpop_ids = {self.name_prefix: self._post_vpop(self.trial_configs["vpop_local"])}
+            self.vpop_ids = {
+                self.name_prefix: self._post_vpop(self.trial_configs["vpop_local"])
+            }
         else:
             self.vpop_ids = {self.name_prefix: self.trial_configs["vpop"]}
 
@@ -410,7 +425,10 @@ class CrabbitVpopOptimizer:
         if not self.runner.is_prepared:
             return
         if not self.runner.is_run_vpop_design:
-            print(bold_text("Error:"), "VpopOptimizer only works in a VpopDesign-based run")
+            print(
+                bold_text("Error:"),
+                "VpopOptimizer only works in a VpopDesign-based run",
+            )
             return
         iteration = 0
         best_score = float("Inf")

@@ -13,7 +13,7 @@ import fnmatch
 import pandas as pd
 
 import jinko_helpers as jinko
-from crabbit.utils import bold_text, clear_directory
+from crabbit.utils import bold_text, clear_directory, parse_isoduration
 
 
 class CrabbitDownloader:
@@ -161,7 +161,10 @@ class CrabbitDownloader:
             path=f"/core/v2/trial_manager/trial/{self.core_id_dict['id']}/snapshots/{self.core_id_dict['snapshotId']}/results_summary",
             method="GET",
         ).json()
-        all_scalars = [s["id"] for s in result_summary["scalars"] + result_summary["scalarsCrossArm"]]
+        all_scalars = [
+            s["id"]
+            for s in result_summary["scalars"] + result_summary["scalarsCrossArm"]
+        ]
         scalars = set()
         input_path = os.path.abspath(self.download_csv)
         try:
@@ -179,11 +182,14 @@ class CrabbitDownloader:
                         scalars.add(scalar)
                         matched[pattern] = True
             if not scalars:
-                print(bold_text('Error:'), 'No scalar to extract')
+                print(bold_text("Error:"), "No scalar to extract")
                 return
             for pattern in patterns:
                 if not matched[pattern]:
-                    print(bold_text('Warning:'), f'Pattern {pattern} has not been matched to any scalar')
+                    print(
+                        bold_text("Warning:"),
+                        f"Pattern {pattern} has not been matched to any scalar",
+                    )
         except FileNotFoundError:
             print(
                 bold_text("Error:"),
@@ -337,6 +343,7 @@ class CrabbitDownloader:
                 },
                 inplace="True",
             )
+            one_csv["time"] = one_csv["time"].apply(parse_isoduration)
             csv_data[item] = one_csv
         try:
             merged_csv_data = pd.concat(csv_data.values(), ignore_index=True)
@@ -524,7 +531,12 @@ class CrabbitDownloader:
                 max_retries=5,
             )
             zipped_results = zipfile.ZipFile(io.BytesIO(binary_results.content))
-        except (requests.exceptions.HTTPError, requests.exceptions.ConnectionError, KeyError, zipfile.BadZipFile):
+        except (
+            requests.exceptions.HTTPError,
+            requests.exceptions.ConnectionError,
+            KeyError,
+            zipfile.BadZipFile,
+        ):
             print("Error: failed to download the scalar results.")
             return
         csv_file_name = zipped_results.namelist()[0]

@@ -78,6 +78,21 @@ class TestCrabbit(unittest.TestCase):
         )
         self.assertEqual(merged_csv, None)
 
+    def test_parse_isoduration_hours(self):
+        self.assertEqual(crabbit.utils.parse_isoduration("PT1H30M15.460S"), 5415.46)
+
+    def test_parse_isoduration_days(self):
+        self.assertEqual(crabbit.utils.parse_isoduration("P5DT4M"), 432240)
+
+    def test_parse_isoduration_weeks(self):
+        self.assertEqual(crabbit.utils.parse_isoduration("P2WT3H"), 1220400)
+
+    def test_parse_isoduration_months(self):
+        self.assertEqual(crabbit.utils.parse_isoduration("P3M"), 7889400)
+
+    def test_parse_isoduration_years(self):
+        self.assertEqual(crabbit.utils.parse_isoduration("P1Y6M"), 47336400)
+
 
 if __name__ == "__main__":
     unittest.main()
