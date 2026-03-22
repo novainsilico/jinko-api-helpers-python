@@ -163,7 +163,7 @@ class CrabbitDownloader:
         ).json()
         all_scalars = [
             s["id"]
-            for s in result_summary["scalars"] + result_summary["scalarsCrossArm"]
+            for s in result_summary["scalars"] + result_summary["scalarsCrossArm"] + result_summary["categoricals"] + result_summary["categoricalsCrossArm"]
         ]
         scalars = set()
         input_path = os.path.abspath(self.download_csv)
