@@ -232,6 +232,13 @@
         "url": "https://files.pythonhosted.org/packages/0b/8c/dd63d210b28a7589f4bc1e84880525368147425c717d12834ab562f52d14/dash-4.0.0-py3-none-any.whl",
         "version": "4.0.0"
       },
+      "dash-ag-grid": {
+        "is_direct": false,
+        "sha256": "987b5789441455bbfbff61dd6d839f2897f9e914e4fbb8e2d26eba5d92a4f8ef",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/d1/fc/121ccd949503b1db8ca8ab7c03ebf19497324928a153c89b2ec4ae3bb7b4/dash_ag_grid-33.3.3-py3-none-any.whl",
+        "version": "33.3.3"
+      },
       "debugpy": {
         "is_direct": false,
         "sha256": "84562982dd7cf5ebebfdea667ca20a064e096099997b175fe204e86817f64eaf",
@@ -1810,6 +1817,9 @@
           "typing-extensions",
           "werkzeug"
         ],
+        "dash-ag-grid": [
+          "dash"
+        ],
         "debugpy": [],
         "decorator": [],
         "deepdiff": [
@@ -2596,5 +2606,5 @@
       }
     }
   },
-  "invalidationHash": "4ed447663c3aba59d80a5387532733b568a93005e64ff148a73ac98346233572"
+  "invalidationHash": "e8a264d94c92c1644086027866733fe7f2ee7a75a4bf673c7ac5b589ffc16a8c"
 }

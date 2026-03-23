@@ -54,5 +54,6 @@ dependencies = [
   "duckdb",
   "xgboost-cpu",
   "ortools",
-  "dash"
+  "dash",
+  "dash-ag-grid"
 ]
