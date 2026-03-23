@@ -54,5 +54,5 @@ dependencies = [
   "duckdb",
   "xgboost-cpu",
   "ortools",
-  "mpld3"
+  "dash"
 ]

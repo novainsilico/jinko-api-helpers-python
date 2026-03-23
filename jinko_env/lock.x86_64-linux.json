@@ -141,6 +141,13 @@
         "url": "https://files.pythonhosted.org/packages/cd/3a/577b549de0cc09d95f11087ee63c739bba856cd3952697eec4c4bb91350a/bleach-6.3.0-py3-none-any.whl",
         "version": "6.3.0"
       },
+      "blinker": {
+        "is_direct": false,
+        "sha256": "ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl",
+        "version": "1.9.0"
+      },
       "certifi": {
         "is_direct": false,
         "sha256": "027692e4402ad994f1c42e52a4997a9763c646b73e4096e4d5d6db8af1d6f0fa",
@@ -217,6 +224,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/e7/05/c19819d5e3d95294a6f5947fb9b9629efb316b96de511b418c53d245aae6/cycler-0.12.1-py3-none-any.whl",
         "version": "0.12.1"
+      },
+      "dash": {
+        "is_direct": false,
+        "sha256": "e36b4b4eae9e1fa4136bf4f1450ed14ef76063bc5da0b10f8ab07bd57a7cb1ab",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/0b/8c/dd63d210b28a7589f4bc1e84880525368147425c717d12834ab562f52d14/dash-4.0.0-py3-none-any.whl",
+        "version": "4.0.0"
       },
       "debugpy": {
         "is_direct": false,
@@ -301,6 +315,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/a4/a5/842ae8f0c08b61d6484b52f99a03510a3a72d23141942d216ebe81fefbce/filelock-3.25.2-py3-none-any.whl",
         "version": "3.25.2"
+      },
+      "flask": {
+        "is_direct": false,
+        "sha256": "f4bcbefc124291925f1a26446da31a5178f9483862233b23c0c96a20701f670c",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/7f/9c/34f6962f9b9e9c71f6e5ed806e0d0ff03c9d1b0b2340088a0cf4bce09b18/flask-3.1.3-py3-none-any.whl",
+        "version": "3.1.3"
       },
       "fonttools": {
         "is_direct": false,
@@ -490,6 +511,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/7b/55/e5326141505c5d5e34c5e0935d2908a74e4561eca44108fbfb9c13d2911a/isoduration-20.11.0-py3-none-any.whl",
         "version": "20.11.0"
+      },
+      "itsdangerous": {
+        "is_direct": false,
+        "sha256": "c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/04/96/92447566d16df59b2a776c0fb82dbc4d9e07cd95062562af01e408583fc4/itsdangerous-2.2.0-py3-none-any.whl",
+        "version": "2.2.0"
       },
       "jedi": {
         "is_direct": false,
@@ -755,13 +783,6 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/b2/ab/0c61d12d5c40a80a15970f5a98765fe06beb27c9b1d900168249e6854d14/modAL_python-0.4.2.1-py3-none-any.whl",
         "version": "0.4.2.1"
-      },
-      "mpld3": {
-        "is_direct": false,
-        "sha256": "bea31799a4041029a906f53f2662bbf1c49903e0c0bc712b412354158ec7cf54",
-        "type": "url",
-        "url": "https://files.pythonhosted.org/packages/5b/69/93b34728cc386efdde0c342f8c680b9187dea7beb7adaf6b58a0713be101/mpld3-0.5.12-py3-none-any.whl",
-        "version": "0.5.12"
       },
       "mpmath": {
         "is_direct": false,
@@ -1282,6 +1303,13 @@
         "url": "https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl",
         "version": "2.32.5"
       },
+      "retrying": {
+        "is_direct": false,
+        "sha256": "bbc004aeb542a74f3569aeddf42a2516efefcdaff90df0eb38fbfbf19f179f59",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/67/f3/6cd296376653270ac1b423bb30bd70942d9916b6978c6f40472d6ac038e7/retrying-1.4.2-py3-none-any.whl",
+        "version": "1.4.2"
+      },
       "rfc3339-validator": {
         "is_direct": false,
         "sha256": "24f6ec1eda14ef823da9e36ec7113124b39c04d50a4d3d3a3c2859577e7791fa",
@@ -1661,6 +1689,13 @@
         "url": "https://files.pythonhosted.org/packages/bd/28/0a25ee5342eb5d5f297d992a77e56892ecb65e7854c7898fb7d35e9b33bd/websockets-16.0-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
         "version": "16.0"
       },
+      "werkzeug": {
+        "is_direct": false,
+        "sha256": "7ddf3357bb9564e407607f988f683d72038551200c704012bb9a4c523d42f131",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/4d/ec/d58832f89ede95652fd01f4f24236af7d32b70cab2196dfcc2d2fd13c5c2/werkzeug-3.1.6-py3-none-any.whl",
+        "version": "3.1.6"
+      },
       "widgetsnbextension": {
         "is_direct": false,
         "sha256": "8156704e4346a571d9ce73b84bee86a29906c9abfd7223b7228a28899ccf3366",
@@ -1744,6 +1779,7 @@
           "tinycss2",
           "webencodings"
         ],
+        "blinker": [],
         "certifi": [],
         "cffi": [
           "pycparser"
@@ -1763,6 +1799,17 @@
           "cffi"
         ],
         "cycler": [],
+        "dash": [
+          "flask",
+          "importlib-metadata",
+          "nest-asyncio",
+          "plotly",
+          "requests",
+          "retrying",
+          "setuptools",
+          "typing-extensions",
+          "werkzeug"
+        ],
         "debugpy": [],
         "decorator": [],
         "deepdiff": [
@@ -1793,6 +1840,14 @@
         "executing": [],
         "fastjsonschema": [],
         "filelock": [],
+        "flask": [
+          "blinker",
+          "click",
+          "itsdangerous",
+          "jinja2",
+          "markupsafe",
+          "werkzeug"
+        ],
         "fonttools": [],
         "formulaic": [
           "interface-meta",
@@ -1914,6 +1969,7 @@
         "isoduration": [
           "arrow"
         ],
+        "itsdangerous": [],
         "jedi": [
           "parso"
         ],
@@ -2106,10 +2162,6 @@
           "scikit-learn",
           "scipy",
           "skorch"
-        ],
-        "mpld3": [
-          "jinja2",
-          "matplotlib"
         ],
         "mpmath": [],
         "mypy-extensions": [],
@@ -2321,6 +2373,7 @@
           "idna",
           "urllib3"
         ],
+        "retrying": [],
         "rfc3339-validator": [
           "six"
         ],
@@ -2517,6 +2570,9 @@
         "webencodings": [],
         "websocket-client": [],
         "websockets": [],
+        "werkzeug": [
+          "markupsafe"
+        ],
         "widgetsnbextension": [],
         "wrapt": [],
         "xgboost-cpu": [
@@ -2540,5 +2596,5 @@
       }
     }
   },
-  "invalidationHash": "25f47e2a05468421ffd30761f057f14e271346f97c4c31e616e21d35b503c6ae"
+  "invalidationHash": "4ed447663c3aba59d80a5387532733b568a93005e64ff148a73ac98346233572"
 }
