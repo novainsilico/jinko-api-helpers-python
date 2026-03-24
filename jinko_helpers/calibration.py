@@ -26,14 +26,15 @@ def get_calib_status(calib_core_id):
 
 def get_latest_calib_with_status(
     shortId: str,
-    statuses: List,
+    statuses: str | List[str],
 ) -> dict:
     """
     Retrieve the latest calibration whose status is a member of the prescribed list of statuses
 
     Args:
         core_item_id (str): The CoreItemId of the Calibration
-        statuses (list of str): The snapshotId of the ProjectItem.
+        statuses (str | list of str): one or more statuses, e.g. "completed" or
+            ["completed", "stopped"].
     Returns:
         core ID dictionary
         Dictionary Attributes:
@@ -44,12 +45,19 @@ def get_latest_calib_with_status(
         ValueError: If no calibration having the prescribed status is found
     """
 
+    normalized_statuses = [statuses] if isinstance(statuses, str) else statuses
+    if len(normalized_statuses) == 0:
+        raise ValueError("statuses must contain at least one status")
+
     core_item_id = jinko.getCoreItemId(shortId=shortId)["id"]
     versions = jinko.make_request(
-        f"/core/v2/calibration_manager/calibration/{core_item_id}/status"
+        f"/core/v2/calibration_manager/calibration/{core_item_id}/status",
+        params={"statuses": normalized_statuses},
     ).json()
     try:
-        latest_version = next(item for item in versions if item["status"] in statuses)
+        latest_version = next(iter(versions))
         return latest_version["simulationId"]
     except StopIteration:
-        raise ValueError(f"Found no calibration with status among {statuses}")
+        raise ValueError(
+            f"Found no calibration with status among {normalized_statuses}"
+        )

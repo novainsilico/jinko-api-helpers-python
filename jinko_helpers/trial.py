@@ -435,29 +435,35 @@ def get_trial_scalars_with_filter_and_groups_as_dataframe(
 
 def get_latest_trial_with_status(
     shortId: str,
-    statuses: list[str],
+    statuses: str | list[str],
 ) -> dict:
     """
     Retrieve the latest Trial whose status is a member of the prescribed list of statuses
 
     Args:
         core_item_id (str): The CoreItemId of the Trial
-        statuses (list of str): a list of statuses, e.g. ["completed", "stopped"]
+        statuses (str | list[str]): one or more statuses, e.g. "completed" or
+            ["completed", "stopped"]
     Returns:
         core ID dictionary
         Dictionary Attributes:
             coreItemId (str): The unique identifier of the CoreItem.
             snapshotId (str): Identifies a specific version of the CoreItem.
     Raises:
-        ValueError: If no calibration having the prescribed status is found
+        ValueError: If no trial having the prescribed status is found
     """
+
+    normalized_statuses = [statuses] if isinstance(statuses, str) else statuses
+    if len(normalized_statuses) == 0:
+        raise ValueError("statuses must contain at least one status")
 
     core_item_id = jinko.getCoreItemId(shortId=shortId)["id"]
     versions = jinko.make_request(
-        f"/core/v2/trial_manager/trial/{core_item_id}/status"
+        f"/core/v2/trial_manager/trial/{core_item_id}/status",
+        params={"statuses": normalized_statuses},
     ).json()
     try:
-        latest_version = next(item for item in versions if item["status"] in statuses)
+        latest_version = next(iter(versions))
         return latest_version["simulationId"]
     except StopIteration:
-        raise ValueError(f"Found no trial with status among {statuses}")
+        raise ValueError(f"Found no trial with status among {normalized_statuses}")
