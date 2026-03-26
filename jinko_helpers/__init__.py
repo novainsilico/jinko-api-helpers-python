@@ -112,6 +112,7 @@ from .trial import (
 from .vpop import (
     get_vpop_content,
     get_vpop_design_content,
+    subsampling_goodness_of_fit_as_dataframe,
 )
 
 # Import version from version.py
@@ -169,4 +170,5 @@ __all__ = [
     "df_to_sqlite",
     "data_table_to_sqlite",
     "csv_to_df",
+    "subsampling_goodness_of_fit_as_dataframe",
 ]

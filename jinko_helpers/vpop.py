@@ -1,5 +1,6 @@
 import jinko_helpers as jinko
 import requests
+import pandas as pd
 
 
 def get_vpop_content(vpop_sid: str):
@@ -46,3 +47,65 @@ def get_vpop_design_content(
         return response.json()["contents"]
     except requests.exceptions.HTTPError:
         return None
+
+
+def subsampling_goodness_of_fit_as_dataframe(fitness: dict):
+    """
+    Converts the goodness of fit as returned by the "/core/v2/vpop_manager/vpop_generator/{subsampling_core_item_id}/snapshots/{subsampling_snapshot_id}/vpop"
+    route to a pandas dataframe
+
+    Args:
+        fitness (dict): the goodness of fit as returned by the aforementioned route
+
+    Returns:
+        the goodness of fit in the form of a Pandas dataframe
+    """
+    return pd.DataFrame(
+        [
+            {
+                "qoi": x["id"],
+                "arm": x["arm"],
+                "score": x["score"],
+                "targetType": "marginal",
+            }
+            for x in fitness["marginals"]
+        ]
+        + [
+            {
+                "qoi": x["id"],
+                "arm": x["arm"],
+                "score": x["score"],
+                "targetType": "categorical",
+            }
+            for x in fitness["categoricals"]
+        ]
+        + [
+            {
+                "qoi": x["id"],
+                "arm": x["arm"],
+                "score": x["score"],
+                "targetType": "survival",
+            }
+            for x in fitness["survivals"]
+        ]
+        + [
+            {
+                "qoi": x["id"],
+                "arm": x["arm"],
+                "score": x["score"],
+                "targetType": "summary statistics",
+            }
+            for x in fitness["summaryStatistics"]
+        ]
+        + [
+            {
+                "qoi": x["correlateX"]["id"],
+                "arm": x["correlateX"].get("arm"),
+                "score": x["score"],
+                "targetType": "correlation",
+                "qoi2": x["correlateY"]["id"],
+                "arm2": x["correlateY"].get("arm"),
+            }
+            for x in fitness["correlations"]
+        ]
+    )
