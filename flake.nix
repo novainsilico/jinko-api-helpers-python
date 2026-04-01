@@ -96,6 +96,7 @@
                     "autograd-gamma"
                     "ecos"
                     "freia"
+                    "matplotlib-venn"
                     "ndtest"
                     "odfpy"
                     "uuid"

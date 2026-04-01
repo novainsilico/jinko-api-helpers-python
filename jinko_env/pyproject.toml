@@ -16,6 +16,7 @@ dependencies = [
   "kaleido<1.0.0",
   "python-libsbml-experimental",
   "matplotlib",
+  "matplotlib-venn",
   "matplotlib-inline",
   "openpyxl",
   "pandas",
