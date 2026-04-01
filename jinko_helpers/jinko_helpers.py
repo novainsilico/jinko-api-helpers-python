@@ -7,7 +7,6 @@
 - make HTTP requests (jinko.makeRequest)
 """
 
-
 from .__version__ import __version__
 from .deprecation import handle_deprecation
 import base64 as _base64
@@ -133,6 +132,7 @@ def makeRequest(
     csv_data=None,
     options: MakeRequestOptions | None = None,
     data=None,
+    file=None,
     max_retries: int = 0,
     backoff_base: float = 0.5,
 ) -> _requests.Response:
@@ -146,6 +146,7 @@ def makeRequest(
         csv_data (str, optional): input payload as a CSV formatted string. Defaults to None
         options (MakeRequestOptions, optional): additional options. Defaults to None
         data: (Any, optional): raw input payload. Defaults to None
+        file: (Any, optional): file to upload. Defaults to None
         max_retries (int, optional): number of times to retry transient failures. Defaults to 0 (no retry).
         backoff_base (float, optional): base backoff in seconds, doubled at each retry. Defaults to 0.5.
     Returns:
@@ -186,6 +187,12 @@ def makeRequest(
                 'input_format': 'text/csv'
             }
         )
+
+        # upload a file as multipart/form-data
+        with open('/tmp/file.pdf', 'rb') as file:
+            response = makeRequest('/app/v1/reference/file', method='POST',
+                file=file,
+        )
     """
     # Get the default headers from _getHeaders()
     headers = _getHeaders()
@@ -222,6 +229,11 @@ def makeRequest(
     else:
         data_param = None
 
+    # if a file is provided, reset input_mime_type to ensure multipart/form-data
+    # will be setup correctly (ie: content-type header AND boundary)
+    if file is not None:
+        input_mime_type = None
+
     if input_mime_type:
         headers["Content-Type"] = input_mime_type
     if output_mime_type is not None:
@@ -236,6 +248,7 @@ def makeRequest(
                 headers=headers,
                 params=params,
                 **({data_param: data} if data_param else {}),  # type: ignore
+                files={"file": file} if file else None,
             )
         except _requests.exceptions.RequestException as exc:
             if attempt >= max_retries:
@@ -663,7 +676,9 @@ def show_plot_conditionally(fig, file_name=None):
             if tmp_fd is not None:
                 _os.unlink(file_name)
             raise
-        logging.getLogger("jinko_helpers").info(f"Plot saved to {file_name} . Please open it in a web browser.")
+        logging.getLogger("jinko_helpers").info(
+            f"Plot saved to {file_name} . Please open it in a web browser."
+        )
 
 
 def list_project_item_versions(sid: str, only_labeled: bool = False):

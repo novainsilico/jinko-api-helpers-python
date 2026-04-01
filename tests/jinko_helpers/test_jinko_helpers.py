@@ -102,6 +102,20 @@ class TestJinkoHelpers(unittest.TestCase):
         self.assertFalse("Accept" in kwargs["headers"])
 
     @patch("requests.request")
+    def test_make_request_file_upload(self, mock_request):
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_request.return_value = mock_response
+        mock_file = MagicMock()
+
+        jinko_helpers.make_request("/test-path", method="POST", file=mock_file)
+        _, kwargs = mock_request.call_args
+        self.assertTrue("files" in kwargs)
+        self.assertEqual(kwargs["files"], {"file": mock_file})
+        self.assertFalse("Content-type" in kwargs["headers"])
+        self.assertFalse("Accept" in kwargs["headers"])
+
+    @patch("requests.request")
     def test_make_request_ask_custom_output_format(self, mock_request):
         mock_response = MagicMock()
         mock_response.status_code = 200
