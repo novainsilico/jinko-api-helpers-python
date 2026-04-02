@@ -542,32 +542,25 @@ class CrabbitDownloader:
         csv_file_name = zipped_results.namelist()[0]
         if not os.path.exists(self.output_path):
             os.mkdir(self.output_path)
-        csv_path = os.path.join(self.output_path, "scalars.csv")
-        with open(csv_path, "w") as f:
-            with zipped_results.open(csv_file_name) as csv_file:
-                while True:
-                    line = csv_file.readline().decode("utf-8")
-                    if not line:
-                        break
-                    line = ",".join(line.split(",")[0:4])
-                    f.write(line)
-                    f.write("\n")
-        # pivot the raw CSV file twice to convert it into the wide format
-        table = pd.read_csv(csv_path, dtype=object)
-        # remove crossArms keyword
-        table["armId"] = table.armId.replace("crossArms", "")
-        # first pivot to distribute the scalarId
-        pivotted = table.pivot(
-            columns="scalarId", index=["patientId", "armId"], values="value"
-        )
-        pivotted.reset_index(inplace=True)
-        # second pivot to distribute the armId (used as prefix)
-        repivotted = pivotted.pivot(columns="armId", index="patientId")
-        repivotted.columns = [
-            "_".join(name[::-1]) if name[-1] else "_".join(name[::-1][1:])
-            for name in repivotted.columns.to_flat_index()
-        ]
-        repivotted.dropna(axis=1, how="all", inplace=True)
-        repivotted.to_csv(csv_path)
-        print(f"\nTime elapsed: {round(time.time() - t0, 2)} (second)")
-        print(f"Size of the scalar table: {repivotted.shape}")
+        with zipped_results.open(csv_file_name) as csv_file:
+            table = pd.read_csv(io.BytesIO(csv_file.read()))
+            table.drop("unit", axis=1, inplace=True)
+
+            # pivot the raw CSV file twice to convert it into the wide format
+            # remove crossArms keyword
+            table["armId"] = table.armId.replace("crossArms", "")
+            # first pivot to distribute the scalarId
+            pivotted = table.pivot(
+                columns="scalarId", index=["patientId", "armId"], values="value"
+            )
+            pivotted.reset_index(inplace=True)
+            # second pivot to distribute the armId (used as prefix)
+            repivotted = pivotted.pivot(columns="armId", index="patientId")
+            repivotted.columns = [
+                "_".join(name[::-1]) if name[-1] else "_".join(name[::-1][1:])
+                for name in repivotted.columns.to_flat_index()
+            ]
+            repivotted.dropna(axis=1, how="all", inplace=True)
+            repivotted.to_csv(os.path.join(self.output_path, "scalars.csv"))
+            print(f"\nTime elapsed: {round(time.time() - t0, 2)} (second)")
+            print(f"Size of the scalar table: {repivotted.shape}")
