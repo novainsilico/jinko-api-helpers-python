@@ -112,7 +112,7 @@ class CrabbitMerger:
 
     def merge_csv_(self):
         """CSV merging is a crabbit specific operation concatening scalar results for a merged vpop."""
-        csv_rows = merge_csv()
+        csv_rows = merge_csv(self.to_merge)
         if csv_rows is None:
             return
         print("Writing the output...")
