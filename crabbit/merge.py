@@ -1,6 +1,6 @@
 """Module containing the "merge" app and utilities of crabbit."""
 
-__all__ = ["CrabbitMerger"]
+__all__ = ["CrabbitMerger", "merge_vpops", "merge_vpop_designs", "merge_csv"]
 
 import os
 import json
