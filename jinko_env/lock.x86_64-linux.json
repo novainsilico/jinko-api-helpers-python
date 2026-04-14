@@ -323,6 +323,13 @@
         "url": "https://files.pythonhosted.org/packages/4b/32/e0f13a1c5b0f8572d0ec6ae2f6c677b7991fafd95da523159c19eff0696a/contourpy-1.3.3-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
         "version": "1.3.3"
       },
+      "coverage": {
+        "is_direct": false,
+        "sha256": "78e696e1cc714e57e8b25760b33a8b1026b7048d270140d25dafe1b0a1ee05a3",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/ac/68/1666e3a4462f8202d836920114fa7a5ee9275d1fa45366d336c551a162dd/coverage-7.13.5-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl",
+        "version": "7.13.5"
+      },
       "cryptography": {
         "is_direct": false,
         "sha256": "42a1e5f98abb6391717978baf9f90dc28a743b7d9be7f0751a6f56a75d14065b",
@@ -644,6 +651,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/b6/b0/be5d3329badb9230b765de6eea66b73abd5944bdeb5afb3562ddcd80ae84/googleapis_common_protos-1.74.0-py3-none-any.whl",
         "version": "1.74.0"
+      },
+      "gprof2dot": {
+        "is_direct": false,
+        "sha256": "0742e4c0b4409a5e8777e739388a11e1ed3750be86895655312ea7c20bd0090e",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/71/ed/89d760cb25279109b89eb52975a7b5479700d3114a2421ce735bfb2e7513/gprof2dot-2025.4.14-py3-none-any.whl",
+        "version": "2025.4.14"
       },
       "gpytorch": {
         "is_direct": false,
@@ -1562,6 +1576,34 @@
         "url": "https://files.pythonhosted.org/packages/d4/24/a372aaf5c9b7208e7112038812994107bc65a84cd00e0354a88c2c77a617/pytest-9.0.3-py3-none-any.whl",
         "version": "9.0.3"
       },
+      "pytest-cov": {
+        "is_direct": false,
+        "sha256": "a0461110b7865f9a271aa1b51e516c9a95de9d696734a2f71e3e78f46e1d4678",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/9d/7a/d968e294073affff457b041c2be9868a40c1c71f4a35fcc1e45e5493067b/pytest_cov-7.1.0-py3-none-any.whl",
+        "version": "7.1.0"
+      },
+      "pytest-env": {
+        "is_direct": false,
+        "sha256": "1e7f8a62215e5885835daaed694de8657c908505b964ec8097a7ce77b403d9a3",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/27/16/ad52f56b96d851a2bcfdc1e754c3531341885bd7177a128c13ff2ca72ab4/pytest_env-1.6.0-py3-none-any.whl",
+        "version": "1.6.0"
+      },
+      "pytest-profiling": {
+        "is_direct": false,
+        "sha256": "3dd8713a96298b42d83de8f5951df3ada3e61b3e5d2a06956684175529e17aea",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/e3/ac/c428c66241a144617a8af7a28e2e055e1438d23b949b62ac4b401a69fb79/pytest_profiling-1.8.1-py3-none-any.whl",
+        "version": "1.8.1"
+      },
+      "pytest-subtests": {
+        "is_direct": false,
+        "sha256": "da2d0ce348e1f8d831d5a40d81e3aeac439fec50bd5251cbb7791402696a9493",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/23/64/bba465299b37448b4c1b84c7a04178399ac22d47b3dc5db1874fe55a2bd3/pytest_subtests-0.15.0-py3-none-any.whl",
+        "version": "0.15.0"
+      },
       "python-bidi": {
         "is_direct": false,
         "sha256": "6323e943c7672b271ad9575a2232508f17e87e81a78d7d10d6e93040e210eddf",
@@ -2336,6 +2378,7 @@
         "contourpy": [
           "numpy"
         ],
+        "coverage": [],
         "cryptography": [
           "cffi"
         ],
@@ -2538,6 +2581,7 @@
         "googleapis-common-protos": [
           "protobuf"
         ],
+        "gprof2dot": [],
         "gpytorch": [
           "linear-operator",
           "mpmath",
@@ -3058,6 +3102,24 @@
           "pluggy",
           "pygments"
         ],
+        "pytest-cov": [
+          "coverage",
+          "pluggy",
+          "pytest"
+        ],
+        "pytest-env": [
+          "pytest",
+          "python-dotenv"
+        ],
+        "pytest-profiling": [
+          "gprof2dot",
+          "pytest",
+          "six"
+        ],
+        "pytest-subtests": [
+          "attrs",
+          "pytest"
+        ],
         "python-bidi": [],
         "python-calamine": [],
         "python-dateutil": [
@@ -3355,5 +3417,5 @@
       }
     }
   },
-  "invalidationHash": "d99b8c209b0e1e4414594e5429d94e6586766e61983ef9f4f8a801c7eb81124f"
+  "invalidationHash": "3a7cef6aad61b6e2d6fdfa17780fb27598052014a5d58a39d61dd7ee0157b81c"
 }

@@ -60,4 +60,9 @@ dependencies = [
   "dvc",
   "dvc-ssh",
   "pre-commit",
+  "pytest",
+  "pytest-cov",
+  "pytest-profiling",
+  "pytest-subtests",
+  "pytest-env",
 ]
