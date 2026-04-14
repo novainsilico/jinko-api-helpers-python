@@ -239,6 +239,13 @@
         "url": "https://files.pythonhosted.org/packages/98/df/0a1755e750013a2081e863e7cd37e0cdd02664372c754e5560099eb7aa44/cffi-2.0.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
         "version": "2.0.0"
       },
+      "cfgv": {
+        "is_direct": false,
+        "sha256": "a8dc6b26ad22ff227d2634a65cb388215ce6cc96bbcc5cfde7641ae87e8dacc0",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/db/3c/33bac158f8ab7f89b2e59426d5fe2e4f63f7ed25df84c036890172b412b5/cfgv-3.5.0-py2.py3-none-any.whl",
+        "version": "3.5.0"
+      },
       "charset-normalizer": {
         "is_direct": false,
         "sha256": "e044c39e41b92c845bc815e5ae4230804e8e7bc29e399b0437d64222d92809dd",
@@ -385,6 +392,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/3f/27/4570e78fc0bf5ea0ca45eb1de3818a23787af9b390c0b0a0033a1b8236f9/diskcache-5.6.3-py3-none-any.whl",
         "version": "5.6.3"
+      },
+      "distlib": {
+        "is_direct": false,
+        "sha256": "9659f7d87e46584a30b5780e43ac7a2143098441670ff0a49d5f9034c54a6c16",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/33/6b/e0547afaf41bf2c42e52430072fa5658766e3d65bd4b03a563d1b6336f57/distlib-0.4.0-py2.py3-none-any.whl",
+        "version": "0.4.0"
       },
       "distro": {
         "is_direct": false,
@@ -693,6 +707,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/c6/50/e0edd38dcd63fb26a8547f13d28f7a008bc4a3fd4eb4ff030673f22ad41a/hydra_core-1.3.2-py3-none-any.whl",
         "version": "1.3.2"
+      },
+      "identify": {
+        "is_direct": false,
+        "sha256": "8db9d3c8ea9079db92cafb0ebf97abdc09d52e97f4dcf773a2e694048b7cd737",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/46/33/92ef41c6fad0233e41d3d84ba8e8ad18d1780f1e5d99b3c683e6d7f98b63/identify-2.6.18-py2.py3-none-any.whl",
+        "version": "2.6.18"
       },
       "idna": {
         "is_direct": false,
@@ -1149,6 +1170,13 @@
         "url": "https://files.pythonhosted.org/packages/ed/de/0e6edf44d6a04dabd0318a519125ed0415ce437ad5a1ec9b9be03d9048cf/ninja-1.13.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl",
         "version": "1.13.0"
       },
+      "nodeenv": {
+        "is_direct": false,
+        "sha256": "5bb13e3eed2923615535339b3c620e76779af4cb4c6a90deccc9e36b274d3827",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/88/b2/d0896bdcdc8d28a7fc5717c305f1a861c26e18c05047949fb371034d98bd/nodeenv-1.10.0-py2.py3-none-any.whl",
+        "version": "1.10.0"
+      },
       "notebook": {
         "is_direct": false,
         "sha256": "a7c14dbeefa6592e87f72290ca982e0c10f5bbf3786be2a600fda9da2764a2b8",
@@ -1387,6 +1415,13 @@
         "url": "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl",
         "version": "1.6.0"
       },
+      "pre-commit": {
+        "is_direct": false,
+        "sha256": "3b3afd891e97337708c1674210f8eba659b52a38ea5f822ff142d10786221f77",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/5d/19/fd3ef348460c80af7bb4669ea7926651d1f95c23ff2df18b9d24bab4f3fa/pre_commit-4.5.1-py2.py3-none-any.whl",
+        "version": "4.5.1"
+      },
       "prometheus-client": {
         "is_direct": false,
         "sha256": "d5aec89e349a6ec230805d0df882f3807f74fd6c1a2fa86864e3c2279059fed1",
@@ -1547,6 +1582,13 @@
         "type": "url",
         "url": "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl",
         "version": "2.9.0.post0"
+      },
+      "python-discovery": {
+        "is_direct": false,
+        "sha256": "e1ae95d9af875e78f15e19aed0c6137ab1bb49c200f21f5061786490c9585c7a",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/d8/db/795879cc3ddfe338599bddea6388cc5100b088db0a4caf6e6c1af1c27e04/python_discovery-1.2.2-py3-none-any.whl",
+        "version": "1.2.2"
       },
       "python-dotenv": {
         "is_direct": false,
@@ -2066,6 +2108,13 @@
         "url": "https://files.pythonhosted.org/packages/03/ff/7c0c86c43b3cbb927e0ccc0255cb4057ceba4799cd44ae95174ce8e8b5b2/vine-5.1.0-py3-none-any.whl",
         "version": "5.1.0"
       },
+      "virtualenv": {
+        "is_direct": false,
+        "sha256": "486652347ea8526d91e9807c0274583cb7ba31dd4942ff10fb5621402f0fe0d8",
+        "type": "url",
+        "url": "https://files.pythonhosted.org/packages/95/19/bc7c4e05f42532863cf2ae7e7e847beab25835934e0410160b47eeff1e35/virtualenv-21.2.3-py3-none-any.whl",
+        "version": "21.2.3"
+      },
       "voluptuous": {
         "is_direct": false,
         "sha256": "ee342095263e1b5afbd4d418cb5adc92810eebfd07696bb033a261210df33db4",
@@ -2264,6 +2313,7 @@
         "cffi": [
           "pycparser"
         ],
+        "cfgv": [],
         "charset-normalizer": [],
         "click": [],
         "click-didyoumean": [
@@ -2312,6 +2362,7 @@
         "defusedxml": [],
         "dictdiffer": [],
         "diskcache": [],
+        "distlib": [],
         "distro": [],
         "dpath": [],
         "duckdb": [],
@@ -2536,6 +2587,7 @@
           "omegaconf",
           "packaging"
         ],
+        "identify": [],
         "idna": [],
         "imageio": [
           "numpy",
@@ -2835,6 +2887,7 @@
         "nest-asyncio": [],
         "networkx": [],
         "ninja": [],
+        "nodeenv": [],
         "notebook": [
           "jupyter-server",
           "jupyterlab",
@@ -2954,6 +3007,13 @@
           "statsmodels"
         ],
         "pluggy": [],
+        "pre-commit": [
+          "cfgv",
+          "identify",
+          "nodeenv",
+          "pyyaml",
+          "virtualenv"
+        ],
         "prometheus-client": [],
         "prompt-toolkit": [
           "wcwidth"
@@ -3002,6 +3062,10 @@
         "python-calamine": [],
         "python-dateutil": [
           "six"
+        ],
+        "python-discovery": [
+          "filelock",
+          "platformdirs"
         ],
         "python-dotenv": [],
         "python-json-logger": [],
@@ -3234,6 +3298,12 @@
         "urllib3": [],
         "uuid": [],
         "vine": [],
+        "virtualenv": [
+          "distlib",
+          "filelock",
+          "platformdirs",
+          "python-discovery"
+        ],
         "voluptuous": [],
         "vpop-calibration": [
           "gpytorch",
@@ -3285,5 +3355,5 @@
       }
     }
   },
-  "invalidationHash": "942a6faba60f7d8a69126a43c58c590f9be80f9778deb43a1e73bf48da62823e"
+  "invalidationHash": "d99b8c209b0e1e4414594e5429d94e6586766e61983ef9f4f8a801c7eb81124f"
 }

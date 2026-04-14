@@ -100,6 +100,7 @@
                     "ndtest"
                     "odfpy"
                     "uuid"
+                    "antlr4-python3-runtime"
                   ];
                 in lib.genAttrs deps (_: {
                   buildPythonPackage.pyproject = true;

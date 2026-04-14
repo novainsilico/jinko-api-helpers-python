@@ -59,4 +59,5 @@ dependencies = [
   "dash-ag-grid",
   "dvc",
   "dvc-ssh",
+  "pre-commit",
 ]
