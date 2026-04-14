@@ -56,5 +56,7 @@ dependencies = [
   "xgboost-cpu",
   "ortools",
   "dash",
-  "dash-ag-grid"
+  "dash-ag-grid",
+  "dvc",
+  "dvc-ssh",
 ]
