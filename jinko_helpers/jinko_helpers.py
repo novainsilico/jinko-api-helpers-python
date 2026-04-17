@@ -21,6 +21,7 @@ import tempfile
 import re
 import logging
 import time
+from pathlib import Path
 
 USER_AGENT = "jinko-api-helpers-python/%s" % __version__
 AUTHORIZATION_PREFIX = "Bearer"
@@ -133,6 +134,7 @@ def makeRequest(
     options: MakeRequestOptions | None = None,
     data=None,
     file=None,
+    output_file: str | Path | None = None,
     max_retries: int = 0,
     backoff_base: float = 0.5,
 ) -> _requests.Response:
@@ -147,8 +149,10 @@ def makeRequest(
         options (MakeRequestOptions, optional): additional options. Defaults to None
         data: (Any, optional): raw input payload. Defaults to None
         file: (Any, optional): file to upload. Defaults to None
+        output_file (str | Path | None, optional): if provided, stream the response body to this file. Defaults to None
         max_retries (int, optional): number of times to retry transient failures. Defaults to 0 (no retry).
         backoff_base (float, optional): base backoff in seconds, doubled at each retry. Defaults to 0.5.
+
     Returns:
         Response: HTTP response object
 
@@ -192,6 +196,15 @@ def makeRequest(
         with open('/tmp/file.pdf', 'rb') as file:
             response = makeRequest('/app/v1/reference/file', method='POST',
                 file=file,
+        )
+
+        # stream response body to a file
+        response = makeRequest(
+            '/core/v2/vpop_manager/vpop/9c9c0bc5-f447-4745-b5eb-41b18e5eb900',
+            options={
+                'output_format': 'text/csv'
+            },
+            output_file='vpop.csv',
         )
     """
     # Get the default headers from _getHeaders()
@@ -247,6 +260,7 @@ def makeRequest(
                 _baseUrl + path,
                 headers=headers,
                 params=params,
+                stream=output_file is not None,
                 **({data_param: data} if data_param else {}),  # type: ignore
                 files={"file": file} if file else None,
             )
@@ -275,6 +289,16 @@ def makeRequest(
             )
             if response.status_code == 204:
                 logger.info("Query successfully done, got a 204 response\n")
+                return response
+
+            if output_file is not None:
+                output_path = Path(output_file)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                with output_path.open("wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+
             return response
 
         if (
