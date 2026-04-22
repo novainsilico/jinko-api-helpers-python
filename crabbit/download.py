@@ -13,7 +13,7 @@ import fnmatch
 import pandas as pd
 
 import jinko_helpers as jinko
-from crabbit.utils import bold_text, clear_directory, parse_isoduration
+from crabbit.utils import bold_text, clear_directory
 
 
 class CrabbitDownloader:
@@ -343,7 +343,7 @@ class CrabbitDownloader:
                 },
                 inplace="True",
             )
-            one_csv["time"] = one_csv["time"].apply(parse_isoduration)
+            one_csv["time"] = one_csv["time"].apply(jinko.parse_isoduration)
             csv_data[item] = one_csv
         try:
             merged_csv_data = pd.concat(csv_data.values(), ignore_index=True)

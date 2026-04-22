@@ -3,7 +3,6 @@
 __all__ = [
     "bold_text",
     "clear_directory",
-    "parse_isoduration",
 ]
 
 import shutil
@@ -110,42 +109,3 @@ def parse_jsonc(jsonc_path):
     except Exception as e:
         return False, {}
 
-
-def parse_isoduration(iso_duration):
-    """
-    Parse the ISO8601 duration as years, months, weeks, days, hours, minutes,seconds
-    Returns: time in days with 86400 seconds, converting units higher than days into seconds used on jinkō
-    Examples: "PT1H30M15.460S", "P5DT4M", "P2WT3H"
-    """
-
-    def get_isosplit(text, separator):
-        if separator in text:
-            n, text = text.split(separator, 1)
-        else:
-            n = "0"
-        return n.replace(",", "."), text  # to handle like "P0,5Y"
-
-    text = iso_duration.split("P", 1)[-1]  # Remove prefix
-    if "T" in text:
-        above_day, below_day = text.split("T")
-    else:
-        above_day, below_day = text, ""
-
-    s_yr, above_day = get_isosplit(above_day, "Y")
-    s_mo, above_day = get_isosplit(above_day, "M")
-    s_wk, above_day = get_isosplit(above_day, "W")
-    s_dy, _ = get_isosplit(above_day, "D")
-
-    s_hr, below_day = get_isosplit(below_day, "H")
-    s_mi, below_day = get_isosplit(below_day, "M")
-    s_sc, below_day = get_isosplit(below_day, "S")
-
-    n_yr = float(s_yr) * 31557600  # approx seconds for year, month, week
-    n_mo = float(s_mo) * 2629800
-    n_wk = float(s_wk) * 604800
-    n_dy = float(s_dy) * 86400
-    n_hr = float(s_hr) * 3600
-    n_mi = float(s_mi) * 60
-    n_sc = float(s_sc)
-
-    return n_yr + n_mo + n_wk + n_dy + n_hr + n_mi + n_sc

@@ -14,7 +14,6 @@ __all__ = [
     "merge_vpops",
     "merge_vpop_designs",
     "merge_csv",
-    "parse_isoduration",
     "CrabbitVpopRunner",
     "CrabbitVpopOptimizer",
 ]
