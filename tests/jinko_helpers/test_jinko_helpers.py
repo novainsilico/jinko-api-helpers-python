@@ -158,6 +158,7 @@ class TestJinkoHelpers(unittest.TestCase):
             "description": "TestDescription",
             "folder_id": "12345",
             "version_name": "v1.0",
+            "version_description": "Initial version",
         }
         jinko_helpers.make_request(
             "/test-path",

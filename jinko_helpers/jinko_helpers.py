@@ -52,6 +52,7 @@ class MakeRequestOptions(TypedDict, total=False):
         description (str): Description to use when creating/updating a ProjectItem (Modeling & Simulation).
         folder (str): Id of the destination folder to use when creating/updating a ProjectItem (Modeling & Simulation).
         version_name (str): Name of the new version when creating/updating a ProjectItem (Modeling & Simulation).
+        version_description (str): Description of the new version when creating/updating a ProjectItem (Modeling & Simulation).
         input_format (str): Content type of the input payload.
         output_format (str): Expected content type of the response payload (may be ignored by server if not supported).
     """
@@ -60,6 +61,7 @@ class MakeRequestOptions(TypedDict, total=False):
     description: Optional[str]
     folder_id: Optional[str]
     version_name: Optional[str]
+    version_description: Optional[str]
     input_format: Optional[str]
     output_format: Optional[str]
 
@@ -86,6 +88,7 @@ _headers_map = {
     "description": "X-jinko-project-item-description",
     "folder_id": "X-jinko-project-item-folder-ids",
     "version_name": "X-jinko-project-item-version-name",
+    "version_description": "X-jinko-project-item-version-description",
 }
 
 
@@ -104,7 +107,7 @@ def encodeCustomHeaders(options: MakeRequestOptions) -> dict:
     """Encodes and prepares custom headers for the Jinko API.
 
     Args:
-        custom_data (dict): Dictionary containing 'description', 'folder_id', 'name', 'version_name', 'output_format', 'input_format'
+        custom_data (dict): Dictionary containing 'description', 'folder_id', 'name', 'version_name', 'version_description', output_format', 'input_format'
 
     Returns:
         dict: Dictionary containing encoded and formatted headers.

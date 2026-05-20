@@ -198,6 +198,7 @@ def upload_model_version(
     model_sid: str,
     model_file_path: str,
     version_name: Optional[str] = None,
+    version_description: Optional[str] = None,
 ) -> dict[str, Any]:
     """
     Uploads a model version to Jinko model manager.
@@ -206,6 +207,7 @@ def upload_model_version(
         model_sid (str): The short ID of the model to upload.
         model_file_path (str): The path to the model file in JSON format.
         version_name (Optional[str], optional): The name of the model version.
+        version_description (Optional[str], optional): The description of the model version.
             Defaults to None.
 
     Returns:
@@ -220,11 +222,17 @@ def upload_model_version(
     with open(model_file_path, "r") as f:
         model = json.load(f)
 
+    options: dict = {}
+    if version_name:
+        options["version_name"] = version_name
+    if version_description:
+        options["version_description"] = version_description
+
     response = jinko.make_request(
         path=f"/core/v2/model_manager/jinko_model/{model_core_item_id}",
         method="PUT",
         json={"model": model},
-        options={"version_name": version_name} if version_name else {},
+        options=options,
     )
     logging.getLogger("jinko_helper.model").info(
         f"Successfully uploaded model to trial {jinko.get_project_item_url_from_response(response)}"
