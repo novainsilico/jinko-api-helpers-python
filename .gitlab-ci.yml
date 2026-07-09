@@ -10,9 +10,9 @@ variables:
 
 build:
   stage: build
-  image: docker:20.10.16
+  image: docker:29.5.1
   services:
-    - docker:20.10.16-dind
+    - docker:29.5.1-dind
   script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker info  # debug
